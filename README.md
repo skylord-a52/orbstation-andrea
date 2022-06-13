@@ -1,5 +1,5 @@
 ## Orbstation Codebase
-[![Build Status](workflows/CI%20Suite/badge.svg)](https://github.com/lizardqueenlexi/orbstation/actions?query=workflow%3A%22CI+Suite%22)
+[![Build Status](https://github.com/lizardqueenlexi/orbstation/workflows/CI%20Suite/badge.svg?branch=orbstation)](https://github.com/lizardqueenlexi/orbstation/actions?query=workflow%3A%22CI+Suite%22)
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/lizardqueenlexi/orbstation.svg)](https://isitmaintained.com/project/lizardqueenlexi/orbstation "Percentage of issues still open")
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/lizardqueenlexi/orbstation.svg)](https://isitmaintained.com/projectlizardqueenlexi/orbstation "Average time to resolve an issue")
 ![Coverage](https://img.shields.io/badge/coverage---3%25-red.svg)
