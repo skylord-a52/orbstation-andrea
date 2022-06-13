@@ -4,7 +4,7 @@
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/lizardqueenlexi/orbstation.svg)](https://isitmaintained.com/projectlizardqueenlexi/orbstation "Average time to resolve an issue")
 ![Coverage](https://img.shields.io/badge/coverage---3%25-red.svg)
 
-[![built by furries](tree/orbstation/orbstation/readme-assets/built-by-furries.svg)](https://twitter.com/cathodegaytube/status/1197227512075411456) [![contains bad ideas](tree/orbstation/orbstation/readme-assets/contains-bad-ideas.svg)](https://imgs.xkcd.com/comics/good_code.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
+[![built by furries](orbstation/readme-assets/built-by-furries.svg)](https://twitter.com/cathodegaytube/status/1197227512075411456) [![contains bad ideas](orbstation/readme-assets/contains-bad-ideas.svg)](https://imgs.xkcd.com/comics/good_code.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 
 This is the codebase for the Orbstation fork of the tgstation build of SpaceStation 13.
 
