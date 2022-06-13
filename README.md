@@ -12,7 +12,7 @@ Orbstation is focused around removing the more unpleasant/bigoted flavor of tgst
 
 ## How to play
 
-Instructions for joining and announcements of upcoming sessions are posted on the Orbstation discord server (discorb server), which is currently invite-only.
+Orbstation is primarily run on a single, private BYOND server. Instructions for joining and announcements of upcoming sessions are posted on the Orbstation Discord server, which is currently invite-only.
 
 ## How to contribute
 
@@ -30,7 +30,7 @@ Instructions for joining and announcements of upcoming sessions are posted on th
 
 4. Submit a **pull request** from your local fork or branch to the `orbstation/orbstation` branch. 
 
-Please note that `orbstation/master` is a copy of the `tgstation/tgstation/master` branch from upstream, and is used primarily to help with merging things from upstream to Orbstation. If you want to submit a change to the upstream Tgstation repo, send a pull request to `tgstation/tgstation/master`, not `orbstation/master`.
+Please note that `orbstation/master` is a copy of the `tgstation/master` branch from upstream, and is used primarily to help with merging things from upstream to Orbstation. If you want to submit a change to the upstream Tgstation repo, send a pull request to `tgstation/master`, not `orbstation/master`.
 
 ---
 
