@@ -22,7 +22,7 @@
 
 /// Called when the user starts to read the magazine.
 /obj/item/book/granter/magazine/on_reading_start(mob/living/user)
-	to_chat(user, span_notice("You start flipping through \the [name]..."))
+	user.visible_message(span_notice("[user] starts flipping through \the [name]."), span_notice("You start flipping through \the [name]."))
 
 /// Called when the user completes the magazine.
 /obj/item/book/granter/magazine/on_reading_finished(mob/living/user)
