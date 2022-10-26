@@ -20,6 +20,10 @@
 
 	var/mood_boost = 2
 
+	var/list/emote_pool = list() // random emotes (as strings) to trigger while reading. 
+	// see also the list "remarks" from the superclass (a list of phrases to show the reader)
+	var/emote_chance = 100 // chance to emote every time you turn a page. note that this is in PERCENT, not 0-1.
+
 /// Called when the user starts to read the magazine.
 /obj/item/book/granter/magazine/on_reading_start(mob/living/user)
 	user.visible_message(span_notice("[user] starts flipping through \the [name]."), span_notice("You start flipping through \the [name]."))
@@ -35,6 +39,11 @@
 	if(has_not_read_book) // any new magazines give bonus mood
 		user.add_mood_event("magazine", /datum/mood_event/magazine, src)
 		user.mind?.book_titles_read[starting_title] = TRUE
+
+/obj/item/book/granter/magazine/turn_page(mob/living/user)
+	. = ..() // super plays page turn sound, checks if interruption occurs, and displays remarks to user
+	if (. && length(emote_pool) && prob(emote_chance))
+		user.emote(pick(emote_pool))
 
 /// Display a message if they've already read it.
 /obj/item/book/granter/magazine/recoil(mob/living/user)
@@ -54,7 +63,6 @@
 
 	return TRUE
 
-
 ///////////////////////////////////////// Mood Boost /////////////////////////////////////////
 
 
@@ -73,13 +81,17 @@
 
 /obj/item/book/granter/magazine/mothboy
 	name = "Mothboys Monthly"
+	icon_state = "mothboys"
 	desc = "A saucy rag full of exposed exoskeletons, fluffy tails, and bashful antennae."
+	emote_pool = list("blush")
 
 /obj/item/book/granter/magazine/gal_geo
 	name = "Galactic Geographic"
+	icon_state = "gal_geo"
 	desc = "An informative publication on the flora, fauna, and peoples of the galaxy. Features large and beautiful pictures by expert photographers."
 
 /obj/item/book/granter/magazine/pop_sci
 	name = "Popular R&D"
+	icon_state = "pop_sci"
 	desc = "A magazine focused on recent discoveries in science and engineering, written for the layman. \
 			Apparently flying cars are only 20 years away, \"for real this time\"."
