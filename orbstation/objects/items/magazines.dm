@@ -6,6 +6,7 @@
  */
 /obj/item/book/granter/magazine
 	name = "\improper magazine"
+	starting_title = "\improper magazine" // initial name of this magazine -- mostly used for reread prevention.
 	icon = 'orbstation/icons/obj/magazine.dmi'
 	icon_state ="magazine"
 	worn_icon_state = "magazine"
@@ -81,17 +82,20 @@
 
 /obj/item/book/granter/magazine/mothboy
 	name = "Mothboys Monthly"
+	starting_title = "Mothboys Monthly"
 	icon_state = "mothboys"
 	desc = "A saucy rag full of exposed exoskeletons, fluffy tails, and bashful antennae."
 	emote_pool = list("blush")
 
 /obj/item/book/granter/magazine/gal_geo
 	name = "Galactic Geographic"
+	starting_title = "Galactic Geographic"
 	icon_state = "gal_geo"
 	desc = "An informative publication on the flora, fauna, and peoples of the galaxy. Features large and beautiful pictures by expert photographers."
 
 /obj/item/book/granter/magazine/pop_sci
 	name = "Popular R&D"
+	starting_title = "Popular R&D"
 	icon_state = "pop_sci"
 	desc = "A magazine focused on recent discoveries in science and engineering, written for the layman. \
 			Apparently flying cars are only 20 years away, \"for real this time\"."
