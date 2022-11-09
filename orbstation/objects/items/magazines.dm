@@ -72,8 +72,21 @@
 	description = "\The [target_mag.name] was really interesting."
 	mood_change = target_mag.mood_boost
 
+///////////////////////////////////////// Spawner ///////////////////////////////////////////////////
+
+/obj/item/effect/spawner/random/entertainment/magazine
+	name = "random magazine spawner"
+	loot_type_path = /obj/item/book/granter/magazine
 
 ///////////////////////////////////////// Kinds of magazine /////////////////////////////////////////
+
+/*
+	To add more magazines:
+	Define name, starting_title (same as name), description, and icon_state
+	Add randomized emotes and remarks to `emote_pool` and `remarks`
+
+	New magazine will automatically give a mood boost, automatically be added to spawners, etc.
+*/
 
 
 /obj/item/book/granter/magazine/mothboy
