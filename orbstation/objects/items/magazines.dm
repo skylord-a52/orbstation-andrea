@@ -19,6 +19,9 @@
 	uses = INFINITY // we dont care how many times the magazine is read, just whether this specific person has done so.
 	pages_to_mastery = 1
 
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
+
 	var/mood_boost = 2
 
 	var/list/emote_pool = list() // random emotes (as strings) to trigger while reading. 
@@ -37,9 +40,16 @@
 	LAZYINITLIST(user.mind?.book_titles_read)
 	var/has_not_read_book = isnull(user.mind?.book_titles_read[starting_title])
 
-	if(has_not_read_book) // any new magazines give bonus mood
+	// any new magazines give bonus mood
+	if(has_not_read_book)
+		// TODO: if a user reads two magazines in short succession, they will only recieve mood boost from one
+		// but be locked out of both.
+		// fix this.
 		user.add_mood_event("magazine", /datum/mood_event/magazine, src)
 		user.mind?.book_titles_read[starting_title] = TRUE
+		return TRUE
+	
+	return FALSE
 
 /obj/item/book/granter/magazine/turn_page(mob/living/user)
 	. = ..() // super plays page turn sound, checks if interruption occurs, and displays remarks to user
@@ -49,20 +59,6 @@
 /// Display a message if they've already read it.
 /obj/item/book/granter/magazine/recoil(mob/living/user)
 	to_chat(user, span_warning("You think you've read enough of \the [name] for now."))
-
-/// Prevent people from reading the same magazine twice
-/obj/item/book/granter/magazine/can_learn(mob/living/user)
-	// depending on peoples thoughts on the rp value of magazines, this may be removed
-	// letting people read them as much as they want, but only getting the mood bonus the first time
-
-	LAZYINITLIST(user.mind?.book_titles_read)
-	var/has_read = user.mind?.book_titles_read[starting_title] // null if they havent, something truthy if they have
-
-	if (has_read)
-		recoil(user)
-		return FALSE
-
-	return TRUE
 
 ///////////////////////////////////////// Mood Boost /////////////////////////////////////////
 
@@ -99,3 +95,26 @@
 	icon_state = "pop_sci"
 	desc = "A magazine focused on recent discoveries in science and engineering, written for the layman. \
 			Apparently flying cars are only 20 years away, \"for real this time\"."
+
+/obj/item/book/granter/magazine/cooking
+	name = "Nanny Trasen's Kitchen"
+	starting_title = "Nanny Trasen's Kitchen"
+	icon_state = "cooking"
+	desc = "A magazine focused on the wonders of baking."
+	var/possible_spawns = list(
+			/obj/item/reagent_containers/condiment/sugar, 
+			/obj/item/reagent_containers/condiment/flour,
+			/obj/item/reagent_containers/condiment/milk,
+			/obj/item/food/cookie,
+			/obj/item/food/cake/birthday,
+			/obj/item/food/cake/chocolate,
+			/obj/item/food/pie/cream,
+		)
+
+/obj/item/book/granter/magazine/cooking/on_reading_finished(mob/living/user)
+	var/is_new_to_reader = ..()
+
+	if (is_new_to_reader)
+		var/reward_type = pick(possible_spawns)
+		var/obj/item/reward_instance = new reward_type(get_turf(src))
+		to_chat(user, span_notice("Huh? A [reward_instance.name] fell out! How did that get in there?"))
