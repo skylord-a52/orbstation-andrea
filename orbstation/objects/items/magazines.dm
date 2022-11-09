@@ -45,7 +45,7 @@
 		// TODO: if a user reads two magazines in short succession, they will only recieve mood boost from one
 		// but be locked out of both.
 		// fix this.
-		user.add_mood_event("magazine", /datum/mood_event/magazine, src)
+		user.add_mood_event(starting_title, /datum/mood_event/magazine, src)
 		user.mind?.book_titles_read[starting_title] = TRUE
 		return TRUE
 	
