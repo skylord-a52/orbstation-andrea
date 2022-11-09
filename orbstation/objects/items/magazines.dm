@@ -74,7 +74,7 @@
 
 ///////////////////////////////////////// Spawner ///////////////////////////////////////////////////
 
-/obj/item/effect/spawner/random/entertainment/magazine
+/obj/effect/spawner/random/entertainment/magazine
 	name = "random magazine spawner"
 	loot_type_path = /obj/item/book/granter/magazine
 
