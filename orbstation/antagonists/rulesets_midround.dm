@@ -138,3 +138,43 @@
 	new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
 
 	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
+//                CARP RIFT                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/carp_rift
+	name = "Carp Rift"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	antag_flag = ROLE_SENTIENCE
+	required_candidates = 1
+	weight = 5
+	cost = 12
+	/// Where we droppin?
+	var/turf/landing_area
+	/// Rift we made
+	var/obj/structure/carp_rift/minor/rift
+
+/datum/dynamic_ruleset/midround/from_ghosts/carp_rift/execute()
+	landing_area = get_safe_random_station_turf()
+	if (!landing_area)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/carp_rift/generate_ruleset_body(mob/applicant)
+	rift = new (landing_area)
+	notify_ghosts("A carp right has opened!", source=rift, action=NOTIFY_ORBIT, header="Carp Rift Opened")
+
+	var/area/danger_zone = get_area(landing_area)
+	priority_announce("A large organic energy flux has been recorded in the [danger_zone.name], please stand by.", "Lifesign Alert")
+
+	var/mob/living/simple_animal/hostile/carp/megacarp/big_boy = new(landing_area)
+	big_boy.key = applicant.key
+	message_admins("[ADMIN_LOOKUPFLW(big_boy)] has been made into a mega carp by the midround ruleset.")
+	log_game("[key_name(big_boy)] was spawned as a mega carp by the midround ruleset.")
+	return big_boy
+
+/datum/dynamic_ruleset/midround/from_ghosts/carp_rift/finish_setup(mob/new_character, index)
+	new_character.mind.add_antag_datum(/datum/antagonist/rift_carp, rift.team)
