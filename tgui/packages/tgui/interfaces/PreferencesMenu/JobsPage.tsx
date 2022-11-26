@@ -304,23 +304,30 @@ const Department: SFC<{ department: string }> = (props, context) => {
           department.head
         );
 
+        let header;
+        if (name !== 'Captain' && name !== 'Assistant') {
+          header = (
+            <Stack.Item
+              className={className}
+              height="100%"
+              style={{
+                'margin-top': 0,
+              }}>
+              <Stack fill align="center">
+                <Stack.Item grow className="options">
+                  <b>
+                    {name} {signedCount}
+                  </b>
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+          );
+        }
+
         return (
           <Box>
             <Stack vertical fill>
-              <Stack.Item
-                className={className}
-                height="100%"
-                style={{
-                  'margin-top': 0,
-                }}>
-                <Stack fill align="center">
-                  <Stack.Item grow className="options">
-                    <b>
-                      {name} {signedCount}
-                    </b>
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
+              {header}
               {jobsForDepartment.map(([name, job]) => {
                 return (
                   <JobRow
@@ -340,7 +347,6 @@ const Department: SFC<{ department: string }> = (props, context) => {
                 );
               })}
             </Stack>
-
             {children}
           </Box>
         );
