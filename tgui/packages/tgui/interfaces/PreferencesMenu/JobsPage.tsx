@@ -171,11 +171,12 @@ const JobRow = (
     className?: string;
     job: Job;
     name: string;
+    count: number;
   },
   context
 ) => {
   const { data } = useBackend<PreferencesMenuData>(context);
-  const { className, job, name } = props;
+  const { className, job, name, count } = props;
 
   const isOverflow = data.overflow_role === name;
   const priority = data.job_preferences[name];
@@ -225,6 +226,19 @@ const JobRow = (
     );
   }
 
+  let countColour;
+  switch (count) {
+    case 1:
+      countColour = 'red';
+      break;
+    case 2:
+      countColour = 'yellow';
+      break;
+    case 3:
+      countColour = 'green';
+      break;
+  }
+
   return (
     <Stack.Item
       className={className}
@@ -242,6 +256,13 @@ const JobRow = (
             }}>
             {name}
           </Stack.Item>
+          {count > 0 ? (
+            <Stack.Item bold textColor={countColour}>
+              ⬤
+            </Stack.Item>
+          ) : (
+            ''
+          )}
         </Tooltip>
 
         <Stack.Item grow className="options">
@@ -252,7 +273,7 @@ const JobRow = (
   );
 };
 
-const Department: SFC<{ department: string }> = (props) => {
+const Department: SFC<{ department: string }> = (props, context) => {
   const { children, department: name } = props;
   const className = `PreferencesMenu__Jobs__departments--${name}`;
 
@@ -265,6 +286,10 @@ const Department: SFC<{ department: string }> = (props) => {
 
         const { departments, jobs } = data.jobs;
         const department = departments[name];
+        const prefData = useBackend<PreferencesMenuData>(context);
+        const signedCount: string = prefData.data.department_counts[name]
+          ? '[' + prefData.data.department_counts[name] + ']'
+          : '';
 
         // This isn't necessarily a bug, it's like this
         // so that you can remove entire departments without
@@ -282,6 +307,20 @@ const Department: SFC<{ department: string }> = (props) => {
         return (
           <Box>
             <Stack vertical fill>
+              <Stack.Item
+                className={className}
+                height="100%"
+                style={{
+                  'margin-top': 0,
+                }}>
+                <Stack fill align="center">
+                  <Stack.Item grow className="options">
+                    <b>
+                      {name} {signedCount}
+                    </b>
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
               {jobsForDepartment.map(([name, job]) => {
                 return (
                   <JobRow
@@ -292,6 +331,11 @@ const Department: SFC<{ department: string }> = (props) => {
                     key={name}
                     job={job}
                     name={name}
+                    count={
+                      prefData.data.biggest_head[name]
+                        ? prefData.data.biggest_head[name]
+                        : 0
+                    }
                   />
                 );
               })}
