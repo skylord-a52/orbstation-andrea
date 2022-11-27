@@ -239,6 +239,19 @@ const JobRow = (
       break;
   }
 
+  let selected_light;
+  if (count > 0) {
+    selected_light = (
+      <Tooltip
+        content="Current highest selected priority for this role between all readied players."
+        position="bottom-start">
+        <Stack.Item bold textColor={countColour}>
+          ⠀⬤
+        </Stack.Item>
+      </Tooltip>
+    );
+  }
+
   return (
     <Stack.Item
       className={className}
@@ -256,15 +269,8 @@ const JobRow = (
             }}>
             {name}
           </Stack.Item>
-          {count > 0 ? (
-            <Stack.Item bold textColor={countColour}>
-              ⬤
-            </Stack.Item>
-          ) : (
-            ''
-          )}
         </Tooltip>
-
+        {selected_light}
         <Stack.Item grow className="options">
           {rightSide}
         </Stack.Item>
@@ -314,7 +320,7 @@ const Department: SFC<{ department: string }> = (props, context) => {
                 'margin-top': 0,
               }}>
               <Stack fill align="center">
-                <Stack.Item grow className="options">
+                <Stack.Item grow textAlign="center" className="options">
                   <b>
                     {name} {signedCount}
                   </b>
