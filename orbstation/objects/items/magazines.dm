@@ -1,7 +1,7 @@
 /**
  * Small books that give a mood bonus to the reader, slightly higher than normal books.
- * 
- * They're not granters in the traditional sense (no knowledge or spells learned here, although they do give a moodlet) 
+ *
+ * They're not granters in the traditional sense (no knowledge or spells learned here, although they do give a moodlet)
  * but the stuff set up by the granter superclass is useful here -- progress bars, effect performed when you finish, no real content, etc.
  */
 /obj/item/book/granter/magazine
@@ -13,7 +13,7 @@
 	desc = "A glossy magazine, full of advertisements, gossip, pictures, and maybe a few articles crammed between all that."
 	attack_verb_continuous = list("slaps", "whacks", "thwaps")
 	attack_verb_simple = list("slap", "whack", "thwap")
-	
+
 	unique = TRUE
 
 	uses = INFINITY // we dont care how many times the magazine is read, just whether this specific person has done so.
@@ -24,7 +24,7 @@
 
 	var/mood_boost = 2
 
-	var/list/emote_pool = list() // random emotes (as strings) to trigger while reading. 
+	var/list/emote_pool = list() // random emotes (as strings) to trigger while reading.
 	// see also the list "remarks" from the superclass (a list of phrases to show the reader)
 	var/emote_chance = 100 // chance to emote every time you turn a page. note that this is in PERCENT, not 0-1.
 
@@ -48,7 +48,7 @@
 		user.add_mood_event(starting_title, /datum/mood_event/magazine, src)
 		user.mind?.book_titles_read[starting_title] = TRUE
 		return TRUE
-	
+
 	return FALSE
 
 /obj/item/book/granter/magazine/turn_page(mob/living/user)
@@ -115,7 +115,7 @@
 	icon_state = "cooking"
 	desc = "A magazine focused on the wonders of baking."
 	var/possible_spawns = list(
-			/obj/item/reagent_containers/condiment/sugar, 
+			/obj/item/reagent_containers/condiment/sugar,
 			/obj/item/reagent_containers/condiment/flour,
 			/obj/item/reagent_containers/condiment/milk,
 			/obj/item/food/cookie,
@@ -131,3 +131,17 @@
 		var/reward_type = pick(possible_spawns)
 		var/obj/item/reward_instance = new reward_type(get_turf(src))
 		to_chat(user, span_notice("Huh? A [reward_instance.name] fell out! How did that get in there?"))
+
+/obj/item/book/granter/magazine/comic
+	name = "It Came From Outer Space! vol. 4053"
+	starting_title = "It Came From Outer Space! vol. 4053"
+	icon_state = "comic"
+	desc = "A cheap comic book. The titular \"it\" is a lot less scary now that it describes you and all of your coworkers."
+	remarks = list("Blam!", "POW!", "BOOM!!", "Whack!", "Glorf!")
+
+/obj/item/book/granter/magazine/yuri
+	name = "Between My Claws, Sweetly"
+	starting_title = "Between My Claws, Sweetly"
+	desc = "A heartbreakingly beautiful romantic manga about a Tiziran princess and her human female lover, set amidst the chaos of the collapsing Tiziran Empire."
+	icon_state = "yuri"
+	emote_pool = list("blush", "cry")
