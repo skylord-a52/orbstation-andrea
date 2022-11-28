@@ -4956,6 +4956,7 @@
 #include "orbstation\quirks\augmented.dm"
 #include "orbstation\quirks\door_compulsion.dm"
 #include "orbstation\quirks\farsighted.dm"
+#include "orbstation\quirks\food_order_service.dm"
 #include "orbstation\quirks\good_to_neutral_quirks.dm"
 #include "orbstation\quirks\plurality.dm"
 #include "orbstation\quirks\poster_boy.dm"
