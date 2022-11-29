@@ -82,10 +82,22 @@
 		/obj/item/food/badrecipe,
 		)
 
+	var/static/list/no_hunger_list = list(
+		/obj/item/food/pizza/energy,
+		/obj/item/food/pizza/energy,
+		/obj/item/food/pizza/energy,
+		/obj/item/food/grown/apple,
+		/obj/item/tank/internals/plasmaman/belt/full,
+		/obj/item/stock_parts/cell,
+		/obj/item/stock_parts/cell/upgraded/plus,
+		)
+
+
+
 /// generates list of food NTGRUB will deliver to you, removing disliked and toxic foods, then making a list of liked foods, and returning whatever is valid
 /datum/quirk/food_order_subscriber/proc/create_foodlist()
 	if(HAS_TRAIT(quirk_holder, TRAIT_NOHUNGER))
-		return list(/obj/item/food/pizza/energy, /obj/item/food/pizza/energy, /obj/item/food/pizza/energy, /obj/item/stock_parts/cell, /obj/item/stock_parts/cell/upgraded/plus)
+		return no_hunger_list
 	if(!iscarbon(quirk_holder))
 		return ntgrub_foodlist
 	var/mob/living/carbon/quirk_owner = quirk_holder
