@@ -1,7 +1,7 @@
 /datum/quirk/food_order_subscriber
 	name = "Food Delivery Subscription"
 	desc = "You have subscribed to NTGRUB, for a low-low price you will receive regular deliveries of food tailored to your tastes."
-	icon = "box-open"
+	icon = "gift"
 	value = 6
 	mob_trait = TRAIT_NTGRUB_SUB
 	gain_text = "<span class='danger'>You have subscribed to NTGRUB!</span>"
@@ -9,7 +9,7 @@
 	medical_record_text = "Patient is susceptible to GREAT DEALS! SUBSCRIBE TO NTGRUB NOW."
 	mail_goodies = list(/obj/item/plate/large, /obj/item/kitchen/fork, /obj/item/knife/plastic, /obj/item/kitchen/spoon, /obj/item/reagent_containers/cup/bowl)
 	var/datum/component/food_order_sub_quirk/quirk_component
-	/// semi random list of foods for NTGRUB
+	/// semi random list of foods for NTGRUB. avoids pizza and desserts as much as it can, to replicate the like, style of like, your Blue Aprons
 	var/static/list/ntgrub_foodlist = list(
 		/obj/item/food/blt,
 		/obj/item/food/danish_hotdog,
@@ -78,7 +78,8 @@
 		/obj/item/food/soup/hotchili,
 		/obj/item/food/soup/beet/red,
 		/obj/item/food/soup/electron,
-		/obj/item/food/soup/cullen_skink
+		/obj/item/food/soup/cullen_skink,
+		/obj/item/food/badrecipe,
 		)
 
 /// generates list of food NTGRUB will deliver to you, removing disliked and toxic foods, then making a list of liked foods, and returning whatever is valid
@@ -107,30 +108,39 @@
 
 /datum/quirk/food_order_subscriber/add()
 	. = ..()
-	var/list/delivery = create_foodlist()
-	quirk_component = quirk_holder.AddComponent(/datum/component/food_order_sub_quirk)
+	reroll_list()
+	RegisterSignal(quirk_holder, COMSIG_QUIRK_ADDED, PROC_REF(reroll_list))
 
+/datum/quirk/food_order_subscriber/proc/reroll_list()
+	SIGNAL_HANDLER
+	var/list/delivery = create_foodlist()
+	quirk_component = quirk_holder.AddComponent(/datum/component/food_order_sub_quirk, deliverable_food = delivery)
 
 /datum/quirk/food_order_subscriber/remove()
 	. = ..()
 	QDEL_NULL(quirk_component)
-
+	UnregisterSignal(quirk_holder, COMSIG_QUIRK_ADDED)
 
 /datum/component/food_order_sub_quirk
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Timer between deliveries
 	var/delivery_timer
+	/// Timer to spawning the pod after confirmation of delivery
+	var/podspawn_timer
+	/// How much the order costs
+	var/delivery_charge
 	var/max_delivery_time
 	var/min_delivery_time
 	var/list/deliverable_food
 
-///
-/datum/component/food_order_sub_quirk/Initialize(list/deliverable_food, max_delivery_time = 20 MINUTES , min_delivery_time = 10 MINUTES, delivery_charge = PAYCHECK_CREW * .25)
+/// deliverable food is the list from the quirk, max is the longest time between deliveries, 25 minuites, min is the smallest time, 15 minutes, delivery charge is an assisstaints entire paycheck
+/datum/component/food_order_sub_quirk/Initialize(list/deliverable_food, max_delivery_time = 25 MINUTES , min_delivery_time = 15 MINUTES, delivery_charge = PAYCHECK_LOWER)
 	. = ..()
 	if(!ishuman(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(!length(deliverable_food))
 		CRASH("Theres no food to deliver!!!")
-	var/mob/living/human/quirk_payer = parent
+	var/mob/living/carbon/human/quirk_payer = parent
 	var/datum/bank_account/quirk_account = SSeconomy.bank_accounts_by_id["[quirk_payer.account_id]"]
 	if(!quirk_account)
 		return COMPONENT_INCOMPATIBLE
@@ -142,27 +152,51 @@
 
 	schedule_payment()
 
+/datum/component/food_order_sub_quirk/InheritComponent(datum/component/C, original, list/deliverable_food, max_delivery_time, min_delivery_time, delivery_charge)
+	if(!original)
+		return
+	if(deliverable_food)
+		src.deliverable_food = deliverable_food
+	if(max_delivery_time)
+		src.max_delivery_time = max_delivery_time
+	if(min_delivery_time)
+		src.min_delivery_time = min_delivery_time
+	if(delivery_charge)
+		src.delivery_charge = delivery_charge
+
 /datum/component/food_order_sub_quirk/Destroy(force, silent)
 	. = ..()
 	deltimer(delivery_timer)
 
+/// schedules your next subscription until you "cancel it" or get gibbed, as well as scheduling the first one
 /datum/component/food_order_sub_quirk/proc/schedule_payment()
 	var/random_time = rand(min_delivery_time, max_delivery_time)
-	delivery_timer = addtimer(CALLBACK(src, PROF_REF()), wait = random_time, flags = TIMER_STOPPABLE)
+	delivery_timer = addtimer(CALLBACK(src, PROC_REF(food_notification)), wait = random_time, flags = TIMER_STOPPABLE)
 
-/datum/component/food_order_sub/proc/food_notification()
-	var/mob/living/human/quirk_payer = parent
+/// Notifies quirk holder that they are going to get a food delivery and charges them
+/datum/component/food_order_sub_quirk/proc/food_notification()
+	var/mob/living/carbon/human/quirk_payer = parent
 	var/datum/bank_account/quirk_account = SSeconomy.bank_accounts_by_id["[quirk_payer.account_id]"]
 	if(!quirk_account)
 		qdel(src)
 		return
-	// schedules next delivery if you can not pay
+	// schedules next delivery if you can not pay the current one
+	schedule_payment()
 	var/has_headset = istype(quirk_payer.ears, /obj/item/radio/headset)
 	if(!quirk_account.adjust_money(-delivery_charge, "NTGRUB"))
-		schedule_payment()
 		if(has_headset)
 			to_chat(quirk_payer, span_hear("Your NTGRUB payment has failed. Delivery will be moved to the next attempt, we hope that you can pay then!"))
 		return
 	if(has_headset)
 		to_chat(quirk_payer, span_hear("Your NTGRUB payment has succeeded. Your NTGRUB meal will be delivered to your location shortly."))
+	/// sends pod after 20 secodns
+	podspawn_timer = addtimer(CALLBACK(src, PROC_REF(food_delivery_pod)), wait = 20 SECONDS, flags = TIMER_STOPPABLE)
 
+/// actual supply pod spawn of your food
+/datum/component/food_order_sub_quirk/proc/food_delivery_pod()
+	var/mob/living/carbon/human/quirk_payer = parent
+	podspawn(list(
+		"target" = get_turf(quirk_payer),
+		"style" = STYLE_BLUESPACE,
+		"spawn" = pick(deliverable_food)
+	))
