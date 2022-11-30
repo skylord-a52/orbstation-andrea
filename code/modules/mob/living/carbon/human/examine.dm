@@ -22,7 +22,7 @@
 	if(obscure_examine)
 		return list("<span class='warning'>You're struggling to make out any details...")
 
-	var/obscured = check_obscured_slots()
+	var/obscured = ((wear_mask && !istype(wear_mask, /obj/item/clothing/mask/gas/mime) && !istype(wear_mask, /obj/item/clothing/mask/gas/clown_hat) && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE)))
 
 	//ORBSTATION: Display "short flavor text" before inventory
 	if(!obscured)
@@ -360,6 +360,8 @@
 		if(12 to INFINITY)
 			msg += "[span_notice("<b><i>[t_He] [t_is] just absolutely fucked up, you can look again to take a closer look...</i></b>")]\n"*/
 	//END ORBSTATION REMOVAL
+
+	msg += "</span>" // closes info class
 
 	//ORBSTATION: display x-cards on examine; display link for examining closer
 	msg += "\n"

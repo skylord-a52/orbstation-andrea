@@ -38,6 +38,16 @@
 	icon_file = 'icons/mob/simple/carp.dmi'
 	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
+/datum/greyscale_config/carp_magic
+	name = "Magicarp"
+	icon_file = 'icons/mob/simple/carp.dmi'
+	json_config = 'code/datums/greyscale/json_configs/carp_magic.json'
+
+/datum/greyscale_config/carp_mega
+	name = "Megacarp"
+	icon_file = 'icons/mob/simple/broadMobs.dmi'
+	json_config = 'code/datums/greyscale/json_configs/carp_mega.json'
+
 /datum/greyscale_config/carp/disk_mouth
 	name = "Space Carp, Disk in Mouth"
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
@@ -774,6 +784,31 @@
 	name = "Worn Tape Piece"
 	icon_file = 'icons/obj/tapes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/tape_piece_spikes_worn.json'
+
+/datum/greyscale_config/buckets
+	name = "Buckets"
+	icon_file = 'icons/obj/janitor.dmi'
+	json_config = 'code/datums/greyscale/json_configs/buckets.json'
+
+/datum/greyscale_config/buckets_worn
+	name = "Buckets Worn"
+	icon_file = 'icons/mob/clothing/head/utility.dmi'
+	json_config = 'code/datums/greyscale/json_configs/buckets.json'
+
+/datum/greyscale_config/buckets_inhands_left
+	name = "Buckets Inhands Left"
+	icon_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/buckets.json'
+
+/datum/greyscale_config/buckets_inhands_right
+	name = "Buckets Inhands Right"
+	icon_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/buckets.json'
+
+/datum/greyscale_config/buckets_cleanbot
+	name = "Buckets - Cleanbot"
+	icon_file = 'icons/mob/silicon/aibots.dmi'
+	json_config = 'code/datums/greyscale/json_configs/buckets_bot.json'
 
 /datum/greyscale_config/buttondown_slacks
 	name = "Buttondown with Slacks"

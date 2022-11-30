@@ -3,7 +3,7 @@
 	name = "\improper Podperson"
 	plural_form = "Podpeople"
 	id = SPECIES_PODPERSON
-	species_traits = list(MUTCOLORS, EYECOLOR, HAS_FLESH, HAS_BONE)
+	species_traits = list(MUTCOLORS, EYECOLOR, HAS_FLESH, HAS_BONE, POD_BLOOD)
 	inherent_traits = list(
 		TRAIT_PLANT_SAFE,
 	)
@@ -12,10 +12,7 @@
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	inherent_factions = list("plants", "vines")
-	attack_verb = "slash"
-	attack_effect = ATTACK_EFFECT_CLAW
-	attack_sound = 'sound/weapons/slice.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+
 	burnmod = 1.25
 	heatmod = 1.5
 	payday_modifier = 1.0
@@ -26,11 +23,11 @@
 	species_language_holder = /datum/language_holder/plant
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/pod,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/pod,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/pod,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/pod,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/pod,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/pod,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/pod,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/pod,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/pod,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/pod,
 	)
 
@@ -114,8 +111,8 @@
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "tint",
-			SPECIES_PERK_NAME = initial(exotic_blood.name),
-			SPECIES_PERK_DESC = "Podpeople blood is Water or a random fruit juice, which can make recieving medical treatment harder.",
+			SPECIES_PERK_NAME = "Unique Blood",
+			SPECIES_PERK_DESC = "Podpeople blood can be either water, or a random easily sourcable fruit juice",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

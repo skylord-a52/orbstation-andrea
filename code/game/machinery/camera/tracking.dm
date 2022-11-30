@@ -1,6 +1,6 @@
 /mob/living/silicon/ai/proc/get_camera_list()
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for (var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		L.Add(C)
 
 	camera_sort(L)
@@ -46,6 +46,14 @@
 			continue
 
 		var/name = L.name
+
+		// Orbstation: making tracking work with plural system chips
+		if(ishuman(L))
+			var/mob/living/carbon/human/human_mob = L
+			var/obj/item/card/id/id_card = human_mob.get_idcard(hand_first = FALSE)
+			if(id_card?.plural_system)
+				name = id_card.registered_name
+
 		while(name in track.names)
 			track.namecounts[name]++
 			name = text("[] ([])", name, track.namecounts[name])
@@ -90,7 +98,7 @@
 
 	to_chat(U, span_notice("Now tracking [target.get_visible_name()] on camera."))
 
-	INVOKE_ASYNC(src, .proc/do_track, target, U)
+	INVOKE_ASYNC(src, PROC_REF(do_track), target, U)
 
 /mob/living/silicon/ai/proc/do_track(mob/living/target, mob/living/silicon/ai/U)
 	var/cameraticks = 0
