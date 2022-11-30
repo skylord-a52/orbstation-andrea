@@ -2,7 +2,7 @@ import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import { InfernoNode, SFC } from 'inferno';
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Stack, Tooltip } from '../../components';
+import { Box, Button, Dropdown, Section, Stack, Tooltip } from '../../components';
 import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -460,6 +460,31 @@ export const JobsPage = () => {
               </Department>
 
               <Department department="Medical" />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack horizontal>
+            <Stack.Item textAlign="center">
+              <Stack.Item
+                className="PreferencesMenu__Jobs__departments_Service"
+                height="100%"
+                style={{
+                  'margin-top': 0,
+                }}>
+                <Stack fill align="center">
+                  <Stack.Item grow textAlign="center" className="options">
+                    <b>squadala</b>
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
+            </Stack.Item>
+
+            <Stack.Item textAlign="center">
+              <Section>You are the Space Wizard Journeyman!</Section>
+            </Stack.Item>
+            <Stack.Item textAlign="center">
+              <Section>You are the Space Wizard Journeyman!</Section>
             </Stack.Item>
           </Stack>
         </Stack.Item>

@@ -27,11 +27,11 @@
 			var/datum/job_department/department = SSjob.get_department_type(department_type)
 			player_depts |= department.department_name
 
-			if (job_details.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
-				if (!biggest_head[job])
-					biggest_head[job] = 0
-				if (priority > biggest_head[job])
-					biggest_head[job] = priority
+			if (job_details.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND || job_details.title == JOB_AI)
+				if (!biggest_head[job_details.title])
+					biggest_head[job_details.title] = 0
+				if (priority > biggest_head[job_details.title])
+					biggest_head[job_details.title] = priority
 
 		for (var/department in player_depts)
 			if (!department_counts[department])
