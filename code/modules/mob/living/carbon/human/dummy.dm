@@ -101,9 +101,9 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["pod_hair"] = "Ivy"
 
 	// ORBSTATION
-	target.features["rat_snout"] = "Round"
-	target.features["rat_tail"] = "High"
-	target.features["rat_ears"] = "Round"
+	target.dna.features["rat_snout"] = "Round"
+	target.dna.features["rat_tail"] = "High"
+	target.dna.features["rat_ears"] = "Round"
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent
