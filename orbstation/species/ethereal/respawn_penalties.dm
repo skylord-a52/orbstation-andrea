@@ -49,6 +49,8 @@
 	if (ethereal_heart.respawn_count >= ETHEREAL_PENALTY_CLUMSY)
 		ethereal_heart.owner.Paralyze(5 SECONDS)
 
+	var/random_trauma = pick(GLOB.orb_mysterious_brain_traumas)
+	ethereal_heart.owner.gain_trauma(random_trauma, TRAUMA_RESILIENCE_SURGERY)
 	playsound(get_turf(ethereal_heart.owner), 'sound/effects/ethereal_revive.ogg', 100)
 	qdel(src)
 

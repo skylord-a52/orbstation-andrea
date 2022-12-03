@@ -27,7 +27,7 @@
 
 		// 25% chance to cause a trauma
 		if(prob(25))
-			var/datum/brain_trauma/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
+			var/datum/brain_trauma/trauma = pick(GLOB.orb_mysterious_brain_traumas) // ORBSTATION: pick from our list instead
 			nearby_human.gain_trauma(trauma, TRAUMA_RESILIENCE_LOBOTOMY)
 		// And a negative moodlet
 		nearby_human.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
