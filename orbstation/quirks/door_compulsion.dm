@@ -20,7 +20,7 @@
 /// element that is attached to people with the trait door closer that checks if the mob has left a tile with a door on it so that it can close it
 /datum/element/door_closer_quirk
 	/// list of doors that should not be closed automatically, blast doors, shutters, and firelocks mostly
-	var/static/list/secure_doors = list(/obj/machinery/door/poddoor, /obj/machinery/door/firedoor)
+	var/static/list/secure_doors = list(/obj/machinery/door/poddoor, /obj/machinery/door/firedoor, /obj/machinery/door/window)
 
 /datum/element/door_closer_quirk/Attach(datum/target)
 	. = ..()
