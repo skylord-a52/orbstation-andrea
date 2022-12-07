@@ -19,7 +19,7 @@
 		The ritual process will take longer each time it is completed."
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
 	background_icon_state = "bg_spell"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "draw"
 	/// Path to area we want to draw in next
 	var/area/target_area
@@ -104,7 +104,7 @@
 	RegisterSignal(owner, list(
 			COMSIG_MOB_ENTER_JAUNT,
 			COMSIG_MOB_AFTER_EXIT_JAUNT,
-		), PROC_REF(update_icon_on_signal))
+		), PROC_REF(update_status_on_signal))
 
 /datum/action/grand_ritual/Remove(mob/remove_from)
 	. = ..()
