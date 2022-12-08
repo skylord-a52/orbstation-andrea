@@ -8,49 +8,21 @@
 	lose_text = "<span class='notice'>You no longer feel very strongly about doorways.</span>"
 	medical_record_text = "Patient seems to have superstitions involving doorways."
 	mail_goodies = list(/obj/item/clothing/gloves/color/white)
-	var/datum/action/shut_eyes_doors/action
 
 /datum/quirk/door_closer/add()
 	. = ..()
 	quirk_holder.AddElement(/datum/element/door_closer_quirk)
-	action = new(quirk_holder)
-	action.Grant(quirk_holder)
+	quirk_holder.allow_eye_control(name)
 
 /datum/quirk/door_closer/remove()
 	. = ..()
 	quirk_holder.RemoveElement(/datum/element/door_closer_quirk)
-	if(!action)
-		return
-	action.Remove(quirk_holder)
-	QDEL_NULL(action)
+	quirk_holder.remove_eye_control(name)
 
 /// element that is attached to people with the trait door closer that checks if the mob has left a tile with a door on it so that it can close it
 /datum/element/door_closer_quirk
 	/// list of doors that should not be closed automatically, blast doors, shutters, and firelocks mostly
 	var/static/list/secure_doors = list(/obj/machinery/door/poddoor, /obj/machinery/door/firedoor, /obj/machinery/door/window)
-
-#define SHUT_EYES_FOR_DOORS "shut_eyes_for_doors"
-
-/datum/action/shut_eyes_doors
-	name = "Ignore Doors"
-	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_icon_state = "adjust_vision"
-	desc = "Close your eyes shut and pretend you aren't walking through doors!"
-
-/datum/action/shut_eyes_doors/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	if(!isliving(owner))
-		return
-	var/mob/living/doorguy = owner
-	if(HAS_TRAIT_FROM(owner, TRAIT_BLIND, SHUT_EYES_FOR_DOORS))
-		doorguy.cure_blind(SHUT_EYES_FOR_DOORS)
-	else
-		doorguy.become_blind(SHUT_EYES_FOR_DOORS)
-
-#undef SHUT_EYES_FOR_DOORS
 
 /datum/element/door_closer_quirk/Attach(datum/target)
 	. = ..()
