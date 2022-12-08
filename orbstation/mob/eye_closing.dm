@@ -36,11 +36,11 @@
 /// allows people who gain phobias from quirks, brain traumas, or being sacrificed to shut their eyes
 /datum/brain_trauma/mild/phobia/on_gain()
 	. = ..()
-	owner.allow_eye_control(name)
+	owner.allow_eye_control("[name]-[phobia_type]")
 
 /datum/brain_trauma/mild/phobia/on_lose(silent)
 	. = ..()
-	owner.remove_eye_control(name)
+	owner.remove_eye_control("[name]-[phobia_type]")
 
 
 /mob/living/proc/allow_eye_control(source)
