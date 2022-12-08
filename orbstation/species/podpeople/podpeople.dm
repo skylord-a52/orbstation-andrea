@@ -76,6 +76,6 @@
 
 //Sprouts heal rapidly while standing in light
 /datum/species/pod/sprout/handle_light_healing(mob/living/carbon/human/H, delta_time)
-	H.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, 0, BODYTYPE_ORGANIC)
+	H.heal_overall_damage(0.5 * delta_time, 0.5 * delta_time, BODYTYPE_ORGANIC)
 	H.adjustToxLoss(-0.5 * delta_time)
 	H.adjustOxyLoss(-0.5 * delta_time)
