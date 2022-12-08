@@ -1193,7 +1193,6 @@
 /area/shuttle)
 "RU" = (
 /obj/machinery/light/directional/south,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
