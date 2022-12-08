@@ -9,8 +9,8 @@
 	button_icon_state = "goliath"
 	sound = 'sound/magic/demon_attack1.ogg'
 	aoe_radius = 5
-	cooldown_time = 1 MINUTES
-	cooldown_reduction_per_rank = 10 SECONDS
+	cooldown_time = 30 SECONDS
+	cooldown_reduction_per_rank = 4 SECONDS
 
 /datum/action/cooldown/spell/aoe_staggered/tentacle_burst/get_things_to_cast_on(atom/center)
 	var/list/things = list()
