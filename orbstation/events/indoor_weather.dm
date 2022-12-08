@@ -97,7 +97,7 @@
 		/mob/living/basic/pet/dog/corgi/puppy = 5,
 		/mob/living/simple_animal/pet/cat/kitten = 5,
 		/mob/living/simple_animal/hostile/retaliate/frog = 5,
-		/mob/living/simple_animal/axolotl = 1,
+		/mob/living/basic/axolotl = 1,
 		/mob/living/basic/pet/dog/corgi/puppy/void = 1,
 		/mob/living/basic/pet/dog/corgi/puppy/slime = 1,
 	)
