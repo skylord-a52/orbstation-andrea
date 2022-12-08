@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(owned_theft_items)
 /datum/objective_item/steal/owned/pet/ian
 	abstract = FALSE
 	name = "Ian, without a pet carrier."
-	pet_type = list(/mob/living/simple_animal/pet/dog/corgi/ian, /mob/living/simple_animal/pet/dog/corgi/puppy/ian)
+	pet_type = list(/mob/living/basic/pet/dog/corgi/ian, /mob/living/basic/pet/dog/corgi/puppy/ian)
 	excludefromjob = list(JOB_HEAD_OF_PERSONNEL)
 	owner = list(JOB_HEAD_OF_PERSONNEL)
 

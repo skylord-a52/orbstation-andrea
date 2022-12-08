@@ -5,7 +5,7 @@
 	name = "Tentacle Burst"
 	desc = "Conjure a wave of tentacles from the ground to grapple your foes."
 	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/mob/simple/lavaland/lavaland_monsters.dmi'
+	button_icon = 'icons/mob/simple/lavaland/lavaland_monsters.dmi'
 	button_icon_state = "goliath"
 	sound = 'sound/magic/demon_attack1.ogg'
 	aoe_radius = 5

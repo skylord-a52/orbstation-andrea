@@ -990,10 +990,7 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/docking_port/mobile/emergency{
-	name = "Orb emergency shuttle";
-	dwidth = 8;
-	width = 15;
-	height = 23
+	name = "Orb emergency shuttle"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle)
@@ -1193,7 +1190,6 @@
 /area/shuttle)
 "RU" = (
 /obj/machinery/light/directional/south,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4

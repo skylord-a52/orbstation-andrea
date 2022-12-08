@@ -6,7 +6,7 @@
 	name = "Call Poltergeists"
 	desc = "Summons depraved spirits to possess nearby objects, causing them to attack the living. \
 		Items closer to you are more likely to be haunted."
-	icon_icon = 'icons/mob/actions/actions_revenant.dmi'
+	button_icon = 'icons/mob/actions/actions_revenant.dmi'
 	sound = 'sound/magic/curse.ogg'
 	button_icon_state = "r_haunt"
 	cooldown_time = 30 SECONDS

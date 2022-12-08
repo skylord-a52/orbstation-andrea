@@ -5,7 +5,7 @@
 /datum/action/cooldown/spell/aoe/overload_lights
 	name = "Power Surge"
 	desc = "Directs a large amount of magical power into nearby electrical lights, causing lights to shock those nearby."
-	icon_icon = 'icons/mob/actions/actions_revenant.dmi'
+	button_icon = 'icons/mob/actions/actions_revenant.dmi'
 	button_icon_state = "overload_lights"
 	cooldown_time = 30 SECONDS
 	cooldown_reduction_per_rank = 2 SECONDS
