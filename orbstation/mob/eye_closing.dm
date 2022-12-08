@@ -1,7 +1,7 @@
 /datum/action/shut_eyes_closed
 	name = "Toggle Eyes Closed"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = "adjust_vision"
 	desc = "Close your eyes shut and allow the world to vanish before you!"
 	var/list/sources = list()
