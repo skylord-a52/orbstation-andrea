@@ -199,10 +199,12 @@ GLOBAL_LIST_EMPTY(journeymanstart)
 				objectives_complete = FALSE
 				break
 
+	/** I'm leaving this here instead of deleting it because I will want to restore it when PRing to TG
 	if(objectives.len == 0 || objectives_complete)
 		report += "<br><span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<br><span class='redtext big'>The [name] has failed!</span>"
+	 */
 
 	report += "<br><B>Spells chosen:</B> "
 	for (var/spell in learned_spells)

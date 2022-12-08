@@ -946,16 +946,16 @@
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
 			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!</b>")]"
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 				changeling_win = FALSE
 			count++
 
-	if(changeling_win)
-		parts += span_greentext("The changeling was successful!")
-	else
-		parts += span_redtext("The changeling has failed.")
+	//if(changeling_win) ORBSTATION: We don't want to report success or failure
+	//	parts += span_greentext("The changeling was successful!")
+	//else
+	//	parts += span_redtext("The changeling has failed.")
 
 	return parts.Join("<br>")
 

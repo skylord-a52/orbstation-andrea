@@ -4875,6 +4875,7 @@
 #include "orbstation\_globalvars\wizard_journeyman.dm"
 #include "orbstation\antagonists\acting_captain_check.dm"
 #include "orbstation\antagonists\dynamic.dm"
+#include "orbstation\antagonists\round_end_report.dm"
 #include "orbstation\antagonists\rulesets_latejoin.dm"
 #include "orbstation\antagonists\rulesets_midround.dm"
 #include "orbstation\antagonists\steal_owned_items.dm"

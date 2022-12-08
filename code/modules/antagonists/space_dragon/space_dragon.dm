@@ -188,10 +188,11 @@
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
-	if(objectives_complete)
-		parts += "<span class='greentext big'>The [name] was successful!</span>"
-	else
-		parts += "<span class='redtext big'>The [name] has failed!</span>"
+
+	//if(objectives_complete)  ORBSTATION: We don't want to report success or failure
+	//	parts += "<span class='greentext big'>The [name] was successful!</span>"
+	//else
+	//	parts += "<span class='redtext big'>The [name] has failed!</span>"
 	if(carp.len)
 		parts += "<span class='header'>The [name] was assisted by:</span>"
 		parts += printplayerlist(carp)

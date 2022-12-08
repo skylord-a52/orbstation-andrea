@@ -235,9 +235,9 @@
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
 			if(objective.check_completion())
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
+				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
 			else
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
+				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
 				malf_ai_won = FALSE
 			count++
 
@@ -245,11 +245,11 @@
 
 	var/special_role_text = lowertext(name)
 
-	if(malf_ai_won)
-		result += span_greentext("The [special_role_text] was successful!")
-	else
-		result += span_redtext("The [special_role_text] has failed!")
-		SEND_SOUND(owner.current, 'sound/ambience/ambifailure.ogg')
+	//if(malf_ai_won)  ORBSTATION: We don't want to report success or failure
+	//	result += span_greentext("The [special_role_text] was successful!")
+	//else
+	//	result += span_redtext("The [special_role_text] has failed!")
+	//	SEND_SOUND(owner.current, 'sound/ambience/ambifailure.ogg')
 
 	return result.Join("<br>")
 
