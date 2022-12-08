@@ -509,6 +509,15 @@
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle)
+"sA" = (
+/obj/docking_port/mobile/emergency{
+	name = "Orb emergency shuttle";
+	dwidth = 8;
+	width = 15;
+	height = 23
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle)
 "sU" = (
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle)
@@ -990,10 +999,7 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/docking_port/mobile/emergency{
-	name = "Orb emergency shuttle";
-	dwidth = 8;
-	width = 15;
-	height = 23
+	name = "Orb emergency shuttle"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle)
@@ -1687,7 +1693,7 @@ Nk
 Nk
 Vg
 Nk
-Nk
+sA
 Nk
 Nk
 nU
