@@ -431,7 +431,7 @@
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
 
-	var/succeeded = TRUE
+	//var/succeeded = TRUE
 
 	parts += printplayer(owner)
 	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
@@ -443,7 +443,7 @@
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 			else
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
-				succeeded = FALSE
+				//succeeded = FALSE
 			count++
 
 	if(ascended)

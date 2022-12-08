@@ -321,7 +321,7 @@
 
 	result += "<br><B>Total:</B> [total_completed] objectives, [DISPLAY_PROGRESSION(total_earned_prog)] reputation, [total_earned_tc] TC"
 
-	var/special_role_text = lowertext(name)
+	//var/special_role_text = lowertext(name)
 
 	//if(traitor_won) ORBSTATION: Don't display success or failure
 	//	result += span_greentext("The [special_role_text] was successful!")

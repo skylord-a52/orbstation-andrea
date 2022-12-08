@@ -226,7 +226,7 @@
 /datum/antagonist/malf_ai/roundend_report()
 	var/list/result = list()
 
-	var/malf_ai_won = TRUE
+	//var/malf_ai_won = TRUE
 
 	result += printplayer(owner)
 
@@ -238,12 +238,12 @@
 				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
 			else
 				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
-				malf_ai_won = FALSE
+				//malf_ai_won = FALSE
 			count++
 
 	result += objectives_text
 
-	var/special_role_text = lowertext(name)
+	//var/special_role_text = lowertext(name)
 
 	//if(malf_ai_won)  ORBSTATION: We don't want to report success or failure
 	//	result += span_greentext("The [special_role_text] was successful!")

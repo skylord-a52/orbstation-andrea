@@ -55,14 +55,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	if(objectives.len)
 		report += "<span class='header'>Team had following objectives:</span>"
-		var/win = TRUE
+		//var/win = TRUE
 		var/objective_count = 1
 		for(var/datum/objective/objective as anything in objectives)
 			if(objective.check_completion())
 				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text]"
 			else
 				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text]"
-				win = FALSE
+				//win = FALSE
 			objective_count++
 		//if(win) ORBSTATION: Don't report success or failure
 		//	report += span_greentext("The [name] was successful!")

@@ -935,9 +935,9 @@
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
 
-	var/changeling_win = TRUE
-	if(!owner.current)
-		changeling_win = FALSE
+	//var/changeling_win = TRUE ORBSTATION: We don't want to report success or failure
+	//if(!owner.current)
+	//	changeling_win = FALSE
 
 	parts += printplayer(owner)
 	parts += "<b>Genomes Extracted:</b> [absorbed_count]<br>"
@@ -949,10 +949,10 @@
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 			else
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
-				changeling_win = FALSE
+				//changeling_win = FALSE
 			count++
 
-	//if(changeling_win) ORBSTATION: We don't want to report success or failure
+	//if(changeling_win)
 	//	parts += span_greentext("The changeling was successful!")
 	//else
 	//	parts += span_redtext("The changeling has failed.")
