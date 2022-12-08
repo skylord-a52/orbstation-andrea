@@ -1,9 +1,6 @@
 /datum/species/ethereal
 	payday_modifier = 1.0
 
-/datum/species/felinid
-	payday_modifier = 1.0
-
 /datum/species/fly
 	payday_modifier = 1.0
 

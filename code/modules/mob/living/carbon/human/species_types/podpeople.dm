@@ -43,7 +43,7 @@
 		light_amount = min(1, T.get_lumcount()) - 0.5
 		H.adjust_nutrition(5 * light_amount * delta_time)
 		if(light_amount > 0.2) //if there's enough light, call the healing proc
-			handle_light_healing(H, delta_time)
+			handle_light_healing(H, delta_time) ///ORBSTATION: new proc, created to differentiate between ancient and sprout podpeople
 
 	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL) //don't make podpeople fat because they stood in the sun for too long
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
