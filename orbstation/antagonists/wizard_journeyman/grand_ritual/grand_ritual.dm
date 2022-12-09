@@ -38,29 +38,31 @@
 	 * Areas where you can place a rune
 	 * To be honest if maintenance subtypes didn't exist I could probably have got away with just a blaclist, c'est la vie
 	 */
-	var/static/list/area_whitelist = typecacheof(list( \
-		/area/station/commons, \
-		/area/station/maintenance/tram,\
-		/area/station/maintenance/disposal, \
-		/area/station/maintenance/radshelter,\
-		/area/station/command,\
-		/area/station/service,\
-		/area/station/engineering,\
-		/area/station/construction, \
-		/area/station/medical, \
-		/area/station/security, \
-		/area/station/cargo, \
-		/area/station/science, ))
+	var/static/list/area_whitelist = typecacheof(list(
+		/area/station/commons,
+		/area/station/maintenance/tram,
+		/area/station/maintenance/disposal,
+		/area/station/maintenance/radshelter,
+		/area/station/command,
+		/area/station/service,
+		/area/station/engineering,
+		/area/station/construction,
+		/area/station/medical,
+		/area/station/security,
+		/area/station/cargo,
+		/area/station/science,
+	))
 	/// Areas where you can't be tasked to draw a rune, usually because they're too mean
-	var/static/list/area_blacklist = typecacheof(list( \
-		/area/station/cargo/warehouse,\ // This SHOULD be fine except SOMEBODY gave this area to a kilo structure which is IN SPACE
-		/area/station/engineering/supermatter,\
-		/area/station/engineering/transit_tube,\
-		/area/station/security/prison/safe, \
-		/area/station/science/ordnance/burnchamber, \
-		/area/station/science/ordnance/freezerchamber, \
-		/area/station/science/ordnance/bomb, \
-		/area/station/science/server, ))
+	var/static/list/area_blacklist = typecacheof(list(
+		/area/station/cargo/warehouse, // This SHOULD be fine except SOMEBODY gave this area to a kilo structure which is IN SPACE
+		/area/station/engineering/supermatter,
+		/area/station/engineering/transit_tube,
+		/area/station/security/prison/safe,
+		/area/station/science/ordnance/burnchamber,
+		/area/station/science/ordnance/freezerchamber,
+		/area/station/science/ordnance/bomb,
+		/area/station/science/server,
+	))
 
 /datum/action/grand_ritual/IsAvailable(feedback)
 	. = ..()
