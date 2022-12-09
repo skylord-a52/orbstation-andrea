@@ -579,7 +579,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	skin_tone = GLOB.skin_tones[deconstruct_block(get_uni_identity_block(structure, DNA_SKIN_TONE_BLOCK), GLOB.skin_tones.len)]
 	eye_color_left = sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_LEFT_BLOCK))
 	eye_color_right = sanitize_hexcolor(get_uni_identity_block(structure, DNA_EYE_COLOR_RIGHT_BLOCK))
-	facial_hairstyle = GLOB.facial_hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIRSTYLE_BLOCK), GLOB.facial_hairstyles_list.len)]
+	if(HAS_TRAIT(src, TRAIT_SHAVED))
+		hairstyle = "Shaved"
+	else
+		facial_hairstyle = GLOB.facial_hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIRSTYLE_BLOCK), GLOB.facial_hairstyles_list.len)]
 	if(HAS_TRAIT(src, TRAIT_BALD))
 		hairstyle = "Bald"
 	else
@@ -746,15 +749,17 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/random_mutate_unique_identity()
 	if(!has_dna())
 		CRASH("[src] does not have DNA")
-	var/num = rand(1, DNA_UNI_IDENTITY_BLOCKS)
-	dna.set_uni_feature_block(num, random_string(GET_UI_BLOCK_LEN(num), GLOB.hex_characters))
+	//ORBSTATION REMOVAL
+	//var/num = rand(1, DNA_UNI_IDENTITY_BLOCKS)
+	//dna.set_uni_feature_block(num, random_string(GET_UI_BLOCK_LEN(num), GLOB.hex_characters))
 	updateappearance(mutations_overlay_update=1)
 
 /mob/living/carbon/proc/random_mutate_unique_features()
 	if(!has_dna())
 		CRASH("[src] does not have DNA")
-	var/num = rand(1, DNA_FEATURE_BLOCKS)
-	dna.set_uni_feature_block(num, random_string(GET_UF_BLOCK_LEN(num), GLOB.hex_characters))
+	//ORBSTATION REMOVAL
+	//var/num = rand(1, DNA_FEATURE_BLOCKS)
+	//dna.set_uni_feature_block(num, random_string(GET_UF_BLOCK_LEN(num), GLOB.hex_characters))
 	updateappearance(mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 
 /mob/living/carbon/proc/clean_dna()
@@ -857,7 +862,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				ForceContractDisease(new/datum/disease/gastrolosis())
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 	else
-		switch(rand(0,5))
+		switch(rand(0,6))
 			if(0)
 				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 				gib()
@@ -865,9 +870,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				investigate_log("has been dusted by DNA instability.", INVESTIGATE_DEATHS)
 				dust()
 			if(2)
-				investigate_log("has been killed by DNA instability.", INVESTIGATE_DEATHS)
+				investigate_log("has been transformed into a statue by DNA instability.", INVESTIGATE_DEATHS)
 				death()
 				petrify(INFINITY)
+				ghostize(FALSE)
 			if(3)
 				if(prob(95))
 					var/obj/item/bodypart/BP = get_bodypart(pick(BODY_ZONE_CHEST,BODY_ZONE_HEAD))
@@ -887,6 +893,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			if(5)
 				to_chat(src, span_phobia("LOOK UP!"))
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
+			if(6)
+				slow_psykerize()
 
 /mob/living/carbon/human/proc/something_horrible_mindmelt()
 	if(!is_blind())
