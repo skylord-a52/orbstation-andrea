@@ -171,12 +171,11 @@ const JobRow = (
     className?: string;
     job: Job;
     name: string;
-    count: number;
   },
   context
 ) => {
   const { data } = useBackend<PreferencesMenuData>(context);
-  const { className, job, name, count } = props;
+  const { className, job, name } = props;
 
   const isOverflow = data.overflow_role === name;
   const priority = data.job_preferences[name];
@@ -226,32 +225,6 @@ const JobRow = (
     );
   }
 
-  let countColour;
-  switch (count) {
-    case 1:
-      countColour = 'red';
-      break;
-    case 2:
-      countColour = 'yellow';
-      break;
-    case 3:
-      countColour = 'green';
-      break;
-  }
-
-  let selected_light;
-  if (count > 0) {
-    selected_light = (
-      <Tooltip
-        content="Current highest selected priority for this role between all readied players."
-        position="bottom-start">
-        <Stack.Item bold textColor={countColour}>
-          ⠀⬤
-        </Stack.Item>
-      </Tooltip>
-    );
-  }
-
   return (
     <Stack.Item
       className={className}
@@ -270,7 +243,6 @@ const JobRow = (
             {name}
           </Stack.Item>
         </Tooltip>
-        {selected_light}
         <Stack.Item grow className="options">
           {rightSide}
         </Stack.Item>
@@ -293,9 +265,6 @@ const Department: SFC<{ department: string }> = (props, context) => {
         const { departments, jobs } = data.jobs;
         const department = departments[name];
         const prefData = useBackend<PreferencesMenuData>(context);
-        const signedCount: string = prefData.data.department_counts[name]
-          ? '[' + prefData.data.department_counts[name] + ']'
-          : '';
 
         // This isn't necessarily a bug, it's like this
         // so that you can remove entire departments without
@@ -310,30 +279,9 @@ const Department: SFC<{ department: string }> = (props, context) => {
           department.head
         );
 
-        let header;
-        if (name !== 'Captain' && name !== 'Assistant') {
-          header = (
-            <Stack.Item
-              className={className}
-              height="100%"
-              style={{
-                'margin-top': 0,
-              }}>
-              <Stack fill align="center">
-                <Stack.Item grow textAlign="center" className="options">
-                  <b>
-                    {name} {signedCount}
-                  </b>
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
-          );
-        }
-
         return (
           <Box>
             <Stack vertical fill>
-              {header}
               {jobsForDepartment.map(([name, job]) => {
                 return (
                   <JobRow
@@ -344,11 +292,6 @@ const Department: SFC<{ department: string }> = (props, context) => {
                     key={name}
                     job={job}
                     name={name}
-                    count={
-                      prefData.data.biggest_head[name]
-                        ? prefData.data.biggest_head[name]
-                        : 0
-                    }
                   />
                 );
               })}
@@ -403,6 +346,127 @@ const JoblessRoleDropdown = (props, context) => {
         }
       />
     </Box>
+  );
+};
+
+const DepartmentPopTracker: SFC<{ department: string }> = (props, context) => {
+  const { department: name } = props;
+
+  const prefData = useBackend<PreferencesMenuData>(context);
+  const hasSigned: boolean = !!prefData.data.department_counts[name];
+  if (!hasSigned) {
+    return;
+  }
+
+  const signedCount: number = prefData.data.department_counts[name];
+  let highCount: number = 0;
+  if (prefData.data.department_high && prefData.data.department_high[name]) {
+    highCount = prefData.data.department_high[name];
+  }
+  return (
+    <Section backgroundColor="#6a6a6a" ml={'-2px'} mr={'-2px'}>
+      <Stack vertical>
+        <Stack.Item>
+          <b>{name}</b>
+        </Stack.Item>
+        <Stack.Item>{signedCount} ready.</Stack.Item>
+        <Stack.Item>{highCount} high priority.</Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+const DepartmentPopArea: SFC = (props, context) => {
+  const prefData = useBackend<PreferencesMenuData>(context);
+  const hasDepartments: boolean =
+    Object.keys(prefData.data.department_counts).length > 0;
+  if (!hasDepartments) {
+    return (
+      <Section mb={`5px`}>
+        Nobody who is ready has selected any jobs in departments yet!
+      </Section>
+    );
+  }
+  return (
+    <Section>
+      <Stack>
+        {Object.keys(prefData.data.department_counts).map((department) => (
+          <Stack.Item
+            key={department}
+            grow
+            textAlign="center"
+            className="options">
+            <DepartmentPopTracker department={department} />
+          </Stack.Item>
+        ))}
+      </Stack>
+    </Section>
+  );
+};
+
+const HeadPopTracker: SFC<{
+  name: string;
+  colour: string;
+  heads: string[];
+}> = (props, context) => {
+  const { name, colour, heads } = props;
+  if (heads.length === 0) {
+    heads.push('None');
+  }
+  return (
+    <Section backgroundColor="#6a6a6a" ml={'-2px'} mr={'-2px'}>
+      <Stack vertical>
+        <Stack.Item backgroundColor={colour}>
+          <b>{name}</b>
+        </Stack.Item>
+        {heads.map((role) => (
+          <Stack.Item key={role}>{role}</Stack.Item>
+        ))}
+      </Stack>
+    </Section>
+  );
+};
+
+const HeadPopArea: SFC = (props, context) => {
+  const prefData = useBackend<PreferencesMenuData>(context);
+  const hasHeads: boolean = Object.keys(prefData.data.biggest_head).length > 0;
+  if (!hasHeads) {
+    return (
+      <Section mb={`5px`}>
+        Nobody who is ready has selected any Head of Staff jobs yet!
+      </Section>
+    );
+  }
+  let low: string[] = [];
+  let medium: string[] = [];
+  let high: string[] = [];
+  for (const head of Object.keys(prefData.data.biggest_head)) {
+    switch (prefData.data.biggest_head[head]) {
+      case 1:
+        low.push(head);
+        break;
+      case 2:
+        medium.push(head);
+        break;
+      case 3:
+        high.push(head);
+        break;
+    }
+  }
+  return (
+    <Section>
+      <Stack fill>
+        <Stack.Item grow textAlign="center" className="options">
+          <HeadPopTracker name="High" colour="#1b9638" heads={high} />
+        </Stack.Item>
+        <Stack.Item grow textAlign="center" className="options">
+          <HeadPopTracker name="Medium" colour="#d9b804" heads={medium} />
+        </Stack.Item>
+        <Stack.Item grow textAlign="center" className="options">
+          <HeadPopTracker name="Low" colour="#bd2020" heads={low} />
+        </Stack.Item>
+      </Stack>
+    </Section>
   );
 };
 
@@ -464,29 +528,48 @@ export const JobsPage = () => {
           </Stack>
         </Stack.Item>
         <Stack.Item>
-          <Stack horizontal>
-            <Stack.Item textAlign="center">
-              <Stack.Item
-                className="PreferencesMenu__Jobs__departments_Service"
-                height="100%"
-                style={{
-                  'margin-top': 0,
-                }}>
-                <Stack fill align="center">
-                  <Stack.Item grow textAlign="center" className="options">
-                    <b>squadala</b>
-                  </Stack.Item>
-                </Stack>
+          <Section backgroundColor="#848484">
+            <Stack vertical fill>
+              <Stack.Item>
+                <Tooltip
+                  content={
+                    'A count of unique, readied players who have selected jobs in each department.'
+                  }
+                  position="bottom-start">
+                  <Section
+                    backgroundColor="#6a6a6a"
+                    mr={'-4px'}
+                    ml={'-4px'}
+                    mb={'2px'}>
+                    <b>Populated Departments</b>
+                  </Section>
+                </Tooltip>
               </Stack.Item>
-            </Stack.Item>
+              <Stack.Item>
+                <DepartmentPopArea />
+              </Stack.Item>
 
-            <Stack.Item textAlign="center">
-              <Section>You are the Space Wizard Journeyman!</Section>
-            </Stack.Item>
-            <Stack.Item textAlign="center">
-              <Section>You are the Space Wizard Journeyman!</Section>
-            </Stack.Item>
-          </Stack>
+              <Stack.Item>
+                <Tooltip
+                  content={
+                    'A display of the minimum priority any player has picked for a head of staff.'
+                  }
+                  position="bottom-start">
+                  <Section
+                    backgroundColor="#6a6a6a"
+                    mr={'-4px'}
+                    ml={'-4px'}
+                    mt={'-10px'}
+                    mb={'2px'}>
+                    <b>Heads of Staff</b>
+                  </Section>
+                </Tooltip>
+              </Stack.Item>
+              <Stack.Item>
+                <HeadPopArea />
+              </Stack.Item>
+            </Stack>
+          </Section>
         </Stack.Item>
       </Stack>
     </>
