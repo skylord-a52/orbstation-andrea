@@ -527,6 +527,7 @@ export const JobsPage = () => {
             </Stack.Item>
           </Stack>
         </Stack.Item>
+        <Gap amount={22} />
         <Stack.Item>
           <Section backgroundColor="#848484">
             <Stack vertical fill>
