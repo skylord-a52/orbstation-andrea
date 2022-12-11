@@ -54,6 +54,9 @@
 			department_high[player_high] = 0
 		department_high[player_high] += 1
 
+	for (var/mob/target in GLOB.player_list)
+		target.client.prefs.update_static_data_for_all_viewers()
+
 /datum/preference_middleware/jobs/get_ui_data(mob/user)
 	var/list/data = ..()
 
@@ -67,16 +70,10 @@
 	. = ..()
 	if (!.)
 		return
-
 	SSjob.generate_heatmap()
-	for (var/mob/target in GLOB.player_list)
-		target.client.prefs.update_static_data_for_all_viewers()
 
 /atom/movable/screen/lobby/button/ready/Click(location, control, params)
 	. = ..()
 	if (!.)
 		return
-
 	SSjob.generate_heatmap()
-	for (var/mob/target in GLOB.player_list)
-		target.client.prefs.update_static_data_for_all_viewers()

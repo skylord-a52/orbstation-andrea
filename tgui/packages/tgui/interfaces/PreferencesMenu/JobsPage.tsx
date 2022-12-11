@@ -243,6 +243,7 @@ const JobRow = (
             {name}
           </Stack.Item>
         </Tooltip>
+
         <Stack.Item grow className="options">
           {rightSide}
         </Stack.Item>
@@ -251,7 +252,7 @@ const JobRow = (
   );
 };
 
-const Department: SFC<{ department: string }> = (props, context) => {
+const Department: SFC<{ department: string }> = (props) => {
   const { children, department: name } = props;
   const className = `PreferencesMenu__Jobs__departments--${name}`;
 
@@ -264,7 +265,6 @@ const Department: SFC<{ department: string }> = (props, context) => {
 
         const { departments, jobs } = data.jobs;
         const department = departments[name];
-        const prefData = useBackend<PreferencesMenuData>(context);
 
         // This isn't necessarily a bug, it's like this
         // so that you can remove entire departments without
@@ -296,6 +296,7 @@ const Department: SFC<{ department: string }> = (props, context) => {
                 );
               })}
             </Stack>
+
             {children}
           </Box>
         );
