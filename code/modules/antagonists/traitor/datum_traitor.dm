@@ -169,7 +169,7 @@
 
 		var/datum/objective/task
 
-		if(prob(70))
+		if(prob(80))
 			task = new /datum/objective/assassinate()
 		else
 			task = new /datum/objective/maroon()

@@ -43,9 +43,9 @@
 			break
 	if(traitor_datum)
 		traitor_datum.objectives.Cut()
-		var/datum/objective/traitor_progression/final_objective = new /datum/objective/traitor_final()
-		final_objective.owner = traitor_datum.owner
-		traitor_datum.objectives += final_objective
+		var/datum/objective/traitor_final/finale = new /datum/objective/traitor_final()
+		finale.owner = traitor_datum.owner
+		traitor_datum.objectives += finale
 		to_chat(user, span_boldwarning("In taking this final objective, the Syndicate no longer cares if you live or die. All that matters is that you try to see this last mission through."))
 		traitor_datum.owner.announce_objectives()
 
