@@ -34,6 +34,7 @@
 	for(var/datum/traitor_objective/objective as anything in handler.potential_objectives)
 		objective.fail_objective()
 	user.playsound_local(get_turf(user), 'sound/traitor/final_objective.ogg', vol = 100, vary = FALSE, channel = CHANNEL_TRAITOR)
+	handler.final_objective = name
 	// replace those normal primary objectives with a special objective that automatically succeeds
 	var/datum/antagonist/traitor/traitor_datum
 	for(var/datum/antagonist/antag in user.mind.antag_datums)
@@ -47,14 +48,6 @@
 		traitor_datum.objectives += final_objective
 		to_chat(user, span_boldwarning("In taking this final objective, the Syndicate no longer cares if you live or die. All that matters is that you try to see this last mission through."))
 		traitor_datum.owner.announce_objectives()
-
-/datum/objective/traitor_final
-	name = "at any cost"
-	explanation_text = "Try to accomplish your final objective at any cost."
-	completed = TRUE
-
-/datum/objective/traitor_final/check_completion()
-	return TRUE // no way of checking completion; this objective is just here for flavor
 
 /datum/traitor_objective/ultimate/uplink_ui_data(mob/user)
 	. = ..()
