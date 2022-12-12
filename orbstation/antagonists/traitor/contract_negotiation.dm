@@ -29,12 +29,13 @@
 		if(istype(antag, /datum/antagonist/traitor))
 			traitor_datum = antag
 			break
+
 	// Non-traitors can't use this for obvious reasons :v
 	if(!traitor_datum)
 		return source //For log icon
 
 	for(var/datum/objective/primary_objective in traitor_datum.objectives)
-		if(istype(primary_objective, /datum/objective/custom) || istype(primary_objective, /datum/objective/traitor_final)) // prevents overriding pre-existing custom objectives or final objectives
+		if(uplink_handler.final_objective) // prevents overriding pre-existing custom objectives or final objectives
 			to_chat(user, span_warning("Request denied. The terms of your current contract are non-negotiable."))
 			return source
 
@@ -43,6 +44,12 @@
 	if(!custom_objective_text) // such as if the user hits "cancel"
 		return source
 
+	var/datum/traitor_objective/ultimate/renegotiate/new_objective = uplink_handler.try_add_objective(/datum/traitor_objective/ultimate/renegotiate)
+	if(!new_objective)
+		CRASH("Failed to create the renegotiate contract objective!")
+
+	new_objective.name = custom_objective_text
+
 	log_traitor("[key_name(user)] opted out of uplink objectives and chose a custom objective: [custom_objective_text]")
 	message_admins("[ADMIN_LOOKUPFLW(user)] has chosen a custom traitor objective: [span_syndradio("[custom_objective_text]")] | [ADMIN_SYNDICATE_REPLY(user)]")
 
@@ -50,25 +57,26 @@
 		if(admin_client.prefs.toggles & SOUND_ADMINHELP)
 			SEND_SOUND(admin_client, sound('sound/effects/gong.ogg'))
 
-	// Let's fail all the objectives on the uplink to get them out of the way.
+	// Let's fail all the active objectives on the uplink to get them out of the way.
 	for(var/datum/traitor_objective/active_objective as anything in uplink_handler.active_objectives)
 		active_objective.fail_objective(penalty_cost = 0)
-	for(var/datum/traitor_objective/potential_objective as anything in uplink_handler.potential_objectives)
-		potential_objective.fail_objective()
 
-	// The traitor can no longer take new objectives. Displays "you are locked out of objectives" on the objectives screen.
-	uplink_handler.maximum_potential_objectives = 0
+	uplink_handler.take_objective(user, new_objective)
 
-	// Replace those normal primary objectives with a special objective that automatically succeeds
-	user.playsound_local(get_turf(user), 'sound/traitor/final_objective.ogg', vol = 100, vary = FALSE, channel = CHANNEL_TRAITOR)
-	traitor_datum.objectives.Cut()
-	var/datum/objective/custom/custom_objective = new /datum/objective/custom()
-	custom_objective.explanation_text = custom_objective_text
-	custom_objective.owner = traitor_datum.owner
-	custom_objective.completed = TRUE
-	traitor_datum.objectives += custom_objective
 	to_chat(user, span_boldwarning("Your request has been received. Until further notice, these are the new terms of your contract. Good luck, agent."))
-	traitor_datum.owner.announce_objectives()
+
 	return source
+
+/datum/traitor_objective/ultimate/renegotiate
+	name = "Contract renegotiation"
+	description = "Try to accomplish your final objective at any cost."
+	progression_minimum = 0 MINUTES
+	progression_points_in_objectives = 0 MINUTES
+
+/datum/traitor_objective/ultimate/renegotiate/can_generate_objective(generating_for, list/possible_duplicates)
+	return TRUE
+
+/datum/traitor_objective/ultimate/renegotiate/generate_objective(datum/mind/generating_for, list/possible_duplicates)
+	return TRUE
 
 #undef CUSTOM_OBJECTIVE_MAX_LENGTH

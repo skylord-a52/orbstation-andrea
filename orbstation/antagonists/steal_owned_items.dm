@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(owned_theft_items)
  * Arguments
  * * dupe_search_range - A list of minds to check for existing objectives to avoid generating duplicate targets.
  */
-/datum/objective/steal/owned/find_target(dupe_search_range)
+/datum/objective/steal/owned/find_target(dupe_search_range, list/blacklist)
 	var/list/approved_targets = list()
 	var/list/datum/mind/owners = get_owners()
 	for (var/datum/objective_item/steal/owned/possible_item in GLOB.owned_theft_items)

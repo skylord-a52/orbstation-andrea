@@ -4915,7 +4915,6 @@
 #include "orbstation\antagonists\spider\egg_limit.dm"
 #include "orbstation\antagonists\traitor\contract_negotiation.dm"
 #include "orbstation\antagonists\traitor\objectives\double_cross.dm"
-#include "orbstation\antagonists\traitor\objectives\final_objective.dm"
 #include "orbstation\antagonists\traitor\objectives\final_objective\malware_injection.dm"
 #include "orbstation\antagonists\wizard_journeyman\journeyman_outfit.dm"
 #include "orbstation\antagonists\wizard_journeyman\wizard_apartment.dm"
