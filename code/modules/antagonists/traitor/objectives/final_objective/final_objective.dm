@@ -6,6 +6,7 @@
 		/datum/traitor_objective/ultimate/space_dragon = 1,
 		/datum/traitor_objective/ultimate/supermatter_cascade = 1,
 		/datum/traitor_objective/ultimate/malware_injection = 1,
+		/datum/traitor_objective/ultimate/renegotiate = 0,
 	)
 	weight = 100
 
