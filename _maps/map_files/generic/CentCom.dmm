@@ -143,6 +143,19 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/observation)
+"aC" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/structure/chair/sofa/right/brown{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/revolver{
+	pixel_x = -32
+	},
+/turf/open/floor/iron,
+/area/centcom/syndicate_mothership/control)
 "aD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1796,6 +1809,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/fore)
+"fB" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/control)
 "fD" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -4602,16 +4625,6 @@
 "nH" = (
 /turf/closed/indestructible/syndicate,
 /area/centcom/syndicate_mothership/expansion_chemicalwarfare)
-"nI" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/structure/chair/sofa/left/brown{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
 "nJ" = (
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tile/brown,
@@ -6754,15 +6767,6 @@
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/closed/indestructible/syndicate,
 /area/centcom/syndicate_mothership/control)
-"ua" = (
-/obj/effect/turf_decal/siding/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating_new/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/centcom/syndicate_mothership/expansion_chemicalwarfare)
 "ub" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -7990,6 +7994,15 @@
 /obj/machinery/button/showtime,
 /turf/closed/indestructible/fakeglass,
 /area/centcom/tdome/administration)
+"xH" = (
+/obj/effect/turf_decal/siding/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new/light{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/centcom/syndicate_mothership/expansion_chemicalwarfare)
 "xI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
@@ -8730,6 +8743,20 @@
 /obj/machinery/light/floor,
 /turf/open/floor/plating,
 /area/centcom/central_command_areas/briefing)
+"zV" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/centcom/tdome/observation)
 "zX" = (
 /obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/stripes/box,
@@ -8920,20 +8947,6 @@
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/grass,
 /area/centcom/wizard_station)
-"AC" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/cup/glass/britcup,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/centcom/tdome/observation)
 "AE" = (
 /obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tile/bar,
@@ -9967,16 +9980,6 @@
 /obj/item/storage/fancy/donut_box,
 /obj/structure/window/reinforced{
 	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/centcom/central_command_areas/control)
-"Du" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/cup/glass/britcup,
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
@@ -11390,6 +11393,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/admin)
+"HA" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/structure/chair/sofa/left/brown{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/syndicate_mothership/control)
 "HB" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -17127,19 +17140,6 @@
 "Yn" = (
 /turf/closed/indestructible/riveted,
 /area/centcom/central_command_areas/supplypod)
-"Yp" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/structure/chair/sofa/right/brown{
-	dir = 4
-	},
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_x = -32
-	},
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
 "Yq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
 	dir = 4
@@ -24317,7 +24317,7 @@ aa
 aa
 kb
 nH
-ua
+xH
 Ib
 Ib
 Ib
@@ -27931,8 +27931,8 @@ MB
 Jm
 Fd
 Mx
-nI
-Yp
+HA
+aC
 nz
 gf
 zL
@@ -59049,7 +59049,7 @@ Zj
 bi
 ni
 zw
-AC
+zV
 Bs
 di
 QC
@@ -61862,7 +61862,7 @@ mQ
 io
 io
 iu
-Du
+fB
 DI
 iu
 in
