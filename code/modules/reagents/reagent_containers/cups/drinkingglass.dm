@@ -1,8 +1,6 @@
 /obj/item/reagent_containers/cup/glass/drinkingglass
 	name = "drinking glass"
 	desc = "Your standard drinking glass."
-	/// ORBSTATION: reference to the original file that this glass's icon comes from. this will need to be changed if ../icon changes
-	var/base_icon_path = 'icons/obj/drinks.dmi'
 	icon_state = "glass_empty"
 	base_icon_state = "glass_empty"
 	amount_per_transfer_from_this = 10
