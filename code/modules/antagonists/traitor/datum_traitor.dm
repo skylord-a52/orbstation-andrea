@@ -255,6 +255,12 @@
 			else
 				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
 				traitor_won = FALSE
+
+			//ORBSTATION EDIT: see the original objectives
+			if(istype(objective, /datum/objective/custom/renegotiate))
+				var/datum/objective/custom/renegotiate/negotiation = objective
+				objectives_text += negotiation.display_old_objectives()
+
 			count++
 		if(uplink_handler.final_objective)
 			objectives_text += "<br>[span_greentext("[traitor_won ? "Additionally" : "However"], the final objective \"[uplink_handler.final_objective]\" was completed!")]"
@@ -278,7 +284,7 @@
 	var/total_completed = 0
 
 	if(uplink_handler)
-		var/completed_objectives_text = "Completed Uplink Objectives: "
+		var/completed_objectives_text = "<br>Completed Uplink Objectives: "
 		for(var/datum/traitor_objective/objective as anything in uplink_handler.completed_objectives)
 			if(objective.objective_state == OBJECTIVE_STATE_COMPLETED)
 				total_earned_prog += objective.progression_reward
@@ -290,7 +296,7 @@
 		result += completed_objectives_text
 
 		result += "<br><B>Total:</B> [total_completed] objectives, [DISPLAY_PROGRESSION(total_earned_prog)] reputation, [total_earned_tc] TC"
-
+		result += "<br>The traitor had a total of [uplink_handler.progression_points] Reputation and [uplink_handler.telecrystals] Unused Telecrystals."
 	var/special_role_text = lowertext(name)
 
 	if(traitor_won)
