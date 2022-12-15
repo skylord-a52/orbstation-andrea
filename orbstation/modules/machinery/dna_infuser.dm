@@ -7,7 +7,7 @@
 	if(!istype(human))
 		return
 
-	if(isrsatfolk(human))
+	if(isratfolk(human))
 		return
 
 	var/obj/item/organ/external/tail/ratfolk/mouseytail = new()
@@ -24,7 +24,7 @@
 	var/mob/living/carbon/human/human = owner
 	if(!istype(human))
 		return
-	if(isrsatfolk(human))
+	if(isratfolk(human))
 		return
 
 	var/obj/item/organ/internal/ears/ratfolk/mouseyear = human.getorganslot(ORGAN_SLOT_EARS)
