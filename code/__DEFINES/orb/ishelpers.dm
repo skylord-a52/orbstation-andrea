@@ -1,2 +1,2 @@
 
-#define isrsatfolk(A) (is_species(A, /datum/species/ratfolk))
+#define isratfolk(A) (is_species(A, /datum/species/ratfolk))
