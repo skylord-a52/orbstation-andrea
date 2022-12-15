@@ -4963,6 +4963,7 @@
 #include "orbstation\modules\chemistry\alcohol.dm"
 #include "orbstation\modules\client\looc.dm"
 #include "orbstation\modules\client\preferences\_preference.dm"
+#include "orbstation\modules\machinery\dna_infuser.dm"
 #include "orbstation\modules\mining\chasm_rescue.dm"
 #include "orbstation\modules\mining\demonic_portal.dm"
 #include "orbstation\modules\mining\megafauna.dm"
