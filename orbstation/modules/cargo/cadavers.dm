@@ -6,31 +6,34 @@
 	crate_name = "medical cadaver crate"
 
 	///Whether a vampire has arrived on the station this round
-	var/vampire_arrival = FALSE
+	var/vampire_arrived = FALSE
 	///Percent chance for a medical cadaver to be replaced with a vampire
 	var/vampire_chance = 1
 
 /datum/supply_pack/medical/cadaver/generate()
 	. = ..()
-	var/mob/living/carbon/human/H = locate() in .
-	H.death()
-	if(prob(vampire_chance) && !vampire_arrival)
-		vampire_arrival = TRUE
-		qdel(H)
-		var/mob/living/carbon/human/surprise_dracula = new /mob/living/carbon/human/species/vampire(.)
-		//offer control of the vampire to ghosts
-		var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a vampire fugitive?", ROLE_FUGITIVE, null, 10 SECONDS, surprise_dracula, null)
-		if(LAZYLEN(candidates))
-			var/mob/dead/observer/chosen = pick(candidates)
-			surprise_dracula.key = chosen.key
-			surprise_dracula.mind.special_role = ROLE_FUGITIVE
-			to_chat(surprise_dracula, span_warning("You are a vampire, freshly escaped from imprisonment by NanoTrasen's secret Occultism Department. You've managed to stow away in place of a medical cadaver, bound for the unknown reaches of the Spinward Sector. \
-									You must do whatever it takes to evade capture."))
-			surprise_dracula.log_message("was made into a vampire fugitive by medical cadaver crate", LOG_GAME)
-			return
-	for (var/part in H.internal_organs) //each cadaver comes with a complimentary set of organs, held in stasis
-		var/obj/item/organ/O = part
-		O.organ_flags |= ORGAN_FROZEN
+	var/mob/living/carbon/human/corpse = locate() in .
+	if(vampire_arrived || !prob(vampire_chance))
+		corpse.death()
+		for (var/obj/item/organ/part in corpse.internal_organs) //each cadaver comes with a complementary set of organs, held in stasis
+			part.organ_flags |= ORGAN_FROZEN
+		return
+	vampire_arrived = TRUE
+	qdel(corpse)
+	var/mob/living/carbon/human/surprise_dracula = new /mob/living/carbon/human/species/vampire(.)
+	//offer control of the vampire to ghosts
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a vampire fugitive?", ROLE_FUGITIVE, null, 10 SECONDS, surprise_dracula, null)
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/chosen = pick(candidates)
+		surprise_dracula.key = chosen.key
+		surprise_dracula.mind.special_role = ROLE_FUGITIVE
+		to_chat(surprise_dracula, span_warning("You are a vampire, freshly escaped from imprisonment by NanoTrasen's secret Occultism Department. You've managed to stow away in place of a medical cadaver, bound for the unknown reaches of the Spinward Sector. \
+								You must do whatever it takes to evade capture."))
+		surprise_dracula.log_message("was made into a vampire fugitive by medical cadaver crate", LOG_GAME)
+	else //if no one wants to play a vampire, a completely dead skeleton shows up instead as an alternate joke
+		qdel(surprise_dracula)
+		var/mob/living/carbon/human/backup_skeleton = new /mob/living/carbon/human/species/skeleton(.)
+		backup_skeleton.death()
 
 /datum/supply_pack/medical/cadaver/ethereal
 	name = "Medical Cadaver Crate (Ethereal)"
@@ -40,10 +43,9 @@
 // Remove the crystal core, both so the ethereal doesn't regenerate and so the crew can't bulk-order crystal cores
 /datum/supply_pack/medical/cadaver/ethereal/generate()
 	. = ..()
-	var/mob/living/carbon/human/H = locate() in .
-	for (var/part in H.internal_organs)
-		if(istype(part, /obj/item/organ/internal/heart))
-			qdel(part)
+	var/mob/living/carbon/human/corpse = locate() in .
+	for (var/obj/item/organ/internal/heart/ethereal/illegal_heart in corpse.internal_organs)
+		qdel(illegal_heart)
 
 /datum/supply_pack/medical/cadaver/felinid
 	name = "Medical Cadaver Crate (Felinid)"
@@ -106,23 +108,18 @@
 		. += "manifest"
 
 /obj/structure/closet/crate/coffin/stasis/open(mob/living/user, force = FALSE)
-	if(functional)
-		functional = FALSE
-		for(var/atom/movable/AM in src)
-			if(istype(AM, /mob/living/carbon)) //unfreeze the organs of any contained carbon
-				var/mob/living/carbon/C = AM
-				for(var/part in C.internal_organs)
-					var/obj/item/organ/O = part
-					O.organ_flags &= ~ORGAN_FROZEN
-		//change icon state
+	if(!functional)
+		return ..()
+	functional = FALSE
+	for(var/mob/living/carbon/corpse in src) //unfreeze the organs of any contained carbon
+		for(var/obj/item/organ/part as anything in corpse.internal_organs)
+			part.organ_flags &= ~ORGAN_FROZEN
 	return ..()
 
 /obj/structure/closet/crate/coffin/stasis/close(mob/living/user)
 	. = ..()
-	if(functional)
-		for(var/atom/movable/AM in src)
-			if(istype(AM, /mob/living/carbon)) //freeze the organs of any contained carbon
-				var/mob/living/carbon/C = AM
-				for(var/part in C.internal_organs)
-					var/obj/item/organ/O = part
-					O.organ_flags |= ORGAN_FROZEN
+	if(!functional)
+		return
+	for(var/mob/living/carbon/corpse in src) //freeze the organs of any contained carbon
+		for(var/obj/item/organ/part as anything in corpse.internal_organs)
+			part.organ_flags |= ORGAN_FROZEN
