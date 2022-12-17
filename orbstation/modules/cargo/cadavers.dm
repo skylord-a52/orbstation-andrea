@@ -98,7 +98,9 @@
 	close_sound_volume = 50
 	can_install_electronics = FALSE
 	mob_storage_capacity = 1 //no mass stasis, sorry
-	var/functional = TRUE //whether the coffin still works or not
+
+	///Whether the coffin still works or not
+	var/functional = TRUE
 
 /obj/structure/closet/crate/coffin/stasis/closet_update_overlays(list/new_overlays)
 	. = new_overlays
@@ -115,11 +117,3 @@
 		for(var/obj/item/organ/part as anything in corpse.internal_organs)
 			part.organ_flags &= ~ORGAN_FROZEN
 	return ..()
-
-/obj/structure/closet/crate/coffin/stasis/close(mob/living/user)
-	. = ..()
-	if(!functional)
-		return
-	for(var/mob/living/carbon/corpse in src) //freeze the organs of any contained carbon
-		for(var/obj/item/organ/part as anything in corpse.internal_organs)
-			part.organ_flags |= ORGAN_FROZEN
