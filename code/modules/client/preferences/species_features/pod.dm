@@ -61,15 +61,3 @@
 
 /datum/preference/choiced/pod_blood/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["pod_blood"] = value
-
-// Roundstart podpeople just choose their hair colour
-/obj/item/organ/external/pod_hair
-	color_source = ORGAN_COLOR_HAIR
-	apply_color_to_layer = FALSE
-
-/obj/item/organ/external/pod_hair/override_color(draw_color)
-	var/mob/living/carbon/human/H = owner
-	return H.hair_color
-
-/obj/item/organ/external/pod_hair/get_overlay_color(draw_layer)
-	return draw_color
