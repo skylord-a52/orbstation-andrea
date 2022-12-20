@@ -1,17 +1,18 @@
 /datum/pirate_gang/zetan_cowboys
-	name = "Western Sharpshooters"
+	name = "ZETAWEST ENFORCERS"
 
 	ship_template_id = "zetan"
 	ship_name_pool = "zetan_names"
 
-	threat_title = "Research funding"
-	threat_content = "Greetings, we are the %SHIPNAME. If you do not give us lots of DOLLARS \
-		we will fire massive lazers beams. %PAYOFF will spare you our STRONG BLAST."
-	possible_answers = list("I don't want to get strong blasted!","Strong Blast? I bet it sucks.")
+	threat_title = "Hi"
+	threat_content = "AND CAN YOU PLEASE GIVE US A LITTLE MONEY BEFORE THE SUN SETS ON OUR LIFES? \
+		THE NIGHT IS LONG AND ALL WE HAVE THIS WORLD IS EACH OTHER. WE HAVE TO BUY WARM MILK \
+		TO SOOTHE OUR ACHING STOMACS. $PAYOFF PLEASE OR YOURE FUCKED."
+	possible_answers = list("Pay them off","Risk it all")
 
-	response_received = "Yippie! Oh by the way Strong Blast isn't real, BYE!!!!!!!!"
-	response_too_late = "Thanks ofr the cash but now we want YOUR GUTS."
-	response_not_enough = "You call this Cash Money? Get out of here, its gut grabbing time."
+	response_received = "FUCK YES KID."
+	response_too_late = "THANK YOU SO MUCH FOR YOUR OFFER BUT!"
+	response_not_enough = "YOUR NAME IS CARVED ON A WALL IN HELL."
 
 /// outfits for zetans
 /datum/outfit/pirate/zetan
