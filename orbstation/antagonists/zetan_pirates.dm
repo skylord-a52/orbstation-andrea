@@ -15,6 +15,10 @@
 	response_too_late = "THANK YOU SO MUCH FOR YOUR OFFER BUT!"
 	response_not_enough = "YOUR NAME IS CARVED ON A WALL IN HELL."
 
+/area/shuttle/pirate/zetan
+	name = "ZETAN WEST SHIP"
+	requires_power = FALSE
+
 /// roles for zetans
 /obj/effect/mob_spawn/ghost_role/human/pirate/zetan
 	name = "alien sleeper"
