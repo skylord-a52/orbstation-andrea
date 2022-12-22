@@ -47,7 +47,7 @@
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/pirate
 	uniform = /obj/item/clothing/under/abductor
-	suit = /obj/item/clothing/suit/costume/pirate/armored
+	suit = /obj/item/clothing/suit/costume/pirate/armored/zetan
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/military/abductor
 	ears = /obj/item/radio/headset/abductor
@@ -66,6 +66,13 @@
 	l_hand = /obj/item/gun/zetan_revolver // captain gets two guns
 
 /// special items for zetan pirates
+/obj/item/clothing/suit/costume/pirate/armored/zetan
+	clothing_flags = STOPSPRESSUREDAMAGE
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS | HANDS | HEAD
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS | HEAD
+	allowed = list(/obj/item/gun/zetan_revolver)
+
 /obj/item/storage/belt/holster/zetan_pirate
 	name = "zetan holster"
 	desc = "An ancient holster that can be folded in on itself, even when holding objects in it. Only holds zetan revolvers. Or snacks."
@@ -74,7 +81,7 @@
 /obj/item/storage/belt/holster/zetan_pirate/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 3
-	atom_storage.max_total_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.set_holdable(list(
 		/obj/item/gun/zetan_revolver,
 		/obj/item/food/
