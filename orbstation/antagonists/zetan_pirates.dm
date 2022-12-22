@@ -1,4 +1,5 @@
-/datum/pirate_gang/zetan_cowboys
+/// pirate gang define, thanks mabel
+/datum/pirate_gang/zetan
 	name = "ZETAWEST ENFORCERS"
 
 	ship_template_id = "zetan"
@@ -35,7 +36,7 @@
 	rank = "Sheriff"
 	outfit = /datum/outfit/pirate/zetan/captain
 
-/// outfits for zetans
+/// outfits for zetan pirates
 /datum/outfit/pirate/zetan
 	name = "Zetan Deputy"
 
@@ -43,7 +44,9 @@
 	id_trim = /datum/id_trim/pirate
 	uniform = /obj/item/clothing/under/abductor
 	suit = /obj/item/clothing/suit/costume/pirate/armored
-	ears = /obj/item/radio/headset/syndicate
+	back = /obj/item/storage/backpack
+	belt = /obj/item/storage/belt/military/abductor
+	ears = /obj/item/radio/headset/abductor
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/cowboy/black
 	shoes = /obj/item/clothing/shoes/cowboy
@@ -55,10 +58,24 @@
 
 	head = /obj/item/clothing/head/cowboy/white
 	mask = /obj/item/clothing/mask/bandana/white
-	l_hand = /obj/item/gun/zetan_revolver
-
+	belt = /obj/item/storage/belt/holster/zetan_pirate
+	l_hand = /obj/item/gun/zetan_revolver // captain gets two guns
 
 /// special items for zetan pirates
+/obj/item/storage/belt/holster/zetan_pirate
+	name = "zetan holster"
+	desc = "An ancient holster that can be folded in on itself, even when holding objects in it. Only holds zetan revolvers. Or snacks."
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/belt/holster/zetan_pirate/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 3
+	atom_storage.max_total_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.set_holdable(list(
+		/obj/item/gun/zetan_revolver,
+		/obj/item/food/
+		))
+
 /obj/item/gun/zetan_revolver
 	name = "Pearlescent Revolver Z"
 	desc = "The most sophisticated weapon you've ever seen. This revolver's trigger can only be pulled by those with the chunkiest fingers. Will never miss."
@@ -85,6 +102,7 @@
 /obj/item/gun/zetan_revolver/handle_chamber(empty_chamber, from_firing, chamber_next_round)
 	chambered.newshot()
 
+/// new firing pin that allows anyone with chunky fingers to SHOOT REVOLVER
 /obj/item/firing_pin/chunky_fingers
 	name = "chunky firing pin"
 	icon_state = "firing_pin_ayy"
