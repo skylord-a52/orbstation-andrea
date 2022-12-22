@@ -117,3 +117,14 @@
 	if(HAS_TRAIT_NOT_FROM(user, TRAIT_CHUNKYFINGERS, RIGHT_ARM_TRAIT) && HAS_TRAIT_NOT_FROM(user, TRAIT_CHUNKYFINGERS, LEFT_ARM_TRAIT))
 		return TRUE
 	return (user.active_hand_index % 2) ? HAS_TRAIT_FROM(user, TRAIT_CHUNKYFINGERS, LEFT_ARM_TRAIT) : HAS_TRAIT_FROM(user, TRAIT_CHUNKYFINGERS, RIGHT_ARM_TRAIT)
+
+/// quickie abductor machine for getting CASHMONEY
+/obj/machinery/zetan_pirate_experimentor
+	name = "hacked experimentation machine"
+	desc = "A large man-sized tube sporting a complex array of surgical machinery. It's wires seem kinda messed up."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "experiment-open"
+	density = FALSE
+	state_open = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	use_power = NO_POWER_USE
