@@ -67,7 +67,9 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/pirate/zetan)
 "iE" = (
-/obj/machinery/zetan_pirate_experimentor,
+/obj/machinery/zetan_pirate_experimentor{
+	dir = 8
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/pirate/zetan)
 "jG" = (
@@ -140,6 +142,16 @@
 /obj/item/surgicaldrill/alien,
 /turf/open/floor/plating/abductor,
 /area/shuttle/pirate/zetan)
+"tY" = (
+/obj/machinery/door/airlock/abductor,
+/obj/docking_port/mobile/pirate{
+	dir = 8;
+	name = "Zetan Battlecruiser";
+	port_direction = 4;
+	preferred_direction = 8
+	},
+/turf/open/floor/plating/abductor,
+/area/shuttle/pirate/zetan)
 "vY" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating/abductor,
@@ -155,8 +167,8 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate{
 	dir = 4;
-	x_offset = -3;
-	y_offset = 7
+	y_offset = -4;
+	x_offset = -9
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/pirate/zetan)
@@ -166,6 +178,12 @@
 /area/shuttle/pirate/zetan)
 "zj" = (
 /obj/machinery/light/directional/north,
+/turf/open/floor/plating/abductor,
+/area/shuttle/pirate/zetan)
+"Az" = (
+/obj/machinery/zetan_pirate_experimentor{
+	dir = 4
+	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/pirate/zetan)
 "Dp" = (
@@ -204,6 +222,11 @@
 /obj/structure/closet/abductor,
 /obj/item/abductor/silencer,
 /obj/item/abductor/silencer,
+/obj/item/bodybag/environmental,
+/obj/item/bodybag/environmental,
+/obj/item/bodybag/environmental,
+/obj/item/bodybag/environmental,
+/obj/item/bodybag/environmental,
 /turf/open/floor/plating/abductor,
 /area/shuttle/pirate/zetan)
 "IV" = (
@@ -291,16 +314,6 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/pirate/zetan)
-"Zv" = (
-/obj/machinery/door/airlock/abductor,
-/obj/docking_port/mobile/pirate{
-	dir = 4;
-	launch_status = 0;
-	name = "Pirate Ship";
-	port_direction = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/pirate/zetan)
 
 (1,1,1) = {"
 PB
@@ -312,7 +325,7 @@ PB
 PB
 Je
 Je
-Zv
+mr
 KH
 mr
 Je
@@ -453,7 +466,7 @@ PB
 Je
 kJ
 sm
-iE
+Az
 sm
 sm
 sW
@@ -816,7 +829,7 @@ PB
 PB
 Je
 Je
-mr
+tY
 KH
 Je
 mr
