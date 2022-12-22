@@ -31,13 +31,13 @@
 	prompt_name = "a zetan cowboy"
 	mob_species = /datum/species/abductor
 	outfit = /datum/outfit/pirate/zetan
-	rank = "Deputy"
+	rank = "DEPUTY"
 	fluff_spawn = /obj/structure/showcase/machinery/oldpod/used
 	name_beginnings = "zetan_beginnings"
 	name_endings = "zetan_endings"
 
 /obj/effect/mob_spawn/ghost_role/human/pirate/zetan/captain
-	rank = "Sheriff"
+	rank = "SHERIFF"
 	outfit = /datum/outfit/pirate/zetan/captain
 
 /// outfits for zetan pirates
@@ -55,7 +55,7 @@
 	head = /obj/item/clothing/head/cowboy/black
 	shoes = /obj/item/clothing/shoes/cowboy
 	mask = /obj/item/clothing/mask/bandana/black
-	r_hand = /obj/item/gun/zetan_revolver
+	l_hand = /obj/item/gun/zetan_revolver
 
 /datum/outfit/pirate/zetan/captain
 	name = "Zetan Lone Star"
@@ -63,9 +63,10 @@
 	head = /obj/item/clothing/head/cowboy/white
 	mask = /obj/item/clothing/mask/bandana/white
 	belt = /obj/item/storage/belt/holster/zetan_pirate
-	l_hand = /obj/item/gun/zetan_revolver // captain gets two guns
+	r_hand = /obj/item/gun/zetan_revolver // captain gets two guns
 
 /// special items for zetan pirates
+/// zetan technology has gone past the need for space helmets
 /obj/item/clothing/suit/costume/pirate/armored/zetan
 	clothing_flags = STOPSPRESSUREDAMAGE
 	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS | HANDS | HEAD
@@ -84,7 +85,7 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.set_holdable(list(
 		/obj/item/gun/zetan_revolver,
-		/obj/item/food/
+		/obj/item/food/ // snacks
 		))
 
 /obj/item/gun/zetan_revolver
@@ -127,11 +128,58 @@
 
 /// quickie abductor machine for getting CASHMONEY
 /obj/machinery/zetan_pirate_experimentor
-	name = "hacked experimentation machine"
-	desc = "A large man-sized tube sporting a complex array of surgical machinery. It's wires seem kinda messed up."
+	name = "rapid experimentation machine"
+	desc = "A tubular machine of some kind, from the smell you can tell that it only fits cows and humanoids inside. You can see a money printing machine taped to it."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "experiment-open"
 	density = FALSE
 	state_open = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
+	var/static/list/winquotes = list(
+		"WOW DO YOU THINK THAT WE CAN DO THAT AGAIN?",
+		"MY MOMMA SAID THAT THIS IS NOT VERY GOOD FOR YOU.",
+		"YEAH JUST A FEW MORE LIKE THAT AND WE WILL PAY OFF ALL OF THE DEBTS.",
+		"MMMMM YUMMY TASTY YUM YUM YUM!!!!",
+		"im sad",
+		"CASH MONEE WE SHOULD USE IT TO BUY HATS.",
+		"UH OH I THINK THAT ONE GOT SENT TO THE COWS.",
+		"YEAH! YIPPIE! WAHOO! *SPINS AND FLIPS*",
+		"YOU ARE SO COOL FOR DOING THIS ONE.",
+		"Hey. Being serious for a moment. Thank's for everything you've done.",
+		)
+
+/obj/machinery/zetan_pirate_experimentor/MouseDrop_T(mob/living/target, mob/user)
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user))
+		return
+	if(!(ishuman(target) || iscow(target)))
+		return
+	if(isabductor(target))
+		return
+	perform_experiment(target)
+
+/obj/machinery/zetan_pirate_experimentor/proc/perform_experiment(mob/living/target)
+	if(iscow(target))
+		spit_cash(/obj/item/stack/spacecash/c10000, 2)
+		qdel(target)
+		say("ANOTHER TRIBUTE FOR THE HOMEWORLD. LETS GO METS!")
+		return
+	if(!ishuman(target))
+		return
+	spit_cash(/obj/item/stack/spacecash/c1000, 5)
+	var/organtype = pick(subtypesof(/obj/item/organ/internal/heart/gland))
+	var/obj/item/organ/internal/heart/gland/funnyorgan = new organtype()
+	funnyorgan.Insert(target, special = TRUE)
+	var/turf/dumpzone = get_safe_random_station_turf()
+	do_teleport(target, dumpzone, asoundout = 'sound/weapons/zapbang.ogg')
+	say(pick(winquotes))
+
+	if(target.stat != CONSCIOUS)
+		target.heal_and_revive(0, "[target] appears in a flash of squeaky light, more emotionally harmed than ever before, but no worse for wear.")
+
+/obj/machinery/zetan_pirate_experimentor/proc/spit_cash(cashpath, cashamount)
+	for(var/I in 1 to cashamount)
+		var/atom/movable/cash = new cashpath(loc)
+		var/atom/throw_target = get_edge_target_turf(src, dir)
+		var/throw_distance = rand(1, 5)
+		cash.safe_throw_at(throw_target, throw_distance, 1)
