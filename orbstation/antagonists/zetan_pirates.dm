@@ -14,9 +14,30 @@
 	response_too_late = "THANK YOU SO MUCH FOR YOUR OFFER BUT!"
 	response_not_enough = "YOUR NAME IS CARVED ON A WALL IN HELL."
 
+/// roles for zetans
+/obj/effect/mob_spawn/ghost_role/human/pirate/zetan
+	name = "alien sleeper"
+	desc = "An alien sleeping. Maybe? Are they watching you?"
+	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot.\
+					And if you can't find enough cash there's always abducting people!"
+	density = FALSE
+	icon = 'icons/obj/machines/sleeper.dmi'
+	icon_state = "sleeper"
+	prompt_name = "a zetan cowboy"
+	mob_species = /datum/species/abductor
+	outfit = /datum/outfit/pirate/zetan
+	rank = "Deputy"
+	fluff_spawn = /obj/structure/showcase/machinery/oldpod/used
+	name_beginnings = "zetan_beginnings"
+	name_endings = "zetan_endings"
+
+/obj/effect/mob_spawn/ghost_role/human/pirate/zetan/captain
+	rank = "Sheriff"
+	outfit = /datum/outfit/pirate/zetan/captain
+
 /// outfits for zetans
 /datum/outfit/pirate/zetan
-	name = "Zetan Dephuty"
+	name = "Zetan Deputy"
 
 	id = /obj/item/card/id/advanced
 	id_trim = /datum/id_trim/pirate
