@@ -240,16 +240,6 @@
 "PB" = (
 /turf/template_noop,
 /area/template_noop)
-"QH" = (
-/obj/machinery/door/airlock/abductor,
-/obj/docking_port/mobile/pirate{
-	dir = 4;
-	launch_status = 0;
-	name = "Pirate Ship";
-	port_direction = 4
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/pirate/zetan)
 "Rv" = (
 /obj/structure/table/optable/abductor,
 /turf/open/floor/plating/abductor,
@@ -301,6 +291,16 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/pirate/zetan)
+"Zv" = (
+/obj/machinery/door/airlock/abductor,
+/obj/docking_port/mobile/pirate{
+	dir = 4;
+	launch_status = 0;
+	name = "Pirate Ship";
+	port_direction = 4
+	},
+/turf/open/floor/plating/abductor,
+/area/shuttle/pirate/zetan)
 
 (1,1,1) = {"
 PB
@@ -312,7 +312,7 @@ PB
 PB
 Je
 Je
-QH
+Zv
 KH
 mr
 Je
@@ -561,8 +561,8 @@ Dp
 sm
 sm
 sm
-sm
 mr
+sm
 pb
 pb
 pb
