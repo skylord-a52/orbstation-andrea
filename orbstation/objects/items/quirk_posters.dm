@@ -142,7 +142,7 @@
 	never_random = TRUE
 	random_basetype = /obj/structure/sign/poster/quirk/crew
 
-/obj/structure/sign/poster/traitor/festive
+/obj/structure/sign/poster/quirk/festive
 	name = "Together For The Holidays."
 	desc = "A poster holding hands and reminding us of the holidays we spend together. \
 	When people read this poster they'll feel better!"
