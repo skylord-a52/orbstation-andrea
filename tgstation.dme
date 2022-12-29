@@ -4984,6 +4984,7 @@
 #include "orbstation\antagonists\wizard_journeyman\grand_ritual\grand_ritual_finale.dm"
 #include "orbstation\antagonists\wizard_journeyman\grand_ritual\grand_rune.dm"
 #include "orbstation\antagonists\wizard_journeyman\grand_ritual\grand_side_effect.dm"
+#include "orbstation\antagonists\zetan_pirates.dm"
 #include "orbstation\chaplain\cursed_tome.dm"
 #include "orbstation\chaplain\ratlain.dm"
 #include "orbstation\chemistry\reagents.dm"
