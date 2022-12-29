@@ -7,3 +7,6 @@
 // Removed fatness insult
 /datum/glass_style/drinking_glass/fernet_cola
 	desc = "A sawed-off cola bottle filled with Fernet Cola. Nothing better for avoiding a trip to the vomitorium."
+
+/obj/item/food/burger/catburger
+	desc = "Specially formulated by, for, and of cats."
