@@ -275,6 +275,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	report += printplayer(owner)
 
+	/** ORBSTATION: We don't want to report success or failure
 	var/objectives_complete = TRUE
 	if(objectives.len)
 		report += printobjectives(objectives)
@@ -287,7 +288,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
-
+	 */
 	return report.Join("<br>")
 
 /**
@@ -488,6 +489,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/action/antag_info
 	name = "Open Antag Information:"
 	button_icon_state = "round_end"
+	show_to_observers = FALSE
 
 /datum/action/antag_info/New(Target)
 	. = ..()

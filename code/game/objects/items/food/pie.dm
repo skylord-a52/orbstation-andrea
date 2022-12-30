@@ -13,7 +13,7 @@
 	/// type is spawned 5 at a time and replaces this pie when processed by cutting tool
 	var/obj/item/food/pieslice/slice_type
 	/// so that the yield can change if it isnt 5
-	var/obj/item/food/pie/yield = 5
+	var/yield = 5
 
 /obj/item/food/pie/MakeProcessable()
 	if (slice_type)
@@ -66,7 +66,7 @@
 		if(iscarbon(living_target_getting_hit))
 			is_creamable = !!(living_target_getting_hit.get_bodypart(BODY_ZONE_HEAD))
 		if(is_creamable)
-			living_target_getting_hit.adjust_blurriness(1)
+			living_target_getting_hit.adjust_eye_blur(2 SECONDS)
 		living_target_getting_hit.visible_message(span_warning("[living_target_getting_hit] is creamed by [src]!"), span_userdanger("You've been creamed by [src]!"))
 		playsound(living_target_getting_hit, SFX_DESECRATION, 50, TRUE)
 	if(is_creamable && is_type_in_typecache(hit_atom, GLOB.creamable))

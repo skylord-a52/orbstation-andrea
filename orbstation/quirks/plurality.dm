@@ -32,7 +32,7 @@
 	icon = 'orbstation/icons/obj/misc.dmi'
 	icon_state = "plural_chip_1"
 	w_class = WEIGHT_CLASS_TINY
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
+	armor_type = /datum/armor/plural_system_chip
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	req_access = list(ACCESS_HOP)
 
@@ -254,7 +254,7 @@
 // as it would be redundant. This means that if their face is covered (such as by a gas mask) the system name on the chip will be visible.
 /mob/living/carbon/human/get_id_name(if_no_id = "Unknown", check_plurality = FALSE, append_system_name = FALSE)
 	var/obj/item/storage/wallet/wallet = wear_id
-	var/obj/item/modular_computer/tablet/pda/pda = wear_id
+	var/obj/item/modular_computer/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	var/name_to_return = if_no_id
 	if(istype(wallet))
@@ -319,3 +319,7 @@
 	desc = "Contains a single plural system chip. The chip must be swiped by an ID card with Head of Personnel access to be unlocked and configured."
 	cost = PAYCHECK_CREW * 4
 	contains = list(/obj/item/plural_system_chip)
+
+/datum/armor/plural_system_chip
+	fire = 100
+	acid = 100
