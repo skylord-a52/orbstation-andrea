@@ -388,7 +388,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/sbc_starfury)
 "ep" = (
-/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/sbc_starfury)
 "et" = (
@@ -693,7 +693,7 @@
 	},
 /obj/item/card/id/advanced/black/syndicate_command/captain_id/syndie_spare,
 /obj/item/clothing/head/hats/hos/syndicate,
-/obj/item/clothing/head/hos/beret/syndicate,
+/obj/item/clothing/head/hats/hos/beret/syndicate,
 /obj/item/clothing/under/syndicate/skirt,
 /obj/item/clothing/under/syndicate,
 /obj/item/storage/belt/military/assault,

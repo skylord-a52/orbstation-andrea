@@ -26,6 +26,7 @@
 		/obj/effect/spawner/random/food_or_drink/donkpockets_single = 5,
 		/obj/effect/spawner/random/entertainment/toy = 3,
 		/obj/effect/spawner/random/entertainment/coin = 2,
+		/obj/effect/spawner/random/entertainment/magazine = 1,
 	)
 	// Overlays (pure fluff)
 	/// Does the letter have the postmark overlay?
@@ -53,7 +54,7 @@
 
 /obj/item/mail/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 	AddElement(/datum/element/item_scaling, 0.75, 1)
 	if(isnull(department_colors))
 		department_colors = list(

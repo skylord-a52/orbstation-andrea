@@ -68,7 +68,18 @@
 		list("Swiftcast! Hastega! Abjurer's Ward II! Extend IV! Tenser's Advanced Enhancement! Protection from Good! Enhance Effect III! Arcane Re...",
 			"...inforcement IV! Turn Vermin X! Protection from Evil II! Mage's Shield! Venerious's Mediocre Enhancement II! Expand Power! Banish Hu...",
 			"...nger II! Protection from Neutral! Surecastaga! Refresh! Refresh II! Sharpcast X! Aetherial Manipulation! Ley Line Absorption! Invoke Grand Ritual!!"),
-		list("git checkout origin master", "git reset --hard HEAD~2", "git push origin master --force!!",)
+		list("git checkout origin master", "git reset --hard HEAD~2", "git push origin master --force!!"),
+		list("T'yu! T'mei!", "T'yu! T'mei! T'yu! T'mei!", "O'dere! O'dere O'dere!!"),
+		list("Snap! Click! Clank! Whirr! Whizz! Wham! Boom!", "Crack! Thoom! Snap! Bam! Bim! Bang! Zoom!", "Nearsoon, Firebloom, Crimson FOOM!!"),
+		list("Eenie, meenie... ", "Miney... ", "Mo!!"),
+		list("Levios!", "Graviole!", "Explomb!!"),
+		list("Cuh'men Cee Im!", "Cuh'men Mee Im!", "E'shur Bes Fren!"),
+		list("He he!", "Ha ha!", "BOBO!!"),
+		list("Ora!", "Dora!", "Mudah!!"),
+		list("...", "...... heh.", "*snap"),
+		list("Ultimate School of Magic!", "Ultimate Ritual!", "Macrocosm!!"),
+		list("Planetary Revolution!", "Ten Evil Stars!", "Hell and Heaven Meltdown!!"),
+		list("Nake...", "Snake...", "Cobura, Cobura!"),
 	)
 
 // Prepare magic words and hide from silicons
@@ -115,7 +126,7 @@
 
 /obj/effect/grand_rune/interact(mob/living/user)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/invoke_rune, user)
+	INVOKE_ASYNC(src, PROC_REF(invoke_rune), user)
 	return TRUE
 
 /// Actually does the whole invoking thing
@@ -141,7 +152,7 @@
 		return
 	flick("flash", src)
 	playsound(src,'sound/magic/staff_animation.ogg', 75, TRUE)
-	INVOKE_ASYNC(src, .proc/invoke_rune, user)
+	INVOKE_ASYNC(src, PROC_REF(invoke_rune), user)
 
 /// Add special effects for casting a spell, basically you glow and hover in the air.
 /obj/effect/grand_rune/proc/add_channel_effect(mob/living/user)
@@ -160,12 +171,12 @@
 /obj/effect/grand_rune/proc/on_invocation_complete(mob/living/user)
 	is_in_use = FALSE
 	playsound(src,'sound/magic/staff_change.ogg', 75, TRUE)
-	INVOKE_ASYNC(src, .proc/summon_round_event, user) // Running the event sleeps
+	INVOKE_ASYNC(src, PROC_REF(summon_round_event), user) // Running the event sleeps
 	trigger_side_effects()
 	tear_reality()
 	SEND_SIGNAL(src, COMSIG_GRAND_RUNE_COMPLETE)
 	flick("activate", src)
-	addtimer(CALLBACK(src, .proc/remove_rune), 6)
+	addtimer(CALLBACK(src, PROC_REF(remove_rune)), 6)
 
 /obj/effect/grand_rune/proc/remove_rune()
 	new /obj/effect/decal/cleanable/grand_remains(get_turf(src))

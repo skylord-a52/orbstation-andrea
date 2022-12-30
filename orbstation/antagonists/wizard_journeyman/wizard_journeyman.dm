@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(journeymanstart)
 	var/mob/living/current = owner.current
 	ritual.Grant(current)
 	current.faction |= ROLE_WIZARD
-	RegisterSignal(ritual, COMSIG_GRAND_RITUAL_FINAL_COMPLETE, .proc/on_ritual_complete)
+	RegisterSignal(ritual, COMSIG_GRAND_RITUAL_FINAL_COMPLETE, PROC_REF(on_ritual_complete))
 
 /datum/antagonist/wizard_journeyman/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -191,18 +191,20 @@ GLOBAL_LIST_EMPTY(journeymanstart)
 	report += printplayer(owner)
 	report += "<br><B>Grand Rituals completed:</B> [ritual.times_completed]<br>"
 
-	var/objectives_complete = TRUE
+	//var/objectives_complete = TRUE
 	if(objectives.len)
 		report += printobjectives(objectives)
-		for(var/datum/objective/objective in objectives)
-			if(!objective.check_completion())
-				objectives_complete = FALSE
-				break
+		//for(var/datum/objective/objective in objectives)
+		//	if(!objective.check_completion())
+		//		objectives_complete = FALSE
+		//		break
 
+	/** I'm leaving this here instead of deleting it because I will want to restore it when PRing to TG
 	if(objectives.len == 0 || objectives_complete)
 		report += "<br><span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<br><span class='redtext big'>The [name] has failed!</span>"
+	 */
 
 	report += "<br><B>Spells chosen:</B> "
 	for (var/spell in learned_spells)

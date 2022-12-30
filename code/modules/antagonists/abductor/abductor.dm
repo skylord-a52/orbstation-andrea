@@ -116,6 +116,7 @@
 	. = ..()
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner,mob/admin)
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_ABDUCTOR_SHIPS)
 	var/list/current_teams = list()
 	for(var/datum/team/abductor_team/T in GLOB.antagonist_teams)
 		current_teams[T.name] = T
@@ -132,7 +133,7 @@
 
 /datum/antagonist/abductor/get_admin_commands()
 	. = ..()
-	.["Equip"] = CALLBACK(src,.proc/admin_equip)
+	.["Equip"] = CALLBACK(src, PROC_REF(admin_equip))
 
 /datum/antagonist/abductor/proc/admin_equip(mob/admin)
 	if(!ishuman(owner.current))
@@ -162,14 +163,14 @@
 /datum/team/abductor_team/roundend_report()
 	var/list/result = list()
 
-	var/won = TRUE
-	for(var/datum/objective/O in objectives)
-		if(!O.check_completion())
-			won = FALSE
-	if(won)
-		result += "<span class='greentext big'>[name] team fulfilled its mission!</span>"
-	else
-		result += "<span class='redtext big'>[name] team failed its mission.</span>"
+	//var/won = TRUE
+	//for(var/datum/objective/O in objectives)
+	//	if(!O.check_completion())
+	//		won = FALSE
+	//if(won)
+	//	result += "<span class='greentext big'>[name] team fulfilled its mission!</span>"
+	//else
+	//	result += "<span class='redtext big'>[name] team failed its mission.</span>"
 
 	result += "<span class='header'>The abductors of [name] were:</span>"
 	for(var/datum/mind/abductor_mind in members)

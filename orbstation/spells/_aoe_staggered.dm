@@ -7,7 +7,7 @@
  */
 /datum/action/cooldown/spell/aoe_staggered
 	/// Period to wait between each 'wave'
-	var/stagger_period = 0.5 SECONDS
+	var/stagger_period = 0.2 SECONDS
 	/// The radius of the aoe.
 	var/aoe_radius = 7
 
@@ -33,7 +33,7 @@
 	for (var/iterator in 1 to aoe_radius)
 		if(!staggered_things_to_cast_on["[iterator]"])
 			continue
-		addtimer(CALLBACK(src, .proc/cast_wave, staggered_things_to_cast_on["[iterator]"], cast_on, iterator), stagger_period * iterator)
+		addtimer(CALLBACK(src, PROC_REF(cast_wave), staggered_things_to_cast_on["[iterator]"], cast_on, iterator), stagger_period * iterator)
 
 /**
  * Gets a list of atoms around [center] that are within range and going to be affected by our aoe.

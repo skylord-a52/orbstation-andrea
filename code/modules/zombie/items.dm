@@ -34,9 +34,11 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	else if(isliving(target) && !ishuman(target))
-		// ORBSTATION: Zombie claws don't infect people, there's a bite action for that.
-		check_feast(target, user)
+	else if(isliving(target))
+		if(ishuman(target))
+			try_to_zombie_infect(target)
+		else
+			check_feast(target, user)
 
 /proc/try_to_zombie_infect(mob/living/carbon/human/target)
 	CHECK_DNA_AND_SPECIES(target)
@@ -50,26 +52,25 @@
 	if(istype(target) && target.reagents.has_reagent(/datum/reagent/medicine/spaceacillin) && prob(75))
 		return
 
+	if(prob(75)) /// Orbstation zombies have a 75% chance of infecting
+		return
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = target.getorganslot(ORGAN_SLOT_ZOMBIE)
 	if(!infection)
 		infection = new()
 		infection.Insert(target)
 
-
-
-/obj/item/zombie_hand/suicide_act(mob/user)
+/obj/item/zombie_hand/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is ripping [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!"))
-	if(isliving(user))
-		var/mob/living/L = user
-		var/obj/item/bodypart/O = L.get_bodypart(BODY_ZONE_HEAD)
-		if(O)
-			O.dismember()
-	return (BRUTELOSS)
+	var/obj/item/bodypart/head = user.get_bodypart(BODY_ZONE_HEAD)
+	if(head)
+		head.dismember()
+	return BRUTELOSS
 
 /obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)
 		var/hp_gained = target.maxHealth
+		target.investigate_log("has been devoured by a zombie.", INVESTIGATE_DEATHS)
 		target.gib()
 		// zero as argument for no instant health update
 		user.adjustBruteLoss(-hp_gained, 0)

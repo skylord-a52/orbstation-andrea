@@ -37,14 +37,6 @@
 	category = DIPLOMA_SPELL_OFFENSIVE
 	weight = DIPLOMA_SPELL_RARE
 
-/datum/diploma_spell/item/guardian/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	. = ..()
-	if(!.)
-		return
-
-	new /obj/item/paper/guides/antag/guardian/wizard(get_turf(user))
-	to_chat(user, span_notice("If you are not experienced in the ways of wizardly guardians, a guide has been summoned at your feet."))
-
 /datum/diploma_spell/fireball
 	name = "Fireball"
 	desc = "Fires an explosive fireball at a target. Considered a classic among all wizards."
@@ -83,7 +75,7 @@
 	name = "Tesla Blast"
 	desc = "Charge up a tesla arc and release it at a random nearby target! You can move freely while it charges. \
 		The arc jumps between targets and can knock them down."
-	spell_type = /datum/action/cooldown/spell/tesla
+	spell_type = /datum/action/cooldown/spell/charged/beam/tesla
 	category = DIPLOMA_SPELL_OFFENSIVE
 	weight = DIPLOMA_SPELL_UNCOMMON
 
