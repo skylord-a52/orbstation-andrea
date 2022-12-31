@@ -5059,6 +5059,7 @@
 #include "orbstation\orb_modules\flavor_text\antag_flavor_removal.dm"
 #include "orbstation\orb_modules\flavor_text\examine_procs.dm"
 #include "orbstation\orb_modules\flavor_text\flavor_text_prefs.dm"
+#include "orbstation\orb_species\human.dm"
 #include "orbstation\orb_species\species_defines.dm"
 #include "orbstation\orb_species\ratfolk\ratfolk.dm"
 #include "orbstation\orb_species\ratfolk\ratfolk_accessories.dm"
