@@ -2,50 +2,47 @@
 	desc = "The galactic common tongue. A trade language composed of several prominent galactic languages, primarily Sol Standard, Draconic, and Mothic."
 
 	/*
-	 * syllable lists are taken from a few source syllable lists, but cut down and simplified following the few general rules.
-	 * the goal is for each source language to be identifiable, but for the whole language to have a coherent and simple-to-speak
+	 * Syllable lists are taken from a few source syllable lists, but cut down and simplified following the few general rules.
+	 * The goal is for each source language to be identifiable, but for the whole language to have a coherent and simple-to-speak
 	 * aesthetic.
 	 *
-	 * - only allow the consonants /m, k, j, n, s, t, l, h, ɡ, ŋ, d, r/, with two or so exceptions per language
+	 * - Only allow the consonants /m, k, j, n, s, t, l, h, ɡ, ŋ, d, r/, with two or so exceptions per language
 	 *
-	 * 		- note that /j/ is pronounced like "y" would be pronounced in english
+	 * 		- Note that /j/ is pronounced like "y" would be pronounced in English
 	 *
-	 * 		- these are the most common human phonemes with the addition of /r/ (present in mothic and draconic already anyway)
+	 * 		- These are the most common human phonemes with the addition of /r/ (present in mothic and draconic already anyway)
 	 * 		  and the removal of /p/, /b/, and /w/ (hard for species without lips to pronounce)
 	 *
-	 * 		- digraphs (zh, ng, etc) are considered as a single sound, not multiple consonants.
+	 * 		- Digraphs (zh, ng, etc) are considered as a single sound, not multiple consonants.
 	 *
-	 * 		- modification of consonants by the following vowel is ignored -- no palatalization
+	 * 		- Modification of consonants by the following vowel is ignored -- no palatalization
 	 *
-	 * 		- r is included as a "simple" consonant because while uncommon in most human languages, it's present in all three source languages
+	 * - Only allow the vowels /a, i, u, e, o/, with one allowed exception per language
+	 * 		- This mainly applies to Mothic.
+	 * 		- We'll assume that the English source syllables -- which dont actually use these vowels in reality --
+	 * 		  are read as using the five-vowel system instead of English's vowels.
 	 *
-	 * - only allow the vowels /a, i, u, e, o/ with one allowed exception per language
-	 * 		- this mainly applies to mothic.
-	 * 		- we'll assume that the english source syllables -- which dont actually use these vowels in reality --
-	 * 		  are read as using the five-vowel system instead of english's vowels.
+	 * - Exactly one or two vowels per syllable.
 	 *
-	 * - min. one and max. two vowels per syllable
+	 * - Two consonants in a row ("nt", "hv", etc -- not digraphs) are allowed... barely.
 	 *
-	 * - two consonants in a row ("nt", "hv", etc -- not digraphs) are allowed but on thin ice
-	 *
-	 * - no doubled letters
+	 * - Avoid doubled letters.
 	 */
 
 	syllables = list(
 
-		// solcom.
-		// unique consonants: f, j, th, zh. no unique vowels.
-		// it gets extra consonants because it's kind of two languages.
-		// f, j are shared between eng + mand, and th/zh are defining sounds of each language
+		// Solcom
+		// Unique consonants: th, zh
+		// Removed a number of syllables with disallowed consonants or too many vowels
+		// Modified some syllables to remove doubled letters
 		list(
 			list(
 				"a", "ai", "an", "ang", "ao", "da", "dai", "dan", "dang", "dao", "de", "dei",
 				"den", "deng", "di", "dian", "die", "ding", "diu", "dong", "dou", "du", "duan", "dui", "dun", "duo", "e",
-				"ei", "en", "er", "fa", "fan", "fang", "fei", "fen", "feng", "fo", "fou", "fu", "ga", "gai", "gan", "gang",
+				"ei", "en", "er", "ga", "gai", "gan", "gang",
 				"gao", "ge", "gei", "gen", "geng", "gong", "gou", "gu", "gua", "guan", "guang", "gui", "gun", "guo", "ha",
 				"hai", "han", "hang", "hao", "he", "hei", "hen", "heng", "hm", "hng", "hong", "hou", "hu", "hua", "huan",
-				"huang", "hui", "hun", "huo", "ji", "jia", "jian", "jiang", "jiao", "jie", "jin", "jing", "jiong", "jiu", "ju", "juan",
-				"jue", "jun", "ka", "kai", "kan", "kang", "kao", "ke", "kei", "ken", "keng", "kong", "kou", "ku", "kua",
+				"huang", "hui", "hun", "huo", "ka", "kai", "kan", "kang", "kao", "ke", "kei", "ken", "keng", "kong", "kou", "ku", "kua",
 				"kuan", "kuang", "kui", "kun", "kuo", "la", "lai", "lan", "lang", "lao", "le", "lei", "leng", "li", "lia", "lian",
 				"liang", "lie", "lin", "ling", "liu", "long", "lou", "lu", "luan", "lun", "luo", "ma", "mai", "man", "mang",
 				"mao", "me", "mei", "men", "meng", "mi", "mian", "mie", "min", "ming", "miu", "mo", "mou", "mu", "na",
@@ -61,14 +58,15 @@
 			list(
 				"al", "an", "as", "at", "ea", "ed", "en", "er", "es", "ha", "he", "hi", "in", "is", "it",
 				"le", "me", "nd", "ne", "ng", "nt", "on", "or", "ou", "re", "se", "st", "te", "th", "ti", "to",
-				"al", "and", "are", "ent", "era", "ere", "for", "had", "hat", "hen", "her", "hin",
+				"al", "and", "are", "ent", "era", "ere", "had", "hat", "hen", "her", "hin",
 				"his", "ing", "ion", "ith", "not", "ome", "oul", "our", "ted", "ter", "tha", "the", "thi",
 			),
 		),
 
-		// tiziran/draconic
-		// unique consonants: z, sh
-		// removed syllables with no vowels, syllables with doubled letters
+		// Tiziran/Draconic
+		// Unique consonants: z, sh
+		// No unique vowels
+		// Removed syllables with no vowels and syllables with doubled letters
 		list(
 			"za", "az", "ze", "ez", "zi", "iz", "zo", "oz", "zu", "uz",
 			"ha", "ah", "he", "eh", "hi", "ih", "ho", "oh", "hu", "uh",
@@ -79,14 +77,14 @@
 			"a",  "a",  "e",  "e",  "i",  "i",  "o",  "o",  "u",  "u",
 		),
 
-		// mothic
-		// unique consonants: v
-		// unique vowels: ä
-		// "c" changed to "k",
+		// Mothic
+		// Unique consonants: v
+		// Unique vowels: ä
+		// "c" changed to "k"
 		// "j" changed to "y" (for consistency with english and mandarin "y")
-		// diacritic-modified vowels replaced by base form or ä
-		// vowel y replaced with "i"
-		// removed doubled letters and syllables with no vowels
+		// Diacritic-modified vowels replaced by base form or ä
+		// Vowel y replaced with "i"
+		// Removed doubled letters and syllables with no vowels
 		list(
 			"ar", "i", "gar", "sek", "mo", "ok", "o", "ga", "la", "le",
 			"lit", "igg", "van", "där", "na", "mot", "id", "hvo", "ya", "han",
@@ -95,20 +93,24 @@
 			"hei", "huo", "suo", "ä", "ten", "ya", "heu", "stu", "uhr", "kon", "we", "hon"
 		),
 
-		// syllables unique to galcom.
-		// added to give it more of its own identity
-		// includes the sounds necessary to say "galcom"
-		// heavy bias towards /g/, which is easy to say and relatively unused in other languages
+		// Syllables unique to Galcom.
+		// Added to give it more of a unique/cohesive identity.
+		// Features a heavy bias towards /g/, which is easy to pronounce and under-represented
+		// in other languages
 		list(
-			list(
-				"ga", "gi", "gu", "ge", "go",
-			),
-			list(
-				"gal", "kom", "mok", "lag",
-				"ka", "ki", "ku", "ke", "ko",
-				"la", "li", "lu", "le", "lo",
-				"ma", "mi", "mu", "me", "mo",
-			)
+			"ga", "gi", "gu", "ge", "go", "gä",
+			"gai", "gao", "gam", "gal",
+			"gia", "giu", "gio", "gim", "gil",
+			"guo", "gui", "gua", "gum", "gul",
+			"geo", "gei", "gem", "gel",
+			"goi", "gou", "gom", "gol",
+			"gäi", "gäo", "gäm", "gäl"
+
+			"ka", "ki", "ku", "ke", "ko",
+			"la", "li", "lu", "le", "lo",
+			"ma", "mi", "mu", "me", "mo",
+
+			"gal", "kom", "mok", "lag",
 		)
 
 	)
