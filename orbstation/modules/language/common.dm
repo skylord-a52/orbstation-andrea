@@ -104,7 +104,7 @@
 			"guo", "gui", "gua", "gum", "gul",
 			"geo", "gei", "gem", "gel",
 			"goi", "gou", "gom", "gol",
-			"gäi", "gäo", "gäm", "gäl"
+			"gäi", "gäo", "gäm", "gäl",
 
 			"ka", "ki", "ku", "ke", "ko",
 			"la", "li", "lu", "le", "lo",
