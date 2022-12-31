@@ -57,7 +57,7 @@
 			),
 			list(
 				"al", "an", "as", "at", "ea", "ed", "en", "er", "es", "ha", "he", "hi", "in", "is", "it",
-				"le", "me", "nd", "ne", "ng", "nt", "on", "or", "ou", "re", "se", "st", "te", "th", "ti", "to",
+				"le", "me", "ne", "on", "or", "ou", "re", "se", "te", "ti", "to",
 				"al", "and", "are", "ent", "era", "ere", "had", "hat", "hen", "her", "hin",
 				"his", "ing", "ion", "ith", "not", "ome", "oul", "our", "ted", "ter", "tha", "the", "thi",
 			),
