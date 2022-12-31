@@ -5027,6 +5027,7 @@
 #include "orbstation\modules\client\preferences\_preference.dm"
 #include "orbstation\modules\language\common.dm"
 #include "orbstation\modules\language\nekomimetic.dm"
+#include "orbstation\modules\language\ratvaric.dm"
 #include "orbstation\modules\language\uncommon.dm"
 #include "orbstation\modules\machinery\dna_infuser.dm"
 #include "orbstation\modules\mining\chasm_rescue.dm"
