@@ -11,7 +11,7 @@
 	 * 		- Note that /j/ is pronounced like "y" would be pronounced in English
 	 *
 	 * 		- These are the most common human phonemes with the addition of /r/ (present in mothic and draconic already anyway)
-	 * 		  and the removal of /p/, /b/, and /w/ (hard for species without lips to pronounce)
+	 * 		  and the removal of /p/ and /b/ (hard for species without lips to pronounce)
 	 *
 	 * 		- Digraphs (zh, ng, etc) are considered as a single sound, not multiple consonants.
 	 *
