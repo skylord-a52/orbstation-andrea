@@ -6,6 +6,8 @@
 
 /datum/language/nekomimetic
 	icon = 'orbstation/icons/misc/language.dmi'
+	icon_state = "orb-neko"
 
 /datum/language/piratespeak
 	icon = 'orbstation/icons/misc/language.dmi'
+	icon_state = "orb-pirate"
