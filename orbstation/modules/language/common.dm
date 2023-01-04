@@ -1,5 +1,7 @@
 /datum/language/common
 	desc = "The galactic common tongue. A trade language composed of several prominent galactic languages, primarily Sol Standard, Draconic, and Mothic."
+	icon = 'orbstation/icons/misc/language.dmi'
+	icon_state = "galcom"
 
 	/*
 	 * Syllable lists are taken from a few source syllable lists, but cut down and simplified following the few general rules.
