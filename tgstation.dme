@@ -4996,6 +4996,7 @@
 #include "orbstation\chemistry\reagents.dm"
 #include "orbstation\chemistry\recipes.dm"
 #include "orbstation\cleanup\bounties.dm"
+#include "orbstation\cleanup\diseases.dm"
 #include "orbstation\cleanup\food.dm"
 #include "orbstation\cleanup\items.dm"
 #include "orbstation\cleanup\moodlets.dm"
