@@ -31,36 +31,37 @@
 
 		// "Complex" syllables, yanked from source languages
 		list(
-			// Solcom
+			// Sol
 			// Unique consonants: th, zh (z also allowed, via Draconic)
 			// Removed a number of syllables with disallowed consonants or too many vowels
 			// Modified some syllables to remove doubled letters
 			// Replaced fs with vs (/v/ already allowed via Mothic)
+			// Since Sol has so many syllables, syllables that are already covered by simple list were removed
 			list(
 				list(
-					"a", "ai", "an", "ang", "ao", "da", "dai", "dan", "dang", "dao", "de", "dei",
-					"den", "deng", "di", "dian", "die", "ding", "diu", "dong", "dou", "du", "duan", "dui", "dun", "duo", "e",
-					"ei", "en", "er", "va", "van", "vang", "vei", "ven", "veng", "vo", "vou", "vu", "ga", "gai", "gan", "gang",
-					"gao", "ge", "gei", "gen", "geng", "gong", "gou", "gu", "gua", "guai", "guan", "guang", "gui", "gun", "guo", "ha",
+					"ai", "an", "ang", "ao", "da", "dai", "dan", "dang", "dao", "de", "dei",
+					"den", "deng", "di", "dian", "die", "ding", "diu", "dong", "dou", "du", "duan", "dui", "dun", "duo",
+					"ei", "en", "er", "van", "vang", "vei", "ven", "veng", "vou", "gai", "gan", "gang",
+					"gao", "gei", "gen", "geng", "gong", "gou", "gua", "guai", "guan", "guang", "gui", "gun", "guo", "ha",
 					"hai", "han", "hang", "hao", "he", "hei", "hen", "heng", "hm", "hng", "hong", "hou", "hu", "hua", "huai", "huan",
-					"huang", "hui", "hun", "huo", "ka", "kai", "kan", "kang", "kao", "ke", "kei", "ken", "keng", "kong", "kou", "ku", "kua", "kuai",
-					"kuan", "kuang", "kui", "kun", "kuo", "la", "lai", "lan", "lang", "lao", "le", "lei", "leng", "li", "lia", "lian",
-					"liang", "lie", "lin", "ling", "liu", "long", "lou", "lu", "luan", "lun", "luo", "ma", "mai", "man", "mang",
-					"mao", "me", "mei", "men", "meng", "mi", "mian", "mie", "min", "ming", "miu", "mo", "mou", "mu", "na",
+					"huang", "hui", "hun", "huo", "kai", "kan", "kang", "kao", "kei", "ken", "keng", "kong", "kou", "kua", "kuai",
+					"kuan", "kuang", "kui", "kun", "kuo", "lai", "lan", "lang", "lao", "lei", "leng", "lia", "lian",
+					"liang", "lie", "lin", "ling", "liu", "long", "lou", "luan", "lun", "luo", "mai", "man", "mang",
+					"mao", "mei", "men", "meng", "mian", "mie", "min", "ming", "miu", "mou", "na",
 					"nai", "nan", "nang", "nao", "ne", "nei", "nen", "neng", "ng", "ni", "nian", "niang", "nie", "nin", "ning",
-					"niu", "nong", "nou", "nu", "nuan", "nuo", "o", "ou", "ran", "rang", "rao", "re", "ren", "reng", "ri", "rong", "rou",
-					"ru", "rua", "ruan", "rui", "run", "ruo", "sa", "sai", "san", "sang", "sao", "se", "sei", "sen", "seng",
-					"si", "song", "sou", "su", "suan", "sui", "sun", "suo", "ta", "tai", "tan", "tang", "tao", "te",
-					"teng", "ti", "tian", "tie", "ting", "tong", "tou", "tu", "tuan", "tui", "tun", "tuo",
-					"ya", "yan", "yang", "yao", "ye", "yi", "yin", "ying", "yong", "you", "yu", "yuan",
-					"yue", "yun", "za", "zai", "zan", "zang", "zao", "ze", "zei", "zen", "zeng", "zha", "zhai", "zhan", "zhang", "zhao",
-					"zhe", "zhei", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui", "zhun", "zhuo", "zi",
-					"zong", "zou", "zuan", "zui", "zun", "zuo", "zu",
+					"niu", "nong", "nou", "nu", "nuan", "nuo", "ou", "ran", "rang", "rao", "ren", "reng", "rong", "rou",
+					"rua", "ruan", "rui", "run", "ruo", "sai", "san", "sang", "sao", "sei", "sen", "seng",
+					"song", "sou", "suan", "sui", "sun", "suo", "tai", "tan", "tang", "tao",
+					"teng", "tian", "tie", "ting", "tong", "tou", "tuan", "tui", "tun", "tuo",
+					"yan", "yang", "yao", "yin", "ying", "yong", "you", "yuan",
+					"yue", "yun", "zai", "zan", "zang", "zao", "zei", "zen", "zeng", "zha", "zhai", "zhan", "zhang", "zhao",
+					"zhe", "zhei", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui", "zhun", "zhuo",
+					"zong", "zou", "zuan", "zui", "zun", "zuo",
 				),
 				list(
 					"al", "an", "ar", "as", "at", "ea", "ed", "en", "er", "es", "ha", "he", "hi", "in", "is", "it",
-					"le", "me", "nd", "ne", "ng", "nt", "on", "or", "ou", "re", "se", "st", "te", "th", "ti", "to",
-					"ve", "wa", "al", "and", "are", "ent", "era", "ere", "vor", "eve", "had", "hat", "hen", "her", "hin",
+					"nd", "ne", "ng", "nt", "on", "or", "ou", "st", "te", "th",
+					"al", "and", "are", "ent", "era", "ere", "vor", "eve", "had", "hat", "hen", "her", "hin",
 					"his", "ing", "ion", "ith", "not", "ome", "oul", "our", "ted", "ter", "tha", "the", "thi",
 				),
 			),
@@ -70,7 +71,7 @@
 			// No unique vowels
 			list(
 				"za", "az", "ze", "ez", "zi", "iz", "zo", "oz", "zu", "uz", "zs", "sz",
-				"ha", "ah", "he", "eh", "hi", "ih", "ho", "oh", "hu", "uh",
+				"ha", "ah", "he", "eh", "hi", "ih", "ho", "oh", "hu", "uh", "hs", "sh",
 				"la", "al", "le", "el", "li", "il", "lo", "ol", "lu", "ul", "ls", "sl",
 				"ka", "ak", "ke", "ek", "ki", "ik", "ko", "ok", "ku", "uk", "ks", "sk",
 				"sa", "as", "se", "es", "si", "is", "so", "os", "su", "us", "ss", "ss",
@@ -112,6 +113,7 @@
 		// Simple syllables making up the bulk of the language
 		// Based on the general distribution of the source languages after removing complex/rare consonants
 		list(
+			"a", "i", "u", "e", "o", "ä",
 			"ga", "gi", "gu", "ge", "go", "gä",
 			"ka", "ki", "ku", "ke", "ko", "kä",
 			"la", "li", "lu", "le", "lo", "lä",
