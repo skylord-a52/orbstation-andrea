@@ -5059,6 +5059,7 @@
 #include "orbstation\objects\items\pride_flags.dm"
 #include "orbstation\objects\items\quirk_posters.dm"
 #include "orbstation\objects\items\radio_gloves.dm"
+#include "orbstation\objects\items\radio_keys.dm"
 #include "orbstation\objects\items\spell_injectors.dm"
 #include "orbstation\objects\items\storage.dm"
 #include "orbstation\orb_modules\flavor_text\antag_flavor_removal.dm"
