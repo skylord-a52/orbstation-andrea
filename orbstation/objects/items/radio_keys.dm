@@ -18,7 +18,7 @@
 
 /obj/item/encryptionkey/human
 	name = "\improper Human translation key"
-	desc = "An encryption key that automatically translates Sol standard heard through the radio into common. The signal's a bit indistinct."
+	desc = "An encryption key that automatically translates Sol Standard heard through the radio into common. The signal's very persistent."
 	icon_state = "translation_cypherkey"
 	translated_language = /datum/language/solcom
 	greyscale_config = null
@@ -56,7 +56,7 @@
 
 /datum/supply_pack/goody/human_encryption_key
 	name = "Sol Standard radio encryption key"
-	desc = "A hi-tech radio encryption key that allows the wearer to understand Sol standard when the radio is worn."
+	desc = "A hi-tech radio encryption key that allows the wearer to understand Sol Standard when the radio is worn."
 	cost = PAYCHECK_CREW * 12
 	contains = list(/obj/item/encryptionkey/human)
 
