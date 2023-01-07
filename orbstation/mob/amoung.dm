@@ -92,8 +92,12 @@
 	mob_type = /mob/living/basic/amoung/pequeno
 
 // amoung... surgeon??
-// doesn't actually inherit from amoung because amoungs are not hostile and lack code for attacking people
 // Can probably be replaced when I do my future 'among us content expansion', if that ever happens
+
+/mob/living/simple_animal/hostile/cat_butcherer/Initialize(mapload)
+	. = ..()
+	new /mob/living/basic/amoung/surgeon(loc)
+	return INITIALIZE_HINT_QDEL
 
 /mob/living/basic/amoung/surgeon
 	name = "suspicious surgeon"
