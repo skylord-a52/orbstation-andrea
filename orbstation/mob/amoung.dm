@@ -34,6 +34,10 @@
 	held_items = list(null, null)
 	greyscale_colors = "#ffffff"
 	ai_controller = /datum/ai_controller/basic_controller/amoung
+	// They're wearing space suits
+	unsuitable_atmos_damage = 0
+	unsuitable_cold_damage = 0
+	unsuitable_heat_damage = 0
 	/// List of possible amongus colours.
 	var/static/list/amoung_colors = list(
 		"red" = "#ff0033",
@@ -127,6 +131,9 @@
 	status_flags = CANPUSH
 	ai_controller = /datum/ai_controller/basic_controller/amoung/hostile
 
+/mob/living/basic/amoung/surgeon/random_colour()
+	set_greyscale(colors=list(amoung_colors["white"]))
+
 // Shock twist!
 /mob/living/basic/amoung/surgeon/death(gibbed)
 	var/obj/effect/particle_effect/fluid/smoke/poof = new(get_turf(src))
@@ -157,6 +164,7 @@
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/attack_obstacle_in_path/carp, // Can't be bothered to change the subtype, it has the right cooldown
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/amoung/surgeon
 	)
 
