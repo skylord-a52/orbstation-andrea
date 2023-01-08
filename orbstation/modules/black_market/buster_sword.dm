@@ -36,8 +36,6 @@
 	if (!has_gravity())
 		return
 
-	// So as not to spam the sound effect
-	var/effect_sound
 	for (var/mob/living/crossed in loc)
 		if (ishuman(crossed))
 			if (crossed.body_position == LYING_DOWN)
