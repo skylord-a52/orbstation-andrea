@@ -5049,6 +5049,7 @@
 #include "orbstation\mob\living.dm"
 #include "orbstation\mob\magicarp.dm"
 #include "orbstation\mob\dead\new_player\sprite_accessories.dm"
+#include "orbstation\modules\black_market\buster_sword.dm"
 #include "orbstation\modules\cargo\cadavers.dm"
 #include "orbstation\modules\cargo\orders.dm"
 #include "orbstation\modules\chemistry\alcohol.dm"
