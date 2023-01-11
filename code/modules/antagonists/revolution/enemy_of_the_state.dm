@@ -23,6 +23,7 @@
 	objectives += hijack_choice
 
 /datum/antagonist/enemy_of_the_state/on_gain()
+	owner.add_memory(/datum/memory/revolution_rev_defeat)
 	owner.special_role = "exiled headrev"
 	forge_objectives()
 	. = ..()
@@ -57,12 +58,12 @@
 
 	if(objectives.len == 0 || option_chosen)
 		if(badass)
-			report += "<span class='greentext big'>Major [name] Victory</span>"
+			// report += "<span class='greentext big'>Major [name] Victory</span>"
 			report += "<B>[name] chose the badass option, and hijacked the shuttle!</B>"
 		else
-			report += "<span class='greentext big'>Minor [name] Victory</span>"
+			// report += "<span class='greentext big'>Minor [name] Victory</span>"
 			report += "<B>[name] has survived as an exile!</B>"
-	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+	//else  ORBSTATION: We don't want to report success or failure
+	//	report += "<span class='redtext big'>The [name] has failed!</span>"
 
 	return report.Join("<br>")

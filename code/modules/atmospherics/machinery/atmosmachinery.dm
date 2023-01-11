@@ -61,6 +61,16 @@
 	///keeps the name of the object from being overridden if it's vareditted.
 	var/override_naming
 
+	armor_type = /datum/armor/machinery_atmospherics
+
+/datum/armor/machinery_atmospherics
+	melee = 25
+	bullet = 10
+	laser = 10
+	energy = 100
+	fire = 100
+	acid = 70
+
 /obj/machinery/atmospherics/LateInitialize()
 	. = ..()
 	update_name()
@@ -79,8 +89,6 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
-	if (!armor)
-		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	..()
 	if(process)
 		SSair.start_processing_machine(src)
@@ -544,7 +552,7 @@
 	var/client/our_client = user.client
 	if(!our_client)
 		return
-	our_client.eye = target_move
+	our_client.set_eye(target_move)
 	// Let's smooth out that movement with an animate yeah?
 	// If the new x is greater (move is left to right) we get a negative offset. vis versa
 	our_client.pixel_x = (x - target_move.x) * world.icon_size
@@ -567,7 +575,7 @@
 	return list()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
-	user.sight |= (SEE_TURFS|BLIND)
+	user.add_sight(SEE_TURFS|BLIND)
 
 /**
  * Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.

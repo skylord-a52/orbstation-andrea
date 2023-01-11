@@ -33,7 +33,7 @@
 
 /obj/item/circuit_component/keyboard_shell/register_shell(atom/movable/shell)
 	. = ..()
-	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, .proc/send_trigger)
+	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
 
 /obj/item/circuit_component/keyboard_shell/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, COMSIG_ITEM_ATTACK_SELF)
@@ -41,11 +41,14 @@
 
 /obj/item/circuit_component/keyboard_shell/proc/send_trigger(atom/source, mob/user)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/use_keyboard, user)
+	INVOKE_ASYNC(src, PROC_REF(use_keyboard), user)
 
 /obj/item/circuit_component/keyboard_shell/proc/use_keyboard(mob/user)
 	if(HAS_TRAIT(user, TRAIT_ILLITERATE))
-		to_chat(user, span_warning("You start mashing keys at random!"))
+		if (HAS_TRAIT_FROM(user, TRAIT_ILLITERATE, FARSIGHT_TRAIT)) // ORBSTATION: alternate message for farsighted quirk
+			to_chat(user, span_warning("You can't make out the words on the screen, so you start mashing keys at random!"))
+		else
+			to_chat(user, span_warning("You start mashing keys at random!"))
 		return
 
 	var/message = tgui_input_text(user, "Input your text", "Keyboard")

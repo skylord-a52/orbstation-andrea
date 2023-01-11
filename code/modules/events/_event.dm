@@ -41,7 +41,8 @@
 
 // Checks if the event can be spawned. Used by event controller and "false alarm" event.
 // Admin-created events override this.
-/datum/round_event_control/proc/canSpawnEvent(players_amt)
+/datum/round_event_control/proc/can_spawn_event(players_amt)
+	SHOULD_CALL_PARENT(TRUE)
 	if(occurrences >= max_occurrences)
 		return FALSE
 	if(earliest_start >= world.time-SSticker.round_start_time)
@@ -50,7 +51,7 @@
 		return FALSE
 	if(players_amt < min_players)
 		return FALSE
-	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
+	if(holidayID && !check_holidays(holidayID))
 		return FALSE
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return FALSE
@@ -71,11 +72,13 @@
 		return EVENT_INTERRUPTED
 
 	triggering = TRUE
-	if (alert_observers)
-		message_admins("Random Event triggering in [DisplayTimeText(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)]: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+
+	// We sleep HERE, in pre-event setup (because there's no sense doing it in runEvent() since the event is already running!) for the given amount of time to make an admin has enough time to cancel an event un-fitting of the present round.
+	if(alert_observers)
+		message_admins("Random Event triggering in [DisplayTimeText(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)]: [name]. (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
 		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)
 		var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
-		if(!canSpawnEvent(players_amt))
+		if(!can_spawn_event(players_amt))
 			message_admins("Second pre-condition check for [name] failed, skipping...")
 			return EVENT_INTERRUPTED
 
@@ -109,9 +112,8 @@ Runs the event
 	* * In the worst case scenario we can still recall a event which we cancelled by accident, which is much better then to have a unwanted event
 	*/
 	UnregisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT)
-	var/datum/round_event/E = new typepath()
+	var/datum/round_event/E = new typepath(TRUE, src)
 	E.current_players = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
-	E.control = src
 	occurrences++
 
 	if(announce_chance_override != null)
@@ -120,12 +122,8 @@ Runs the event
 	testing("[time2text(world.time, "hh:mm:ss")] [E.type]")
 	triggering = TRUE
 
-	if (alert_observers && !admin_forced)
-		message_admins("Random Event triggering in [DisplayTimeText(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)]: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>).")
-		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)
-
 	if(!triggering)
-		RegisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT, .proc/stop_random_event)
+		RegisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT, PROC_REF(stop_random_event))
 		E.cancel_event = TRUE
 		return E
 
@@ -134,10 +132,14 @@ Runs the event
 		log_game("Random Event triggering: [name] ([typepath]).")
 
 	if(alert_observers)
-		deadchat_broadcast(" has just been[random ? " randomly" : ""] triggered!", "<b>[name]</b>", message_type=DEADCHAT_ANNOUNCEMENT) //STOP ASSUMING IT'S BADMINS!
+		announce_deadchat(random)
 
 	SSblackbox.record_feedback("tally", "event_ran", 1, "[E]")
 	return E
+
+///Annouces the event name to deadchat, override this if what an event should show to deadchat is different to its event name.
+/datum/round_event_control/proc/announce_deadchat(random)
+	deadchat_broadcast(" has just been[random ? " randomly" : ""] triggered!", "<b>[name]</b>", message_type=DEADCHAT_ANNOUNCEMENT) //STOP ASSUMING IT'S BADMINS!
 
 //Returns the component for the listener
 /datum/round_event_control/proc/stop_random_event()
@@ -147,6 +149,7 @@ Runs the event
 /// Any special things admins can do while triggering this event to "improve" it.
 /// Return [ADMIN_CANCEL_EVENT] to stop the event from actually happening after all
 /datum/round_event_control/proc/admin_setup(mob/admin)
+	SHOULD_CALL_PARENT(FALSE)
 	return
 
 /datum/round_event //NOTE: Times are measured in master controller ticks!
@@ -268,7 +271,8 @@ Runs the event
 
 
 //Sets up the event then adds the event to the the list of running events
-/datum/round_event/New(my_processing = TRUE)
+/datum/round_event/New(my_processing = TRUE, datum/round_event_control/event_controller)
+	control = event_controller
 	setup()
 	processing = my_processing
 	SSevents.running += src

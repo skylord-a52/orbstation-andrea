@@ -7,7 +7,7 @@
 /// Just the mobs apparently.
 /datum/sm_delam/proc/effect_irradiate(obj/machinery/power/supermatter_crystal/sm)
 	var/turf/sm_turf = get_turf(sm)
-	for (var/mob/living/victim in range(20, sm))
+	for (var/mob/living/victim in range(DETONATION_RADIATION_RANGE, sm))
 		if(!is_valid_z_level(get_turf(victim), sm_turf))
 			continue
 		if(victim.z == 0)
@@ -34,7 +34,13 @@
 			continue
 		victim.playsound_local(victim_turf, 'sound/magic/charge.ogg')
 		if(victim.z == 0) //victim is inside an object, this is to maintain an old bug turned feature with lockers n shit i guess. tg issue #69687
-			to_chat(victim, span_boldannounce("You hold onto \the [victim.loc] as hard as you can, as reality distorts around you. You feel safe."))
+			var/message = ""
+			var/location = victim.loc
+			if(istype(location, /obj/structure/disposalholder)) // sometimes your loc can be a disposalsholder when you're inside a disposals type, so let's just pass a message that makes sense.
+				message = "You hear a lot of rattling in the disposal pipes around you as reality itself distorts. Yet, you feel safe."
+			else
+				message = "You hold onto \the [victim.loc] as hard as you can, as reality distorts around you. You feel safe."
+			to_chat(victim, span_boldannounce(message))
 			continue
 		to_chat(victim, span_boldannounce("You feel reality distort for a moment..."))
 		if (isliving(victim))
@@ -64,13 +70,13 @@
 		var/extended_spawn = 0
 		if(DT_PROB(1, next_spawn))
 			extended_spawn = rand(5 MINUTES, 15 MINUTES)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/supermatter_anomaly_gen, anomaly_location, anomaly_to_spawn, TRUE), current_spawn + extended_spawn)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(supermatter_anomaly_gen), anomaly_location, anomaly_to_spawn, TRUE), current_spawn + extended_spawn)
 	return TRUE
 
 /// Explodes
 /datum/sm_delam/proc/effect_explosion(obj/machinery/power/supermatter_crystal/sm)
 	var/explosion_power = sm.explosion_power
-	var/power_scaling = sm.gasmix_power_ratio
+	var/power_scaling = sm.gas_heat_power_generation
 	var/turf/sm_turf = get_turf(sm)
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	explosion(origin = sm_turf,
