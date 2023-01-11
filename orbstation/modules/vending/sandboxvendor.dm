@@ -39,7 +39,6 @@
 		/obj/item/organ/internal/cyberimp/mouth/breathing_tube = 999,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun = 999
 	)
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE
 	default_price = 0
 	extra_price = 1
