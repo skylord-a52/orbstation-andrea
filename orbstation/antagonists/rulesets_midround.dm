@@ -4,19 +4,12 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/from_living/autotraitor
-	counts_toward_traitor_limit = TRUE
-
 // Don't create more traitors if it exceeds the limit for the current population & threat level.
 /datum/dynamic_ruleset/midround/from_living/autotraitor/ready(forced = FALSE)
 	if(!forced)
 		if(!mode.calculate_traitor_limit())
 			message_admins("Midround ruleset [name] could not be executed due to the traitor limit.")
 			return FALSE
-	return ..()
-
-/datum/dynamic_ruleset/midround/from_living/autotraitor/execute()
-	mode.traitor_limit_antag_count ++
 	return ..()
 
 //////////////////////////////////////////////
@@ -51,6 +44,42 @@
 
 //////////////////////////////////////////////
 //                                          //
+//            WIZARD JOURNEYMAN             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/wizard_journeyman
+	name = "Wizard Journeyman"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_datum = /datum/antagonist/wizard_journeyman
+	antag_flag = ROLE_WIZARD_JOURNEYMAN
+	antag_flag_override = ROLE_WIZARD
+	required_enemies = list(2,2,2,2,1,1,1,0,0,0)
+	requirements = list(101,101,60,50,40,30,20,10,10,10)
+	required_candidates = 1
+	weight = 5
+	cost = 12
+	enemy_roles = list(
+		JOB_CAPTAIN,
+		JOB_DETECTIVE,
+		JOB_HEAD_OF_SECURITY,
+		JOB_SECURITY_OFFICER,
+		JOB_WARDEN,
+		JOB_CHAPLAIN,
+	)
+
+/datum/dynamic_ruleset/midround/from_ghosts/wizard_journeyman/ready(forced = FALSE)
+	if (!check_candidates())
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/wizard_journeyman/finish_setup(mob/new_character, index)
+	..()
+	if (GLOB.journeymanstart.len)
+		new_character.forceMove(pick(GLOB.journeymanstart))
+
+//////////////////////////////////////////////
+//                                          //
 //            HERETIC (MIDROUND)            //
 //                                          //
 //////////////////////////////////////////////
@@ -73,12 +102,6 @@
 		JOB_AI,
 		JOB_CYBORG,
 		ROLE_POSITRONIC_BRAIN,
-	)
-	enemy_roles = list(
-		JOB_HEAD_OF_SECURITY,
-		JOB_DETECTIVE,
-		JOB_WARDEN,
-		JOB_SECURITY_OFFICER,
 	)
 	requirements = list(10,101,50,40,35,20,20,15,10,10)
 	required_enemies = list(1,1,1,1,1,1,1,1,1,1) // the game is supposed to make one of your sac targets a security member

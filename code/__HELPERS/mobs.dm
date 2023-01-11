@@ -194,7 +194,15 @@ GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"arab",
 	"indian",
 	"african1",
-	"african2"
+	"african2",
+	// Orb additions go here
+	"amberbrown",
+	"sable",
+	"coolblack",
+	"coolbrown",
+	"almondskin",
+	"hickorybrown",
+	"ruddybrown",
 	)))
 
 GLOBAL_LIST_INIT(skin_tone_names, list(
@@ -210,6 +218,14 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	"indian" = "Brown",
 	"latino" = "Light beige",
 	"mediterranean" = "Olive",
+	// Orb additions go here
+	"amberbrown" = "Amber Brown",
+	"sable" = "Sable",
+	"coolblack" = "Cool black",
+	"coolbrown" = "Cool brown",
+	"almondskin" = "Almond skin",
+	"hickorybrown" = "Hickory brown",
+	"ruddybrown" = "Ruddy brown",
 ))
 
 /// An assoc list of species IDs to type paths
@@ -353,6 +369,8 @@ GLOBAL_LIST_EMPTY(species_list)
 	if(progress)
 		progbar = new(user, delay, target || user)
 
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
+
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
@@ -391,7 +409,7 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	if(interaction_key)
 		LAZYREMOVE(user.do_afters, interaction_key)
-
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 ///Timed action involving at least one mob user and a list of targets. interaction_key is the assoc key under which the do_after is capped under, and the max interaction count is how many of this interaction you can do at once.
 /proc/do_after_mob(mob/user, list/targets, time = 3 SECONDS, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1)
@@ -649,7 +667,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			return
 		AM.setDir(i)
 		callperrotate?.Invoke()
-		sleep(1)
+		sleep(0.1 SECONDS)
 	if(set_original_dir)
 		AM.setDir(originaldir)
 
@@ -811,6 +829,8 @@ GLOBAL_LIST_EMPTY(species_list)
 			return BODY_ZONE_CHEST
 		if(BODY_ZONE_PRECISE_EYES)
 			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return BODY_ZONE_HEAD
 		if(BODY_ZONE_PRECISE_R_HAND)
 			return BODY_ZONE_R_ARM
 		if(BODY_ZONE_PRECISE_L_HAND)
@@ -905,7 +925,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	GLOB.dview_mob.loc = center
 
-	GLOB.dview_mob.see_invisible = invis_flags
+	GLOB.dview_mob.set_invis_see(invis_flags)
 
 	. = view(range, GLOB.dview_mob)
 	GLOB.dview_mob.loc = null
@@ -939,7 +959,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center;           \
-	GLOB.dview_mob.see_invisible = invis_flags; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
 
 #define FOR_DVIEW_END GLOB.dview_mob.loc = null

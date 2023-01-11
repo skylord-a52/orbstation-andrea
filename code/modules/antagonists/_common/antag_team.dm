@@ -13,6 +13,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/datum/mind/members = list()
 	///Common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
 	var/list/datum/objective/objectives = list()
+	///List of players in a team, mainly used to make sure someone cant spawn ghost roll more then once in a row
+	var/list/players_spawned = list()
 
 /datum/team/New(starting_members)
 	. = ..()
@@ -53,19 +55,19 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	if(objectives.len)
 		report += "<span class='header'>Team had following objectives:</span>"
-		var/win = TRUE
+		//var/win = TRUE
 		var/objective_count = 1
 		for(var/datum/objective/objective as anything in objectives)
 			if(objective.check_completion())
-				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
+				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text]"
 			else
-				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
-				win = FALSE
+				report += "<B>Objective #[objective_count]</B>: [objective.explanation_text]"
+				//win = FALSE
 			objective_count++
-		if(win)
-			report += span_greentext("The [name] was successful!")
-		else
-			report += span_redtext("The [name] have failed!")
+		//if(win) ORBSTATION: Don't report success or failure
+		//	report += span_greentext("The [name] was successful!")
+		//else
+		//	report += span_redtext("The [name] have failed!")
 
 
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
@@ -113,4 +115,3 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 ///Custom names for individuals in a team
 /datum/team/proc/antag_listing_name()
 	return name
-

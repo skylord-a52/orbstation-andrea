@@ -3,8 +3,8 @@
 
 /// An element that lets you stab people in the eyes when targeting them
 /datum/element/eyestab
-	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH
-	id_arg_index = 2
+	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 
 	/// The amount of damage to do per eyestab
 	var/damage = 7
@@ -18,7 +18,7 @@
 	if (!isnull(damage))
 		src.damage = damage
 
-	RegisterSignal(target, COMSIG_ITEM_ATTACK, .proc/on_item_attack)
+	RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(on_item_attack))
 
 /datum/element/eyestab/Detach(datum/source, ...)
 	. = ..()
@@ -60,37 +60,58 @@
 
 	user.do_attack_animation(target)
 
-	if (target == user)
-		user.visible_message(
-			span_danger("[user] stabs [user.p_them()]self in the eyes with [item]!"),
-			span_userdanger("You stab yourself in the eyes with [item]!"),
-		)
+	if(HAS_TRAIT(target, TRAIT_XCARD_EYE_TRAUMA)) //ORBSTATION
+		if (target == user)
+			user.visible_message(
+				span_danger("[user] stabs [user.p_them()]self in the face with [item]!"),
+				span_userdanger("You stab yourself in the face with [item]!"),
+			)
+		else
+			target.visible_message(
+				span_danger("[user] stabs [target] in the face with [item]!"),
+				span_userdanger("[user] stabs you in the face with [item]!"),
+			)
 	else
-		target.visible_message(
-			span_danger("[user] stabs [target] in the eye with [item]!"),
-			span_userdanger("[user] stabs you in the eye with [item]!"),
-		)
+		if (target == user)
+			user.visible_message(
+				span_danger("[user] stabs [user.p_them()]self in the eyes with [item]!"),
+				span_userdanger("You stab yourself in the eyes with [item]!"),
+			)
+		else
+			target.visible_message(
+				span_danger("[user] stabs [target] in the eye with [item]!"),
+				span_userdanger("[user] stabs you in the eye with [item]!"),
+			)
 
 	if (target_limb)
 		target.apply_damage(damage, BRUTE, target_limb)
 	else
 		target.take_bodypart_damage(damage)
 
-	target.add_mood_event("eye_stab", /datum/mood_event/eye_stab)
+	if(HAS_TRAIT(target, TRAIT_XCARD_EYE_TRAUMA)) //ORBSTATION
+		target.add_mood_event("face_stab", /datum/mood_event/face_stab)
+	else
+		target.add_mood_event("eye_stab", /datum/mood_event/eye_stab)
 
 	log_combat(user, target, "attacked", "[item.name]", "(Combat mode: [user.combat_mode ? "On" : "Off"])")
+
+	if(HAS_TRAIT(target, TRAIT_XCARD_EYE_TRAUMA)) //ORBSTATION
+		if(prob(30)) //30% chance that a piercing wound happens
+			var/type_wound = pick(list(/datum/wound/pierce/severe, /datum/wound/pierce/moderate))
+			target_limb.force_wound_upwards(type_wound)
+		return
 
 	var/obj/item/organ/internal/eyes/eyes = target.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
 
-	target.adjust_blurriness(3)
+	target.adjust_eye_blur(6 SECONDS)
 	eyes.applyOrganDamage(rand(2,4))
 
 	if(eyes.damage < EYESTAB_BLEEDING_THRESHOLD)
 		return
 
-	target.adjust_blurriness(15)
+	target.adjust_eye_blur(30 SECONDS)
 	if (target.stat != DEAD)
 		to_chat(target, span_danger("Your eyes start to bleed profusely!"))
 
@@ -102,7 +123,7 @@
 	if (prob(50))
 		if (target.stat != DEAD && target.drop_all_held_items())
 			to_chat(target, span_danger("You drop what you're holding and clutch at your eyes!"))
-		target.adjust_blurriness(10)
+		target.adjust_eye_blur(20 SECONDS)
 		target.Unconscious(20)
 		target.Paralyze(40)
 

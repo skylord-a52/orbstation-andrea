@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 	))
 
 /datum/component/chasm/Initialize(turf/target)
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Entered)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(Entered))
 	target_turf = target
 	START_PROCESSING(SSobj, src) // process on create, in case stuff is still there
 	src.parent.AddElement(/datum/element/lazy_fishing_spot, FISHING_SPOT_PRESET_CHASM)
@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 	for (var/thing in to_check)
 		if (droppable(thing))
 			. = TRUE
-			INVOKE_ASYNC(src, .proc/drop, thing)
+			INVOKE_ASYNC(src, PROC_REF(drop), thing)
 
 /datum/component/chasm/proc/droppable(atom/movable/dropped_thing)
 	var/datum/weakref/falling_ref = WEAKREF(dropped_thing)
@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 		if(!dropped_thing || QDELETED(dropped_thing))
 			return
 		dropped_thing.pixel_y--
-		sleep(2)
+		sleep(0.2 SECONDS)
 
 	//Make sure the item is still there after our sleep
 	if(!dropped_thing || QDELETED(dropped_thing))
@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 
 	if (!storage)
 		storage = new(get_turf(parent))
-		RegisterSignal(storage, COMSIG_ATOM_EXITED, .proc/left_chasm)
+		RegisterSignal(storage, COMSIG_ATOM_EXITED, PROC_REF(left_chasm))
 		GLOB.chasm_storage += WEAKREF(storage)
 
 	if (storage.contains(dropped_thing))
@@ -177,20 +177,41 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 
 	if (dropped_thing.forceMove(storage))
 		if (isliving(dropped_thing))
-			RegisterSignal(dropped_thing, COMSIG_LIVING_REVIVE, .proc/on_revive)
-		SEND_SIGNAL(dropped_thing, COMSIG_MOVABLE_SECLUDED_LOCATION)
+			RegisterSignal(dropped_thing, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 	else
 		parent.visible_message(span_boldwarning("[parent] spits out [dropped_thing]!"))
 		dropped_thing.throw_at(get_edge_target_turf(parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
 
 	if (isliving(dropped_thing))
-		var/mob/living/fallen_mob = dropped_thing
-		if(fallen_mob.stat != DEAD)
-			fallen_mob.death(TRUE)
-			fallen_mob.notransform = FALSE
-			fallen_mob.apply_damage(300)
+		on_living_fallen(dropped_thing) // ORBSTATION: it doesnt kill you any more
 
 	falling_atoms -= falling_ref
+
+// ORBSTATION: hurts you and then start climbing out
+/datum/component/chasm/proc/on_living_fallen(mob/living/fallen_mob)
+	fallen_mob.apply_damage(20)
+	fallen_mob.notransform = FALSE
+	var/mob/living/carbon/carbon_mob = fallen_mob
+	if (istype(carbon_mob))
+		var/obj/item/bodypart/wound_part = pick(carbon_mob.bodyparts)
+		if (IS_ORGANIC_LIMB(wound_part))
+			wound_part.force_wound_upwards(/datum/wound/blunt/moderate)
+	try_climb_out(fallen_mob)
+
+// ORBSTATION: start trying to climb out of this goddamn chasm
+/datum/component/chasm/proc/try_climb_out(mob/living/fallen_mob)
+	if (fallen_mob.stat == DEAD)
+		return
+	to_chat(fallen_mob, span_warning("You begin trying to climb out of the chasm!"))
+	if (!do_after(fallen_mob, 10 SECONDS, get_turf(fallen_mob),
+		IGNORE_HELD_ITEM | IGNORE_INCAPACITATED | IGNORE_SLOWDOWNS, extra_checks = CALLBACK(src, PROC_REF(is_alive), fallen_mob)))
+		try_climb_out(fallen_mob) // If you're not dead you're not giving in
+		return
+	on_revive(fallen_mob) // This seems silly but it does what we want it to do
+
+// ORBSTATION: returns false if you died
+/datum/component/chasm/proc/is_alive(mob/living/fallen_mob)
+	return fallen_mob.stat != DEAD
 
 /**
  * Called when something has left the chasm depths storage.
@@ -218,9 +239,9 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 	parent.visible_message(span_boldwarning("After a long climb, [escapee] leaps out of [parent]!"))
 	ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
 	escapee.forceMove(get_turf(parent))
-	escapee.throw_at(get_edge_target_turf(parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
+	escapee.throw_at(get_edge_target_turf(parent, pick(GLOB.alldirs)), rand(1, 10), 4)
 	REMOVE_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT)
-	escapee.Paralyze(20 SECONDS, TRUE)
+	escapee.Paralyze(5 SECONDS, TRUE)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
 
 #undef CHASM_TRAIT
@@ -233,3 +254,7 @@ GLOBAL_LIST_INIT(chasm_storage, list())
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/abstract/chasm_storage/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SECLUDED_LOCATION, INNATE_TRAIT)

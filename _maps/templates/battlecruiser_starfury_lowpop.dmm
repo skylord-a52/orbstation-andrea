@@ -388,7 +388,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/sbc_starfury)
 "ep" = (
-/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/sbc_starfury)
 "et" = (
@@ -692,8 +692,8 @@
 	pixel_x = 2
 	},
 /obj/item/card/id/advanced/black/syndicate_command/captain_id/syndie_spare,
-/obj/item/clothing/head/hos/syndicate,
-/obj/item/clothing/head/hos/beret/syndicate,
+/obj/item/clothing/head/hats/hos/syndicate,
+/obj/item/clothing/head/hats/hos/beret/syndicate,
 /obj/item/clothing/under/syndicate/skirt,
 /obj/item/clothing/under/syndicate,
 /obj/item/storage/belt/military/assault,
@@ -872,15 +872,15 @@
 /obj/structure/rack,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "mO" = (
-/obj/structure/shuttle/engine/huge,
+/obj/machinery/power/shuttle_engine/huge,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "mP" = (
-/obj/structure/shuttle/engine/large,
+/obj/machinery/power/shuttle_engine/large,
 /turf/open/floor/plating,
 /area/shuttle/sbc_starfury)
 "ng" = (
@@ -957,9 +957,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/sbc_starfury)
 "ry" = (
-/obj/structure/chair/comfy/shuttle/tactical{
-	dir = 1
-	},
 /obj/structure/chair/comfy/shuttle/tactical{
 	dir = 1
 	},

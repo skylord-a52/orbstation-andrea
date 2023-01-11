@@ -5,9 +5,9 @@
 	icon_living = "mothroach"
 	icon_dead = "mothroach_dead"
 	held_state = "mothroach"
-	held_lh = 'icons/mob/inhands/animal_item_lh.dmi'
-	held_rh = 'icons/mob/inhands/animal_item_rh.dmi'
-	head_icon = 'icons/mob/clothing/head/animal_item_head.dmi'
+	held_lh = 'icons/mob/inhands/animal_item_lefthand.dmi'
+	held_rh = 'icons/mob/inhands/animal_item_righthand.dmi'
+	head_icon = 'icons/mob/clothing/head/pets_head.dmi'
 	butcher_results = list(/obj/item/food/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
 	mob_biotypes = MOB_ORGANIC|MOB_BUG
 	mob_size = MOB_SIZE_SMALL
@@ -30,7 +30,7 @@
 	response_help_continuous = "pats"
 	response_help_simple = "pat"
 
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 
 	ai_controller = /datum/ai_controller/basic_controller/mothroach
 
@@ -67,7 +67,7 @@
 /datum/ai_controller/basic_controller/mothroach
 	blackboard = list()
 
-	ai_traits = STOP_MOVING_WHEN_PULLED
+	ai_traits = STOP_MOVING_WHEN_PULLED | STOP_ACTING_WHILE_DEAD
 	ai_movement = /datum/ai_movement/basic_avoidance
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
