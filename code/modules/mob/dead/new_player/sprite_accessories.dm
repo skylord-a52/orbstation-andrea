@@ -1811,7 +1811,6 @@
 	name = "Hibiscus"
 	icon_state = "hibiscus"
 
-
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 	em_block = TRUE
