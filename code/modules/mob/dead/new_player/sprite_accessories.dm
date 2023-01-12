@@ -1811,29 +1811,6 @@
 	name = "Hibiscus"
 	icon_state = "hibiscus"
 
-/datum/sprite_accessory/pod_hair/buds
-	name = "Buds"
-	icon_state = "buds"
-
-/datum/sprite_accessory/pod_hair/burro
-	name = "Burro"
-	icon_state = "burro"
-
-/datum/sprite_accessory/pod_hair/inky
-	name = "Inky"
-	icon_state = "inky"
-
-/datum/sprite_accessory/pod_hair/kudzu
-	name = "Kudzu"
-	icon_state = "kudzu"
-
-/datum/sprite_accessory/pod_hair/lilypad
-	name = "Lilypad"
-	icon_state = "lilypad"
-
-/datum/sprite_accessory/pod_hair/tulip
-	name = "tulip"
-	icon_state = "tulip"
 
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
