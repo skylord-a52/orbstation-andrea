@@ -28,7 +28,7 @@
 	return !HAS_TRAIT(owner, TRAIT_FARSIGHTED_CORRECTED)
 
 /datum/status_effect/grouped/farsighted/proc/update_farsighted_literacy()
-	if(should_be_farsighted)
+	if(should_be_farsighted())
 		ADD_TRAIT(owner, TRAIT_ILLITERATE, FARSIGHT_TRAIT)
 	else
 		REMOVE_TRAIT(owner, TRAIT_ILLITERATE, FARSIGHT_TRAIT)
