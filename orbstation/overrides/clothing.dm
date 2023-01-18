@@ -6,7 +6,7 @@
 
 
 /obj/item/clothing/glasses/regular
-	clothing_traits = list(TRAIT_FARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED, TRAIT_FARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/regular/atom_destruction(damage_flag)
 	. = ..()

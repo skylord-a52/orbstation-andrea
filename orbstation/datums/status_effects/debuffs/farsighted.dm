@@ -4,10 +4,8 @@
 	tick_interval = -1
 	alert_type = null
 
-	/// Static list of signals that, when recieved, we force an update to our nearsighted overlay
+	/// Static list of signals that, when recieved, we add or remove the farsighted illiteracy
 	var/static/list/update_signals = list(SIGNAL_ADDTRAIT(TRAIT_FARSIGHTED_CORRECTED), SIGNAL_REMOVETRAIT(TRAIT_FARSIGHTED_CORRECTED))
-	/// How severe is our nearsightedness right now
-	var/overlay_severity = 1
 
 /datum/status_effect/grouped/farsighted/on_apply()
 	RegisterSignals(owner, update_signals, PROC_REF(update_farsightedness))
