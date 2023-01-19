@@ -7,7 +7,7 @@
 	vend_reply = "Wahoo! Yay! Woohoo! Yahoo! Wow! Yippee! Yayayayayay!"
 	max_integrity = 999999
 	integrity_failure = 0.01
-	tiltable = FALSE
+	tiltable = FALSE // i love you
 	product_categories = list(
 		list(
 			"name" = "Essentials",
@@ -37,11 +37,13 @@
 				/obj/item/construction/rld/debug = 999,
 				/obj/item/construction/rtd/admin = 999,
 				/obj/item/pipe_dispenser = 999,
+				/obj/item/construction/plumbing/debug = 999,
 				/obj/item/storage/part_replacer/bluespace/tier4 = 999,
 				/obj/item/holosign_creator/atmos/super = 999,
 				/obj/item/airlock_painter/decal/debug = 999,
 				/obj/item/toy/crayon/spraycan/infinite = 999,
 				/obj/item/soap/omega = 999,
+				/obj/item/healthanalyzer/advanced = 999,
 				/obj/item/reagent_containers/hypospray/cmo = 999,
 				/obj/item/gun/magic/wand/resurrection/debug = 999,
 			),
@@ -52,6 +54,8 @@
 			"icon" = "briefcase",
 			"products" = list(
 				/obj/item/clothing/gloves/color/chief_engineer = 999,
+				/obj/item/storage/belt/medical/ert = 999,
+				/obj/item/storage/belt/utility/full/powertools = 999,
 				/obj/item/clothing/shoes/magboots/advance = 999,
 				/obj/item/radio/headset/headset_cent/commander = 999,
 				/obj/item/storage/belt/military = 999,
@@ -132,3 +136,8 @@
 	name = "super ATMOS holofan projector"
 	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions. This one can support up to 99 barriers at once."
 	max_signs = 99
+
+/obj/item/construction/plumbing/debug
+	name = "Debug Plumbing Constructor"
+	matter = INFINITY
+	max_matter = INFINITY
