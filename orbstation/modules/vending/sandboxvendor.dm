@@ -120,7 +120,7 @@
 		/obj/item/suspiciousphone = 99,
 		/obj/item/guardiancreator/tech/choose/traitor = 99,
 	)
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	refill_canister = /obj/item/vending_refill/clothing // wont populate categories without this
 	default_price = 0
 	extra_price = 0
