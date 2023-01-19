@@ -1,11 +1,20 @@
-/obj/item/clothing/glasses/hud/health/sunglasses/eyepatch
+/obj/item/clothing/glasses/hud/health/eyepatch
 	name = "eyepatch Medical HUD"
-	desc = "The cooler looking cousin of Medical HUDSunglasses."
+	desc = "Give that missing eye something to do with Medical HUD Patch."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "medpatch"
+	inhand_icon_state = null
+	actions_types = list(/datum/action/item_action/flip)
+
+/obj/item/clothing/glasses/hud/health/eyepatch/attack_self(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == base_icon_state) ? "[base_icon_state]_flipped" : base_icon_state
+	user.update_worn_glasses()
 
 /obj/item/clothing/glasses/hud/health/sunglasses/gars
 	name = "medical HUD gar glasses"
 	desc = "GAR glasses with a Medical HUD."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "gar_med"
 	inhand_icon_state = "gar_black"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -27,6 +36,7 @@
 /obj/item/clothing/glasses/hud/health/meson
 	name = "med gar mesons"
 	desc = "Now you'll know how close you were to killing the monster that'll take you down."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "gar_mesonmed"
 	inhand_icon_state = "gar_meson"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -43,14 +53,23 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP_EDGED
 
-/obj/item/clothing/glasses/hud/diagnostic/sunglasses/eyepatch
+/obj/item/clothing/glasses/hud/diagnostic/eyepatch
 	name = "eyepatch Diagnostic HUD"
-	desc = "The cooler looking cousin of Diagnostic HUDSunglasses."
+	desc = "They always warn you that robotics can take an eye out. They never told you about the sick eyepatches though."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "diagpatch"
+	inhand_icon_state = null
+	actions_types = list(/datum/action/item_action/flip)
+
+/obj/item/clothing/glasses/hud/diagnostic/eyepatch/attack_self(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == base_icon_state) ? "[base_icon_state]_flipped" : base_icon_state
+	user.update_worn_glasses()
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses/gars
 	name = "diagnostic HUD gar glasses"
-	desc = "GAR glasses with a Diagnostic HUD."
+	desc = "Gar glasses with a Diagnostic HUD."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "gar_diag"
 	inhand_icon_state = "gar_black"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -64,19 +83,28 @@
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses/gars/giga
 	name = "giga Diagnostic HUD gar glasses"
-	desc = "GIGA GAR glasses with a Diagnostic HUD."
+	desc = "Giga Gar glasses with a Diagnostic HUD."
 	icon_state = "gigagar_diag"
 	force = 12
 	throwforce = 12
 
-/obj/item/clothing/glasses/sunglasses/chemical/eyepatch
+/obj/item/clothing/glasses/science/eyepatch
 	name = "eyepatch Science HUD"
-	desc = "The cooler looking cousin of Science HUDSunglasses."
+	desc = "Does everything science goggles can, with only one eye"
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "scipatch"
+	inhand_icon_state = null
+	actions_types = list(/datum/action/item_action/flip)
+
+/obj/item/clothing/glasses/science/eyepatch/attack_self(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == base_icon_state) ? "[base_icon_state]_flipped" : base_icon_state
+	user.update_worn_glasses()
 
 /obj/item/clothing/glasses/sunglasses/chemical/gars
 	name = "science HUD gar glasses"
-	desc = "GAR glasses with a Science HUD."
+	desc = "Gar glasses with a Science HUD."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	icon_state = "gar_sci"
 	inhand_icon_state = "gar_black"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -90,22 +118,22 @@
 
 /obj/item/clothing/glasses/sunglasses/chemical/gars/giga
 	name = "giga Science HUD gar glasses"
-	desc = "GIGA GAR glasses with a Science HUD."
+	desc = "Giga Gar glasses with a Science HUD."
 	icon_state = "gigagar_sci"
 	force = 12
 	throwforce = 12
 
 /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	name = "eyepatch Security HUD"
-	desc = "The cooler looking cousin of security HUDSunglasses."
+	desc = "The cooler looking cousin of security HUDSunglasses. Through a marvel of engineering, it even protects your good eye from flashes!"
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "security HUD gar glasses"
-	desc = "GAR glasses with a security HUD."
+	desc = "Gar glasses with a security HUD."
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars/giga
 	name = "giga security HUD gar glasses"
-	desc = "GIGA GAR glasses with a security HUD."
+	desc = "Giga Gar glasses with a security HUD."
 
 //removed a flippant joke about police brutality
 /obj/item/clothing/glasses/hud/spacecop
@@ -115,3 +143,41 @@
 // changed to match aviators
 /obj/item/clothing/glasses/hud/spacecop/hidden
 	desc = "Bullshit, You can be my wingman."
+
+/obj/item/clothing/glasses/hud/medsec
+	name = "medical/security HUD"
+	desc = " heads-up display that scans the humanoids in view and provides accurate data about their Health, ID status, and security records."
+	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	icon_state = "diagnostichud"
+	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED)
+	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
+	glass_colour_type = /datum/client_colour/glass_colour/lightpurple
+
+/obj/item/clothing/glasses/hud/medsec/sunglasses
+	name = "med/sec HUD sunglasses"
+	desc = "Sunglasses with a combination Medical and Security HUD."
+	icon_state = "sunhuddiag"
+	inhand_icon_state = "glasses"
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = 1
+
+/obj/item/clothing/glasses/hud/medsec/sunglasses/gars
+	name = "med/sec HUD gar glasses"
+	desc = "Gar glasses with a combination Medical and Security HUD."
+	icon_state = "gar_diag"
+	inhand_icon_state = "gar_black"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
+	force = 10
+	throwforce = 10
+	throw_speed = 4
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = SHARP_EDGED
+
+/obj/item/clothing/glasses/hud/medsec/sunglasses/gars/giga
+	name = "giga med/sec HUD gar glasses"
+	desc = "Giga Gar glasses with a combination Medical and Security HUD."
+	icon_state = "gigagar_diag"
+	force = 12
+	throwforce = 12
