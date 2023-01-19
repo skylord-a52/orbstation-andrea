@@ -47,16 +47,3 @@
 	show_in_report = TRUE
 	report_message = "Our announcement system is experiencing some... \"unique\"... technical difficulties."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern)
-	trait_to_give = STATION_TRAIT_YTP
-
-/datum/station_trait/announcement_ytp/New()
-	. = ..()
-	SSstation.announcer = /datum/centcom_announcer/ytp
-
-/datum/round_event_control/falsealarm/New()
-	. = ..()
-	if(!HAS_TRAIT(SSstation, STATION_TRAIT_YTP))
-		return
-	weight *= 3
-	max_occurrences *= 2
-	earliest_start *= 0.25
