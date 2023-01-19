@@ -5034,6 +5034,7 @@
 #include "orbstation\cleanup\recipes.dm"
 #include "orbstation\clothing\hats.dm"
 #include "orbstation\clothing\hawaiian.dm"
+#include "orbstation\clothing\hud.dm"
 #include "orbstation\clothing\jackets.dm"
 #include "orbstation\clothing\misc.dm"
 #include "orbstation\clothing\vendors.dm"
