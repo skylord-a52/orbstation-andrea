@@ -52,3 +52,11 @@
 /datum/station_trait/announcement_ytp/New()
 	. = ..()
 	SSstation.announcer = /datum/centcom_announcer/ytp
+
+/datum/round_event_control/falsealarm/New()
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_YTP))
+		return
+	//weight *= 3 				ough
+	max_occurrences *= 2
+	earliest_start *= 0.25
