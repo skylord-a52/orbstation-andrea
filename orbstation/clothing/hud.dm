@@ -2,6 +2,7 @@
 	name = "eyepatch Medical HUD"
 	desc = "Give that missing eye something to do with Medical HUD Patch."
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "medpatch"
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/flip)
@@ -15,6 +16,7 @@
 	name = "medical HUD gar glasses"
 	desc = "GAR glasses with a Medical HUD."
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "gar_med"
 	inhand_icon_state = "gar_black"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -37,6 +39,7 @@
 	name = "med gar mesons"
 	desc = "Now you'll know how close you were to killing the monster that'll take you down."
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "gar_mesonmed"
 	inhand_icon_state = "gar_meson"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -57,6 +60,7 @@
 	name = "eyepatch Diagnostic HUD"
 	desc = "They always warn you that robotics can take an eye out. They never told you about the sick eyepatches though."
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "diagpatch"
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/flip)
@@ -70,6 +74,7 @@
 	name = "diagnostic HUD gar glasses"
 	desc = "Gar glasses with a Diagnostic HUD."
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "gar_diag"
 	inhand_icon_state = "gar_black"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -92,6 +97,7 @@
 	name = "eyepatch Science HUD"
 	desc = "Does everything science goggles can, with only one eye"
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "scipatch"
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/flip)
@@ -105,6 +111,7 @@
 	name = "science HUD gar glasses"
 	desc = "Gar glasses with a Science HUD."
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
+	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "gar_sci"
 	inhand_icon_state = "gar_black"
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
@@ -143,41 +150,3 @@
 // changed to match aviators
 /obj/item/clothing/glasses/hud/spacecop/hidden
 	desc = "Bullshit, You can be my wingman."
-
-/obj/item/clothing/glasses/hud/medsec
-	name = "medical/security HUD"
-	desc = " heads-up display that scans the humanoids in view and provides accurate data about their Health, ID status, and security records."
-	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
-	icon_state = "diagnostichud"
-	hud_type = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED)
-	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
-	glass_colour_type = /datum/client_colour/glass_colour/lightpurple
-
-/obj/item/clothing/glasses/hud/medsec/sunglasses
-	name = "med/sec HUD sunglasses"
-	desc = "Sunglasses with a combination Medical and Security HUD."
-	icon_state = "sunhuddiag"
-	inhand_icon_state = "glasses"
-	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
-
-/obj/item/clothing/glasses/hud/medsec/sunglasses/gars
-	name = "med/sec HUD gar glasses"
-	desc = "Gar glasses with a combination Medical and Security HUD."
-	icon_state = "gar_diag"
-	inhand_icon_state = "gar_black"
-	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
-	force = 10
-	throwforce = 10
-	throw_speed = 4
-	attack_verb_continuous = list("slices")
-	attack_verb_simple = list("slice")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP_EDGED
-
-/obj/item/clothing/glasses/hud/medsec/sunglasses/gars/giga
-	name = "giga med/sec HUD gar glasses"
-	desc = "Giga Gar glasses with a combination Medical and Security HUD."
-	icon_state = "gigagar_diag"
-	force = 12
-	throwforce = 12
