@@ -53,7 +53,7 @@
 			"name" = "Equipment",
 			"icon" = "briefcase",
 			"products" = list(
-				/obj/item/clothing/gloves/color/chief_engineer = 999,
+				/obj/item/clothing/gloves/chief_engineer = 999,
 				/obj/item/storage/belt/medical/ert = 999,
 				/obj/item/storage/belt/utility/full/powertools = 999,
 				/obj/item/clothing/shoes/magboots/advance = 999,
