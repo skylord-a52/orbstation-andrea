@@ -5,7 +5,8 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "height"
 	can_randomize = FALSE
-	var/height_list = list(
+
+	var/static/list/height_list = list( //Associative list of displayed height strings to defined height values.
 		"Shortest" = HUMAN_HEIGHT_SHORTEST,
 		"Short" = HUMAN_HEIGHT_SHORT,
 		"Medium" = HUMAN_HEIGHT_MEDIUM,
@@ -14,7 +15,7 @@
 	)
 
 /datum/preference/choiced/height/init_possible_values()
-	return list("Shortest", "Short", "Medium", "Tall", "Tallest")
+	return assoc_to_keys(height_list)
 
 /datum/preference/choiced/height/create_default_value()
 	return "Medium"
