@@ -49,7 +49,7 @@
 				department_counts[department] = 0
 			department_counts[department] += 1
 		if (!player_high)
-			return
+			continue
 		if (!department_high[player_high])
 			department_high[player_high] = 0
 		department_high[player_high] += 1
