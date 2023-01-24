@@ -18,8 +18,9 @@ export const AntagInfoRiftCarp = () => {
                 </Stack.Item>
                 <Stack.Item>
                   The rift you arrived in will allow more of your kind passage,
-                  you must ensure that it is not destroyed so that many carp can
-                  continue their voyage.
+                  it is the duty of every carp to ensure that it is not
+                  destroyed so that more carp can continue their voyage, and
+                  that they have a clear path to their destination.
                 </Stack.Item>
                 <Stack.Item>
                   Space Carp are somewhat intelligent animals and are sometimes

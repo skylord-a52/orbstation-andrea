@@ -154,23 +154,25 @@
 	required_candidates = 1
 	weight = 5
 	cost = 12
-	/// Where we droppin?
-	var/turf/landing_area
 	/// Rift we made
 	var/obj/structure/carp_rift/minor/rift
+	/// List of all the places carp can spawn
+	var/static/list/spawn_points = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/carp_rift/execute()
-	landing_area = get_safe_random_station_turf()
-	if (!landing_area)
+	if (length(spawn_points))
+		return ..()
+	for(var/obj/effect/landmark/carpspawn/spawn_point in GLOB.landmarks_list)
+		spawn_points += get_turf(spawn_point)
+	if (!length(spawn_points))
 		return FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/carp_rift/generate_ruleset_body(mob/applicant)
+	var/turf/landing_area = pick(spawn_points)
 	rift = new (landing_area)
-	notify_ghosts("A carp right has opened!", source=rift, action=NOTIFY_ORBIT, header="Carp Rift Opened")
-
-	var/area/danger_zone = get_area(landing_area)
-	priority_announce("A large organic energy flux has been recorded in the [danger_zone.name], please stand by.", "Lifesign Alert")
+	notify_ghosts("A carp rift has opened!", source=rift, action=NOTIFY_ORBIT, header="Carp Rift Opened")
+	priority_announce("A large organic energy flux has been recorded on the station outskirts, please stand by.", "Lifesign Alert")
 
 	var/mob/living/basic/carp/mega/big_boy = new(landing_area)
 	big_boy.key = applicant.key
