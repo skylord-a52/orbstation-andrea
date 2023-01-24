@@ -6,7 +6,7 @@
  * Conversely because there's fewer ghosts it also summons a handful of NPC carp.
  */
 /obj/structure/carp_rift/minor
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor = /datum/armor/none
 	max_charge = INFINITY
 	/// Team to assign new carps to
 	var/datum/team/carp_team/team = new()

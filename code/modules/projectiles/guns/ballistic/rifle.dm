@@ -7,7 +7,7 @@
 	worn_icon_state = "moistnugget"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
-	bolt_type = BOLT_TYPE_STANDARD
+	bolt_type = BOLT_TYPE_LOCKING
 	semi_auto = FALSE
 	internal_magazine = TRUE
 	fire_sound = 'sound/weapons/gun/rifle/shot.ogg'
@@ -33,7 +33,7 @@
 
 /obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	if (!bolt_locked && !istype(A, /obj/item/stack/sheet/cloth))
-		to_chat(user, span_notice("The bolt is closed!"))
+		balloon_alert(user, "[bolt_wording] is closed!")
 		return
 	return ..()
 

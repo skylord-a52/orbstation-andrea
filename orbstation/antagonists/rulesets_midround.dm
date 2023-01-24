@@ -59,6 +59,14 @@
 	required_candidates = 1
 	weight = 5
 	cost = 12
+	enemy_roles = list(
+		JOB_CAPTAIN,
+		JOB_DETECTIVE,
+		JOB_HEAD_OF_SECURITY,
+		JOB_SECURITY_OFFICER,
+		JOB_WARDEN,
+		JOB_CHAPLAIN,
+	)
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard_journeyman/ready(forced = FALSE)
 	if (!check_candidates())
@@ -94,12 +102,6 @@
 		JOB_AI,
 		JOB_CYBORG,
 		ROLE_POSITRONIC_BRAIN,
-	)
-	enemy_roles = list(
-		JOB_HEAD_OF_SECURITY,
-		JOB_DETECTIVE,
-		JOB_WARDEN,
-		JOB_SECURITY_OFFICER,
 	)
 	requirements = list(10,101,50,40,35,20,20,15,10,10)
 	required_enemies = list(1,1,1,1,1,1,1,1,1,1) // the game is supposed to make one of your sac targets a security member
@@ -170,7 +172,7 @@
 	var/area/danger_zone = get_area(landing_area)
 	priority_announce("A large organic energy flux has been recorded in the [danger_zone.name], please stand by.", "Lifesign Alert")
 
-	var/mob/living/simple_animal/hostile/carp/megacarp/big_boy = new(landing_area)
+	var/mob/living/basic/carp/mega/big_boy = new(landing_area)
 	big_boy.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(big_boy)] has been made into a mega carp by the midround ruleset.")
 	log_game("[key_name(big_boy)] was spawned as a mega carp by the midround ruleset.")

@@ -36,12 +36,12 @@
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/atmos_sensitive, mapload)
 
-	RegisterSignal(src, COMSIG_LIVING_TRYING_TO_PULL, .proc/react_to_mob)
+	RegisterSignal(src, COMSIG_LIVING_TRYING_TO_PULL, PROC_REF(react_to_mob))
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	..()
@@ -109,7 +109,7 @@
 		return
 	if(stat == CONSCIOUS)
 		icon_state = "[base_icon_state]_thrown"
-		addtimer(CALLBACK(src, .proc/clear_throw_icon_state), 15)
+		addtimer(CALLBACK(src, PROC_REF(clear_throw_icon_state)), 15)
 
 /obj/item/clothing/mask/facehugger/proc/clear_throw_icon_state()
 	if(icon_state == "[base_icon_state]_thrown")
@@ -155,7 +155,7 @@
 						span_userdanger("[src] leaps at your face!"))
 
 	// probiscis-blocker handling
-	if(target.is_mouth_covered(head_only = TRUE))
+	if(target.is_mouth_covered(ITEM_SLOT_HEAD))
 		target.visible_message(span_danger("[src] smashes against [target]'s [target.head]!"), \
 							span_userdanger("[src] smashes against your [target.head]!"))
 		Die()
@@ -179,7 +179,7 @@
 	// early returns and validity checks done: attach.
 	attached++
 	//ensure we detach once we no longer need to be attached
-	addtimer(CALLBACK(src, .proc/detach), MAX_IMPREGNATION_TIME)
+	addtimer(CALLBACK(src, PROC_REF(detach)), MAX_IMPREGNATION_TIME)
 
 	if(!sterile)
 		if (HAS_TRAIT(M, TRAIT_XCARD_XENO_IMMUNE))
@@ -191,7 +191,7 @@
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
-	addtimer(CALLBACK(src, .proc/Impregnate, M), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME))
+	addtimer(CALLBACK(src, PROC_REF(Impregnate), M), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME))
 
 /obj/item/clothing/mask/facehugger/proc/detach()
 	attached = 0
@@ -218,6 +218,8 @@
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
 			target.log_message("was impregnated by a facehugger", LOG_GAME)
 			target.log_message("was impregnated by a facehugger", LOG_VICTIM, log_globally = FALSE)
+			if(target.stat != DEAD && istype(target.buckled, /obj/structure/bed/nest)) //Handles toggling the nest sustenance status effect if the user was already buckled to a nest.
+				target.apply_status_effect(/datum/status_effect/nest_sustenance)
 
 	else
 		target.visible_message(span_danger("[src] violates [target]'s face!"), \
@@ -239,7 +241,7 @@
 	icon_state = "[base_icon_state]_inactive"
 	worn_icon_state = "[base_icon_state]_inactive"
 
-	addtimer(CALLBACK(src, .proc/GoActive), rand(MIN_ACTIVE_TIME, MAX_ACTIVE_TIME))
+	addtimer(CALLBACK(src, PROC_REF(GoActive)), rand(MIN_ACTIVE_TIME, MAX_ACTIVE_TIME))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)
@@ -260,9 +262,9 @@
 	if(M.getorgan(/obj/item/organ/internal/alien/hivenode))
 		return FALSE
 	var/mob/living/carbon/C = M
-	if(ishuman(C) && !(ITEM_SLOT_MASK in C.dna.species.no_equip))
+	if(ishuman(C) && !(C.dna.species.no_equip_flags & ITEM_SLOT_MASK))
 		var/mob/living/carbon/human/H = C
-		if(H.is_mouth_covered(head_only = 1))
+		if(H.is_mouth_covered(ITEM_SLOT_HEAD))
 			return FALSE
 		return TRUE
 	return FALSE
@@ -298,7 +300,7 @@
 // ORBSTATION CODE: FACEHUGGER XCARD //
 
 /// Injects some nasty toxins into our victim -- used when the target has the xeno immunity x card option
-/// target -- the target of the bite	
+/// target -- the target of the bite
 /obj/item/clothing/mask/facehugger/proc/VenomousBite(mob/living/carbon/target)
 	target.visible_message(span_danger("[src] bites [target]'s face, injecting acidic venom!"), \
 		span_userdanger("[src] bites your face, injecting acidic venom!"), \
@@ -318,7 +320,7 @@
 	target.Unconscious(MAX_IMPREGNATION_TIME * 0.2) // go unconscious for a short amount of time
 	detach()
 	addtimer(CALLBACK(target, /mob/proc/dropItemToGround, src, TRUE), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME) * 0.125) // drop off the face after some amount of time
-	addtimer(CALLBACK(src, .proc/GoIdle), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME) * 0.125) // go idle immediately after that
+	addtimer(CALLBACK(src, PROC_REF(GoIdle)), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME) * 0.125) // go idle immediately after that
 
 #undef MIN_ACTIVE_TIME
 #undef MAX_ACTIVE_TIME

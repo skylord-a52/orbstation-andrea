@@ -64,7 +64,7 @@
 	var/to_spawn = rand(0, max_things_per_second)
 	while (to_spawn > 0)
 		to_spawn--
-		addtimer(CALLBACK(src, .proc/drop_item), rand(0, (1 SECONDS)))
+		addtimer(CALLBACK(src, PROC_REF(drop_item)), rand(0, (1 SECONDS)))
 
 /// Make something descend from above.
 /datum/round_event/wizard/indoor_weather/proc/drop_item()
@@ -94,12 +94,12 @@
 
 /datum/round_event/wizard/indoor_weather/animal/get_item()
 	var/static/list/possible_paths = list(
-		/mob/living/simple_animal/pet/dog/corgi/puppy = 5,
+		/mob/living/basic/pet/dog/corgi/puppy = 5,
 		/mob/living/simple_animal/pet/cat/kitten = 5,
-		/mob/living/simple_animal/hostile/retaliate/frog = 5,
-		/mob/living/simple_animal/axolotl = 1,
-		/mob/living/simple_animal/pet/dog/corgi/puppy/void = 1,
-		/mob/living/simple_animal/pet/dog/corgi/puppy/slime = 1,
+		/mob/living/basic/frog = 5,
+		/mob/living/basic/axolotl = 1,
+		/mob/living/basic/pet/dog/corgi/puppy/void = 1,
+		/mob/living/basic/pet/dog/corgi/puppy/slime = 1,
 	)
 
 	var/mob_path = pick_weight(possible_paths)

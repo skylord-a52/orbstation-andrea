@@ -507,27 +507,35 @@
 		if(!mr_moneybags || mr_moneybags.account_balance < current_acc.account_balance)
 			mr_moneybags = current_acc
 	parts += "<div class='panel stationborder'><span class='header'>Station Economic Summary:</span><br>"
-	parts += "<span class='service'>Service Statistics:</span><br>"
+
 	for(var/venue_path in SSrestaurant.all_venues)
 		var/datum/venue/venue = SSrestaurant.all_venues[venue_path]
 		tourist_income += venue.total_income
-		parts += "The [venue] served [venue.customers_served] customer\s and made [venue.total_income] credits.<br>"
-	parts += "In total, they earned [tourist_income] credits[tourist_income ? "!" : "..."]<br>"
 	log_econ("Roundend service income: [tourist_income] credits.")
+
+	if (tourist_income > 0)
+		parts += "<span class='service'>Service Statistics:</span><br>"
+		for(var/venue_path in SSrestaurant.all_venues)
+			var/datum/venue/venue = SSrestaurant.all_venues[venue_path]
+			if (venue.total_income == 0)
+				continue
+			parts += "The [venue] served [venue.customers_served] customer\s and made [venue.total_income] credits.<br>"
+		parts += "In total, they earned [tourist_income] credits[tourist_income ? "!" : "..."]<br>"
 	switch(tourist_income)
-		if(0)
-			parts += "[span_redtext("Service did not earn any credits...")]<br>"
+		//if(0) ORBSTATION: We don't use this
+			//parts += "[span_redtext("Service did not earn any credits...")]<br>"
 		if(1 to 2000)
 			parts += "[span_redtext("Centcom is displeased. Come on service, surely you can do better than that.")]<br>"
 			award_service(/datum/award/achievement/jobs/service_bad)
 		if(2001 to 4999)
 			parts += "[span_greentext("Centcom is satisfied with service's job today.")]<br>"
 			award_service(/datum/award/achievement/jobs/service_okay)
-		else
+		if(!0)
 			parts += "<span class='reallybig greentext'>Centcom is incredibly impressed with service today! What a team!</span><br>"
 			award_service(/datum/award/achievement/jobs/service_good)
 
-	parts += "<b>General Statistics:</b><br>"
+	if (tourist_income > 0)
+		parts += "<b>General Statistics:</b><br>"
 	parts += "There were [station_vault] credits collected by crew this shift.<br>"
 	if(total_players > 0)
 		parts += "An average of [station_vault/total_players] credits were collected.<br>"
@@ -614,7 +622,7 @@
 	var/currrent_category
 	var/datum/antagonist/previous_category
 
-	sortTim(all_antagonists, /proc/cmp_antag_category)
+	sortTim(all_antagonists, GLOBAL_PROC_REF(cmp_antag_category))
 
 	for(var/datum/antagonist/antagonists in all_antagonists)
 		if(!antagonists.show_in_roundend)
@@ -651,6 +659,7 @@
 /datum/action/report
 	name = "Show roundend report"
 	button_icon_state = "round_end"
+	show_to_observers = FALSE
 
 /datum/action/report/Trigger(trigger_flags)
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
@@ -704,9 +713,9 @@
 	var/count = 1
 	for(var/datum/objective/objective in objectives)
 		if(objective.check_completion())
-			objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
+			objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text]"
 		else
-			objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
+			objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text]"
 		count++
 	return objective_parts.Join("<br>")
 

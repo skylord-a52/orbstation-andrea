@@ -25,6 +25,11 @@
 	/// The amount of limited discounts that the team get
 	var/discount_limited_amount = 10
 
+/datum/antagonist/nukeop/New()
+	if(send_to_spawnpoint) // lets get the loading started now, but don't block waiting for it
+		INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, lazy_load_template), LAZY_TEMPLATE_KEY_NUKIEBASE)
+	return ..()
+
 /datum/antagonist/nukeop/proc/equip_op()
 	if(!ishuman(owner.current))
 		return
@@ -105,12 +110,10 @@
 			number = nuke_team.members.Find(owner)
 			owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
 
-
-
 /datum/antagonist/nukeop/proc/memorize_code()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
 		antag_memory += "<B>[nuke_team.tracked_nuke] Code</B>: [nuke_team.memorized_code]<br>"
-		owner.add_memory(MEMORY_NUKECODE, list(DETAIL_NUKE_CODE = nuke_team.memorized_code, DETAIL_PROTAGONIST = owner.current), story_value = STORY_VALUE_AMAZING, memory_flags = MEMORY_FLAG_NOLOCATION | MEMORY_FLAG_NOMOOD | MEMORY_FLAG_NOPERSISTENCE)
+		owner.add_memory(/datum/memory/key/nuke_code, nuclear_code = nuke_team.memorized_code)
 		to_chat(owner, "The nuclear authorization code is: <B>[nuke_team.memorized_code]</B>")
 	else
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
@@ -120,6 +123,9 @@
 		objectives |= nuke_team.objectives
 
 /datum/antagonist/nukeop/proc/move_to_spawnpoint()
+	// Ensure that the nukiebase is loaded, and wait for it if required
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_NUKIEBASE)
+
 	var/team_number = 1
 	if(nuke_team)
 		team_number = nuke_team.members.Find(owner)
@@ -154,8 +160,8 @@
 
 /datum/antagonist/nukeop/get_admin_commands()
 	. = ..()
-	.["Send to base"] = CALLBACK(src,.proc/admin_send_to_base)
-	.["Tell code"] = CALLBACK(src,.proc/admin_tell_code)
+	.["Send to base"] = CALLBACK(src, PROC_REF(admin_send_to_base))
+	.["Tell code"] = CALLBACK(src, PROC_REF(admin_tell_code))
 
 /datum/antagonist/nukeop/proc/admin_send_to_base(mob/admin)
 	owner.current.forceMove(pick(GLOB.nukeop_start))
@@ -208,7 +214,7 @@
 
 	back = /obj/item/mod/control/pre_equipped/empty/elite
 	uniform = /obj/item/clothing/under/syndicate
-	l_hand = /obj/item/modular_computer/tablet/nukeops
+	l_hand = /obj/item/modular_computer/pda/nukeops
 	r_hand = /obj/item/shield/energy
 
 /datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visualsOnly)
@@ -261,7 +267,7 @@
 		var/obj/item/war_declaration = new challengeitem(leader.drop_location())
 		leader.put_in_hands(war_declaration)
 		nuke_team.war_button_ref = WEAKREF(war_declaration)
-	addtimer(CALLBACK(src, .proc/nuketeam_name_assign), 1)
+	addtimer(CALLBACK(src, PROC_REF(nuketeam_name_assign)), 1)
 
 /datum/antagonist/nukeop/leader/proc/nuketeam_name_assign()
 	if(!nuke_team)
@@ -362,7 +368,7 @@
 /datum/team/nuclear/proc/get_result()
 	var/shuttle_evacuated = EMERGENCY_ESCAPED_OR_ENDGAMED
 	var/disk_rescued = is_disk_rescued()
-	var/syndies_didnt_escape = !is_infiltrator_docked_at_centcom()
+	var/syndies_didnt_escape = !is_infiltrator_docked_at_syndiebase()
 	var/team_is_dead = are_all_operatives_dead()
 	var/station_was_nuked = GLOB.station_was_nuked
 	var/station_nuke_source = GLOB.station_nuke_source
@@ -415,34 +421,34 @@
 
 	switch(get_result())
 		if(NUKE_RESULT_FLUKE)
-			parts += "<span class='redtext big'>Humiliating Syndicate Defeat</span>"
+			//parts += "<span class='redtext big'>Humiliating Syndicate Defeat</span>"
 			parts += "<B>The crew of [station_name()] gave [syndicate_name] operatives back their bomb! The syndicate base was destroyed!</B> Next time, don't lose the nuke!"
 		if(NUKE_RESULT_NUKE_WIN)
-			parts += "<span class='greentext big'>Syndicate Major Victory!</span>"
+			//parts += "<span class='greentext big'>Syndicate Major Victory!</span>"
 			parts += "<B>[syndicate_name] operatives have destroyed [station_name()]!</B>"
 		if(NUKE_RESULT_NOSURVIVORS)
-			parts += "<span class='neutraltext big'>Total Annihilation!</span>"
+			//parts += "<span class='neutraltext big'>Total Annihilation!</span>"
 			parts += "<B>[syndicate_name] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!"
 		if(NUKE_RESULT_WRONG_STATION)
-			parts += "<span class='redtext big'>Crew Minor Victory!</span>"
+			//parts += "<span class='redtext big'>Crew Minor Victory!</span>"
 			parts += "<B>[syndicate_name] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't do that!"
 		if(NUKE_RESULT_WRONG_STATION_DEAD)
-			parts += "<span class='redtext big'>[syndicate_name] operatives have earned Darwin Award!</span>"
+			//parts += "<span class='redtext big'>[syndicate_name] operatives have earned Darwin Award!</span>"
 			parts += "<B>[syndicate_name] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't do that!"
 		if(NUKE_RESULT_CREW_WIN_SYNDIES_DEAD)
-			parts += "<span class='redtext big'>Crew Major Victory!</span>"
+			//parts += "<span class='redtext big'>Crew Major Victory!</span>"
 			parts += "<B>The Research Staff has saved the disk and killed the [syndicate_name] Operatives</B>"
 		if(NUKE_RESULT_CREW_WIN)
-			parts += "<span class='redtext big'>Crew Major Victory!</span>"
+			//parts += "<span class='redtext big'>Crew Major Victory!</span>"
 			parts += "<B>The Research Staff has saved the disk and stopped the [syndicate_name] Operatives!</B>"
 		if(NUKE_RESULT_DISK_LOST)
-			parts += "<span class='neutraltext big'>Neutral Victory!</span>"
+			//parts += "<span class='neutraltext big'>Neutral Victory!</span>"
 			parts += "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name] Operatives!</B>"
 		if(NUKE_RESULT_DISK_STOLEN)
-			parts += "<span class='greentext big'>Syndicate Minor Victory!</span>"
+			//parts += "<span class='greentext big'>Syndicate Minor Victory!</span>"
 			parts += "<B>[syndicate_name] operatives survived the assault but did not achieve the destruction of [station_name()].</B> Next time, don't lose the disk!"
 		else
-			parts += "<span class='neutraltext big'>Neutral Victory</span>"
+			//parts += "<span class='neutraltext big'>Neutral Victory</span>"
 			parts += "<B>Mission aborted!</B>"
 
 	var/text = "<br><span class='header'>The syndicate operatives were:</span>"
@@ -495,8 +501,15 @@
 	return common_part + disk_report + challenge_report
 
 /// Returns whether or not syndicate operatives escaped.
-/proc/is_infiltrator_docked_at_centcom()
+/proc/is_infiltrator_docked_at_syndiebase()
 	var/obj/docking_port/mobile/infiltrator/infiltrator_port = SSshuttle.getShuttle("syndicate")
-	var/obj/docking_port/stationary/transit/infiltrator_dock = locate() in infiltrator_port.loc
 
-	return infiltrator_port && (is_centcom_level(infiltrator_port.z) || infiltrator_dock)
+	var/datum/lazy_template/nukie_base/nukie_template = GLOB.lazy_templates[LAZY_TEMPLATE_KEY_NUKIEBASE]
+	if(!nukie_template)
+		return FALSE // if its not even loaded, cant be docked
+
+	for(var/datum/turf_reservation/loaded_area as anything in nukie_template.reservations)
+		var/infiltrator_turf = get_turf(infiltrator_port)
+		if(infiltrator_turf in loaded_area.reserved_turfs)
+			return TRUE
+	return FALSE

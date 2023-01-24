@@ -70,10 +70,7 @@
 	return TRUE
 
 
-/mob/living/proc/get_missing_limbs()
-	return list()
-
-/mob/living/carbon/get_missing_limbs()
+/mob/living/carbon/proc/get_missing_limbs()
 	RETURN_TYPE(/list)
 	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	for(var/zone in full)
@@ -192,3 +189,18 @@
 			. = "#fff4e6"
 		if("orange")
 			. = "#ffc905"
+		// Orb additions go here
+		if("amberbrown")
+			. = "#5b381f"
+		if("sable")
+			. = "#3D241B"
+		if("coolblack")
+			. = "#362429"
+		if("coolbrown")
+			. = "#765043"
+		if("almondskin")
+			. = "#9E6844"
+		if("hickorybrown")
+			. = "#9C674E"
+		if("ruddybrown")
+			. = "#8A5142"

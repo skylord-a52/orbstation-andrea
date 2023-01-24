@@ -13,11 +13,20 @@ SUBSYSTEM_DEF(statpanels)
 	///how many subsystem fires between most tab updates
 	var/default_wait = 10
 	///how many subsystem fires between updates of the status tab
-	var/status_wait = 6
+	var/status_wait = 2
 	///how many subsystem fires between updates of the MC tab
 	var/mc_wait = 5
 	///how many full runs this subsystem has completed. used for variable rate refreshes.
 	var/num_fires = 0
+
+/datum/controller/subsystem/statpanels/proc/get_round_time()
+	if (SSticker.round_start_time == 0)
+		return "Not Started"
+	var/current_time = world.time - SSticker.round_start_time
+	var/current_time_to_text = gameTimestamp("hh:mm:ss", current_time)
+	if (current_time < MIDNIGHT_ROLLOVER)
+		return current_time_to_text
+	return "[round((current_time)/MIDNIGHT_ROLLOVER)]:[current_time_to_text]"
 
 /datum/controller/subsystem/statpanels/fire(resumed = FALSE)
 	if (!resumed)
@@ -28,7 +37,7 @@ SUBSYSTEM_DEF(statpanels)
 			cached ? "Next Map: [cached.map_name]" : null,
 			"Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]",
 			"Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]",
-			"Round Time: [ROUND_TIME]",
+			"Round Time: [get_round_time()]",
 			"Station Time: [station_time_timestamp()]",
 			"Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)"
 		)
@@ -227,7 +236,7 @@ SUBSYSTEM_DEF(statpanels)
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item
 		already_seen[turf_item] = OBJ_IMAGE_LOADING
-		obj_window.RegisterSignal(turf_item, COMSIG_PARENT_QDELETING, /datum/object_window_info/proc/viewing_atom_deleted) // we reset cache if anything in it gets deleted
+		obj_window.RegisterSignal(turf_item, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/datum/object_window_info,viewing_atom_deleted)) // we reset cache if anything in it gets deleted
 	return turf_items
 
 #undef OBJ_IMAGE_LOADING
@@ -363,8 +372,8 @@ SUBSYSTEM_DEF(statpanels)
 	if(actively_tracking)
 		stop_turf_tracking()
 	var/static/list/connections = list(
-		COMSIG_MOVABLE_MOVED = .proc/on_mob_move,
-		COMSIG_MOB_LOGOUT = .proc/on_mob_logout,
+		COMSIG_MOVABLE_MOVED = PROC_REF(on_mob_move),
+		COMSIG_MOB_LOGOUT = PROC_REF(on_mob_logout),
 	)
 	AddComponent(/datum/component/connect_mob_behalf, parent, connections)
 	actively_tracking = TRUE

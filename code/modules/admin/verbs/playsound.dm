@@ -36,7 +36,7 @@
 	message_admins("[key_name_admin(src)] played sound [S]")
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.toggles & SOUND_MIDI)
+		if(M.client.prefs.read_preference(/datum/preference/toggle/sound_midi))
 			admin_sound.volume = vol * M.client.admin_music_volume
 			SEND_SOUND(M, admin_sound)
 			admin_sound.volume = vol
@@ -94,7 +94,7 @@
 				to_chat(src, span_warning("For youtube-dl shortcuts like ytsearch: please use the appropriate full url from the website."), confidential = TRUE)
 				return
 			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
-			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height<=360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[shell_scrubbed_input]\"")
+			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height <= 360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[shell_scrubbed_input]\"")
 			var/errorlevel = output[SHELLEO_ERRORLEVEL]
 			var/stdout = output[SHELLEO_STDOUT]
 			var/stderr = output[SHELLEO_STDERR]
@@ -146,7 +146,7 @@
 			for(var/m in GLOB.player_list)
 				var/mob/M = m
 				var/client/C = M.client
-				if(C.prefs.toggles & SOUND_MIDI)
+				if(C.prefs.read_preference(/datum/preference/toggle/sound_midi))
 					if(!stop_web_sounds)
 						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 					else

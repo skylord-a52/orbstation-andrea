@@ -4,10 +4,13 @@
 	// 1spooky
 	name = "High-Functioning Zombie"
 	id = SPECIES_ZOMBIE
-	say_mod = "moans"
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
-	species_traits = list(NOBLOOD,NOZOMBIE,NOTRANSSTING, HAS_FLESH, HAS_BONE)
+	mutanttongue = /obj/item/organ/internal/tongue/zombie
+	species_traits = list(
+		NOZOMBIE,
+		NOTRANSSTING,
+	)
 	inherent_traits = list(
 		TRAIT_EASILY_WOUNDED,
 		TRAIT_EASYDISMEMBER,
@@ -16,6 +19,7 @@
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NODEATH,
+		TRAIT_SUCCUMB_OVERRIDE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOMETABOLISM,
 		TRAIT_RADIMMUNE,
@@ -23,7 +27,12 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
+		TRAIT_NOBLOOD,
 	)
+	mutantstomach = null
+	mutantheart = null
+	mutantliver = null
+	mutantlungs = null
 	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
 	disliked_food = NONE
@@ -88,6 +97,23 @@
 	var/heal_rate = 0.5
 	/// The cooldown before the zombie can start regenerating
 	COOLDOWN_DECLARE(regen_cooldown)
+
+	inherent_traits = list(
+		TRAIT_EASILY_WOUNDED,
+		TRAIT_EASYDISMEMBER,
+		TRAIT_FAKEDEATH,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_NOBREATH,
+		TRAIT_NOCLONELOSS,
+		TRAIT_NODEATH,
+		TRAIT_NOHUNGER,
+		TRAIT_NOMETABOLISM,
+		TRAIT_RADIMMUNE,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_TOXIMMUNE,
+	)
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE

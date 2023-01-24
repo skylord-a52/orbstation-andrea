@@ -36,6 +36,7 @@ GLOBAL_LIST_INIT(phobia_regexes, list(
 	"greytide" = construct_phobia_regex("greytide"),
 	"guns" = construct_phobia_regex("guns"),
 	"insects" = construct_phobia_regex("insects"),
+	"lizards" = construct_phobia_regex("lizards"),
 	"ocky icky" = construct_phobia_regex("ocky icky"),
 	"robots" = construct_phobia_regex("robots"),
 	"security" = construct_phobia_regex("security"),
@@ -46,11 +47,13 @@ GLOBAL_LIST_INIT(phobia_regexes, list(
 	"strangers" = construct_phobia_regex("strangers"),
 	"the supernatural" = construct_phobia_regex("the supernatural"),
 	"blood" = construct_phobia_regex("blood"),
+	"the mansus" = construct_phobia_regex("the mansus"), //ORBSTATION ADDITION
 ))
 
 GLOBAL_LIST_INIT(phobia_mobs, list(
 	"spiders" = typecacheof(list(/mob/living/simple_animal/hostile/giant_spider)),
 	"security" = typecacheof(list(/mob/living/simple_animal/bot/secbot)),
+	"lizards" = typecacheof(list(/mob/living/simple_animal/hostile/lizard)),
 	"skeletons" = typecacheof(list(/mob/living/simple_animal/hostile/skeleton)),
 	"snakes" = typecacheof(list(/mob/living/simple_animal/hostile/retaliate/snake)),
 	"robots" = typecacheof(list(
@@ -65,10 +68,11 @@ GLOBAL_LIST_INIT(phobia_mobs, list(
 		/mob/living/simple_animal/bot/mulebot/paranormal,
 		/mob/living/simple_animal/hostile/construct,
 		/mob/living/simple_animal/hostile/dark_wizard,
-		/mob/living/simple_animal/hostile/faithless,
+		/mob/living/basic/faithless,
+		/mob/living/simple_animal/hostile/heretic_summon,
 		/mob/living/simple_animal/hostile/imp,
 		/mob/living/simple_animal/hostile/retaliate/bat,
-		/mob/living/simple_animal/hostile/retaliate/ghost,
+		/mob/living/basic/ghost,
 		/mob/living/simple_animal/hostile/skeleton,
 		/mob/living/simple_animal/hostile/wizard,
 		/mob/living/simple_animal/hostile/zombie,
@@ -95,6 +99,9 @@ GLOBAL_LIST_INIT(phobia_mobs, list(
 		/mob/living/basic/cockroach,
 		/mob/living/simple_animal/hostile/bee,
 	)),
+	"the mansus" = typecacheof(list(
+		/mob/living/simple_animal/hostile/heretic_summon,
+	))
 ))
 
 GLOBAL_LIST_INIT(phobia_objs, list(
@@ -136,7 +143,7 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/gun/magic/staff/honk,
 		/obj/item/instrument/bikehorn,
 		/obj/item/megaphone/clown,
-		/obj/item/modular_computer/tablet/pda/clown,
+		/obj/item/modular_computer/pda/clown,
 		/obj/item/pneumatic_cannon/pie,
 		/obj/item/stack/ore/bananium,
 		/obj/item/stack/tile/mineral/bananium,
@@ -153,7 +160,7 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/structure/mecha_wreckage/honker,
 		/obj/structure/statue/bananium,
 		/obj/vehicle/sealed/car/clowncar,
-		/obj/vehicle/sealed/mecha/combat/honker,
+		/obj/vehicle/sealed/mecha/honker,
 	)),
 
 	"greytide" = (typecacheof(list(
@@ -323,16 +330,25 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 	)),
 
 	"the supernatural" = typecacheof(list(
+		/obj/effect/floating_blade,
+		/obj/effect/heretic_influence,
+		/obj/effect/heretic_rune,
 		/obj/effect/rune,
+		/obj/effect/visible_heretic_influence,
 		/obj/item/clothing/head/hooded/cult_hoodie,
 		/obj/item/clothing/head/wizard,
+		/obj/item/clothing/mask/madness_mask,
+		/obj/item/clothing/neck/heretic_focus,
+		/obj/item/clothing/neck/eldritch_amulet,
 		/obj/item/clothing/suit/hooded/cultrobes,
 		/obj/item/clothing/suit/wizrobe,
 		/obj/item/clothing/under/rank/civilian/chaplain,
+		/obj/item/codex_cicatrix,
 		/obj/item/cult_bastard,
-		/obj/item/gun/magic/staff,
-		/obj/item/gun/magic/wand,
+		/obj/item/gun/magic,
 		/obj/item/melee/cultblade,
+		/obj/item/melee/rune_carver,
+		/obj/item/melee/sickly_blade,
 		/obj/item/necromantic_stone,
 		/obj/item/nullrod,
 		/obj/item/restraints/legcuffs/bola/cult,
@@ -344,13 +360,16 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/staff,
 		/obj/item/storage/toolbox/haunted,
 		/obj/item/tome,
+		/obj/item/toy/cards/deck/tarot,
 		/obj/item/toy/eightball/haunted,
+		/obj/item/toy/eldritch_book,
+		/obj/item/toy/reality_pierce,
 		/obj/item/warp_whistle,
 		/obj/machinery/door/airlock/cult,
 		/obj/narsie,
 		/obj/structure/destructible/cult,
+		/obj/structure/destructible/eldritch_crucible,
 		/obj/structure/spirit_board,
-		/obj/item/toy/cards/deck/tarot,
 	)),
 
 	"aliens" = typecacheof(list(
@@ -452,6 +471,29 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/reagent_containers/blood,
 		/obj/item/reagent_containers/syringe,
 		/obj/machinery/iv_drip,
+	)),
+
+	"the mansus" = typecacheof(list(
+		/obj/effect/floating_blade,
+		/obj/effect/heretic_influence,
+		/obj/effect/heretic_rune,
+		/obj/effect/rune,
+		/obj/effect/visible_heretic_influence,
+		/obj/item/clothing/head/hooded/cult_hoodie,
+		/obj/item/clothing/mask/madness_mask,
+		/obj/item/clothing/neck/heretic_focus,
+		/obj/item/clothing/neck/eldritch_amulet,
+		/obj/item/clothing/suit/hooded/cultrobes,
+		/obj/item/codex_cicatrix,
+		/obj/item/cult_bastard,
+		/obj/item/melee/cultblade,
+		/obj/item/melee/rune_carver,
+		/obj/item/melee/sickly_blade,
+		/obj/item/toy/eldritch_book,
+		/obj/item/toy/reality_pierce,
+		/obj/item/reagent_containers/cup/beaker/eldritch,
+		/obj/item/gun/ballistic/rifle/lionhunter,
+		/obj/item/melee/touch_attack/mansus_fist,
 	)),
 ))
 
