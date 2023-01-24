@@ -12,8 +12,12 @@
 	attack_verb_continuous = list("bans")
 	attack_verb_simple = list("ban")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
+	armor_type = /datum/armor/item_banhammer
 	resistance_flags = FIRE_PROOF
+
+/datum/armor/item_banhammer
+	fire = 100
+	acid = 70
 
 /obj/item/banhammer/Initialize(mapload)
 	. = ..()
@@ -74,8 +78,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_chance = 50
 	sharpness = SHARP_EDGED
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
+	armor_type = /datum/armor/item_claymore
 	resistance_flags = FIRE_PROOF
+
+/datum/armor/item_claymore
+	fire = 100
+	acid = 50
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -131,7 +139,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
 		SET_PLANE_EXPLICIT(holder, GAME_PLANE_UPPER_FOV_HIDDEN, src) //NO HIDING BEHIND PLANTS FOR YOU, DICKWEED (HA GET IT, BECAUSE WEEDS ARE PLANTS)
-		ADD_TRAIT(holder, TRAIT_NOBLEED, HIGHLANDER_TRAIT) //AND WE WON'T BLEED OUT LIKE COWARDS
+		ADD_TRAIT(holder, TRAIT_NOBLOOD, HIGHLANDER_TRAIT) //AND WE WON'T BLEED OUT LIKE COWARDS
 	else
 		if(!(flags_1 & ADMIN_SPAWNED_1))
 			qdel(src)
@@ -269,8 +277,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_chance = 50
 	sharpness = SHARP_EDGED
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
+	armor_type = /datum/armor/item_katana
 	resistance_flags = FIRE_PROOF
+
+/datum/armor/item_katana
+	fire = 100
+	acid = 50
 
 /obj/item/katana/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
@@ -486,7 +498,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		attack_verb_continuous_on = list("smacks", "strikes", "cracks", "beats"), \
 		attack_verb_simple_on = list("smack", "strike", "crack", "beat"))
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
-	ADD_TRAIT(src, TRAIT_BLIND_TOOL, ITEM_BLIND_TRAIT)
+	ADD_TRAIT(src, TRAIT_BLIND_TOOL, INNATE_TRAIT)
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -503,7 +515,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/staff
 	name = "wizard staff"
 	desc = "Apparently a staff used by the wizard."
-	icon = 'icons/obj/wizard.dmi'
+	icon = 'icons/obj/weapons/guns/magic.dmi'
 	icon_state = "staff"
 	inhand_icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
@@ -521,7 +533,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/staff/broom
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	inhand_icon_state = "broom"
 	resistance_flags = FLAMMABLE
@@ -618,6 +629,30 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
 	impressiveness = 50
+
+/obj/item/tailclub
+	name = "tail club"
+	desc = "For the beating to death of lizards with their own tails."
+	icon_state = "tailclub"
+	force = 14
+	throwforce = 1 // why are you throwing a club do you even weapon
+	throw_speed = 1
+	throw_range = 1
+	attack_verb_continuous = list("clubs", "bludgeons")
+	attack_verb_simple = list("club", "bludgeon")
+
+/obj/item/melee/chainofcommand/tailwhip
+	name = "liz o' nine tails"
+	desc = "A whip fashioned from the severed tails of lizards."
+	icon_state = "tailwhip"
+	inhand_icon_state = "tailwhip"
+	item_flags = NONE
+
+/obj/item/melee/chainofcommand/tailwhip/kitty
+	name = "cat o' nine tails"
+	desc = "A whip fashioned from the severed tails of cats."
+	icon_state = "catwhip"
+	inhand_icon_state = "catwhip"
 
 /obj/item/melee/skateboard
 	name = "skateboard"
@@ -868,7 +903,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		var/mob/living/living_target = target
 		living_target.adjustBruteLoss(extra_strength_damage)
 
-/obj/item/proc/can_trigger_gun(mob/living/user)
+/obj/item/proc/can_trigger_gun(mob/living/user, akimbo_usage)
 	if(!user.can_use_guns(src))
 		return FALSE
 	return TRUE
@@ -998,6 +1033,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(!proximity_flag || !(isclosedturf(target) || isitem(target) || ismachinery(target) || isstructure(target) || isvehicle(target)))
 		return
 	slash(target, user, params)
+	return AFTERATTACK_PROCESSED_ITEM
 
 /// triggered on wield of two handed item
 /obj/item/highfrequencyblade/proc/on_wield(obj/item/source, mob/user)

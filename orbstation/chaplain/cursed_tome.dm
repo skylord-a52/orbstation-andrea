@@ -6,7 +6,7 @@
 /obj/item/cursed_tome
 	name = "cursed tome"
 	desc = "It awaits an owner."
-	icon = 'icons/obj/storage/storage.dmi'
+	icon = 'icons/obj/storage/book.dmi'
 	icon_state = "tome"
 	inhand_icon_state = "holybook"
 	worn_icon_state = "bible"

@@ -275,10 +275,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	report += printplayer(owner)
 
-	var/objectives_complete = TRUE
+	// ORBSTATION: We don't want to report success or failure
+	//var/objectives_complete = TRUE
 	if(objectives.len)
 		report += printobjectives(objectives)
-		for(var/datum/objective/objective in objectives)
+	/*	for(var/datum/objective/objective in objectives)
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
@@ -287,7 +288,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
-
+	 */
 	return report.Join("<br>")
 
 /**

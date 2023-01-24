@@ -59,6 +59,14 @@
 		PATH_VOID = "blue",
 		PATH_BLADE = "label", // my favorite color is label
 	)
+	var/static/list/path_to_rune_color = list(
+		PATH_START = COLOR_LIME,
+		PATH_RUST = COLOR_CARGO_BROWN,
+		PATH_FLESH = COLOR_SOFT_RED,
+		PATH_ASH = COLOR_VIVID_RED,
+		PATH_VOID = COLOR_CYAN,
+		PATH_BLADE = COLOR_SILVER
+	)
 
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
@@ -308,14 +316,24 @@
 /datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
 	drawing_rune = TRUE
 
+	var/rune_colour = path_to_rune_color[heretic_path]
 	target_turf.balloon_alert(user, "drawing rune...")
+	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
+	if (drawing_time >= (30 SECONDS))
+		drawing_effect = new(target_turf, rune_colour)
+	else
+		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour)
+
 	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
 		target_turf.balloon_alert(user, "interrupted!")
+		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
+		qdel(drawing_effect)
 		drawing_rune = FALSE
 		return
 
+	qdel(drawing_effect)
 	target_turf.balloon_alert(user, "rune created")
-	new /obj/effect/heretic_rune/big(target_turf)
+	new /obj/effect/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
 
 /**
@@ -431,7 +449,7 @@
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
 
-	var/succeeded = TRUE
+	//var/succeeded = TRUE
 
 	parts += printplayer(owner)
 	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
@@ -440,20 +458,20 @@
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
 			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
-				succeeded = FALSE
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
+				//succeeded = FALSE
 			count++
 
 	if(ascended)
-		parts += span_greentext(span_big("THE HERETIC ASCENDED!"))
+		parts += span_hypnophrase(span_big("THE HERETIC ASCENDED!"))
 
-	else
-		if(succeeded)
-			parts += span_greentext("The heretic was successful, but did not ascend!")
-		else
-			parts += span_redtext("The heretic has failed.")
+	//else  ORBSTATION: We don't want to report success or failure
+	//	if(succeeded)
+	//		parts += span_greentext("The heretic was successful, but did not ascend!")
+	//	else
+	//		parts += span_redtext("The heretic has failed.")
 
 	parts += "<b>Knowledge Researched:</b> "
 
@@ -747,8 +765,3 @@
 
 	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist
-
-/datum/outfit/heretic/post_equip(mob/living/carbon/human/equipper, visualsOnly)
-	var/obj/item/clothing/suit/hooded/hooded = locate() in equipper
-	hooded.MakeHood() // This is usually created on Initialize, but we run before atoms
-	hooded.ToggleHood()

@@ -3,7 +3,7 @@
 /obj/item/poster/quirk
 	name = "placeholder quirk poster"
 	desc = "Uh oh! You shouldn't have this!"
-	icon = 'icons/obj/contraband.dmi'
+	icon = 'icons/obj/poster.dmi'
 	icon_state = "rolled_poster_legit"
 	var/quirk_poster_department = NONE
 
@@ -68,6 +68,12 @@
 /obj/structure/sign/poster/quirk/Destroy()
 	QDEL_NULL(mood_buff)
 	return ..()
+
+/obj/structure/sign/poster/quirk/apply_holiday()
+	var/obj/structure/sign/poster/traitor/holi_data = /obj/structure/sign/poster/quirk/festive
+	name = initial(holi_data.name)
+	desc = initial(holi_data.desc)
+	icon_state = initial(holi_data.icon_state)
 
 /// Code that actually makes the posters unique and worth existing, edited from evil posters
 
@@ -135,6 +141,13 @@
 /obj/structure/sign/poster/quirk/crew/random
 	never_random = TRUE
 	random_basetype = /obj/structure/sign/poster/quirk/crew
+
+/obj/structure/sign/poster/quirk/festive
+	name = "Together For The Holidays."
+	desc = "A poster holding hands and reminding us of the holidays we spend together. \
+	When people read this poster they'll feel better!"
+	icon_state = "quirk_festive"
+	never_random = TRUE
 
 /obj/structure/sign/poster/quirk/crew
 	poster_item_desc = "A poster made with love, everyone will enjoy seeing it."

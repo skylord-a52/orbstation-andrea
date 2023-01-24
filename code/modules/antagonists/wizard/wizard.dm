@@ -21,6 +21,11 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
 	show_to_ghosts = TRUE
 
+/datum/antagonist/wizard/New()
+	if(move_to_lair) // kick off loading of your lair, if you want to be moved to it
+		INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, lazy_load_template), LAZY_TEMPLATE_KEY_WIZARDDEN)
+	return ..()
+
 /datum/antagonist/wizard_minion
 	name = "Wizard Minion"
 	antagpanel_category = "Wizard"
@@ -92,6 +97,9 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	wiz_team.master_wizard = src
 
 /datum/antagonist/wizard/proc/send_to_lair()
+	// And now we ensure that its loaded
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_WIZARDDEN)
+
 	if(!owner)
 		CRASH("Antag datum with no owner.")
 	if(!owner.current)
@@ -355,19 +363,19 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	parts += printplayer(owner)
 
 	var/count = 1
-	var/wizardwin = 1
+	//var/wizardwin = 1
 	for(var/datum/objective/objective in objectives)
 		if(objective.check_completion())
-			parts += "<B>Objective #[count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
+			parts += "<B>Objective #[count]</B>: [objective.explanation_text]"
 		else
-			parts += "<B>Objective #[count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
-			wizardwin = 0
+			parts += "<B>Objective #[count]</B>: [objective.explanation_text]"
+			//wizardwin = 0
 		count++
 
-	if(wizardwin)
-		parts += span_greentext("The wizard was successful!")
-	else
-		parts += span_redtext("The wizard has failed!")
+	//if(wizardwin) ORBSTATION: Don't display success or failure
+	//	parts += span_greentext("The wizard was successful!")
+	//else
+	//	parts += span_redtext("The wizard has failed!")
 
 	var/list/purchases = list()
 	for(var/list/log as anything in GLOB.wizard_spellbook_purchases_by_key[owner.key])
