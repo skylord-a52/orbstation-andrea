@@ -53,7 +53,4 @@
 	else if(istype(held_item, /obj/item/wallframe/apc))
 		context[SCREENTIP_CONTEXT_LMB] = "Replace damaged frame"
 
-	else if (istype(held_item, /obj/item/malware_injector)) /// ORBSTATION EDIT: for malware injecton
-		context[SCREENTIP_CONTEXT_LMB] = "Hack APC"
-
 	return CONTEXTUAL_SCREENTIP_SET
