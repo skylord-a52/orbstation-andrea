@@ -5091,6 +5091,7 @@
 #include "orbstation\modules\chemistry\alcohol.dm"
 #include "orbstation\modules\client\looc.dm"
 #include "orbstation\modules\client\preferences\_preference.dm"
+#include "orbstation\modules\client\preferences\height_pref.dm"
 #include "orbstation\modules\language\common.dm"
 #include "orbstation\modules\language\language holder.dm"
 #include "orbstation\modules\language\nekomimetic.dm"
