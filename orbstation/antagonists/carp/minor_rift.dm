@@ -31,7 +31,7 @@
 	return span_notice("It seems to be [round(percent_charged * 100)]% charged.")
 
 /obj/structure/carp_rift/minor/on_spawned(mob/living/newcarp)
-	newcarp.mind?.add_antag_datum(/datum/antagonist/rift_carp, team)
+	newcarp.mind.add_antag_datum(/datum/antagonist/rift_carp, team)
 
 /// Creates a new fish and sets it off towards the space station
 /obj/structure/carp_rift/minor/proc/make_carp()

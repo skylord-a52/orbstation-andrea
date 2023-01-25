@@ -255,6 +255,8 @@
 /// ORBSTATION: Hook in behaviour after cap is created
 /obj/structure/carp_rift/proc/on_spawned(mob/living/newcarp)
 	to_chat(newcarp, span_boldwarning("You have arrived in order to assist the space dragon with securing the rifts. Do not jeopardize the mission, and protect the rifts at all costs!"))
+	var/datum/antagonist/space_carp/carp_antag = new(src)
+	newcarp.mind.add_antag_datum(carp_antag)
 
 #undef CHARGE_ONGOING
 #undef CHARGE_FINALWARNING

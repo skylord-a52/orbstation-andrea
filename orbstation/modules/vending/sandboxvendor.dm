@@ -59,7 +59,7 @@
 				/obj/item/clothing/shoes/magboots/advance = 999,
 				/obj/item/radio/headset/headset_cent/commander = 999,
 				/obj/item/storage/belt/military = 999,
-				/obj/item/clothing/suit/armor/reactive/teleport = 999,
+				/obj/item/clothing/suit/armor/reactive = 999,
 				/obj/item/assembly/signaler/anomaly/pyro = 999,
 				/obj/item/assembly/signaler/anomaly/grav = 999,
 				/obj/item/assembly/signaler/anomaly/flux = 999,
