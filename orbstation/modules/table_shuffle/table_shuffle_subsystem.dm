@@ -401,7 +401,7 @@ SUBSYSTEM_DEF(table_shuffle)
 				item_log[ITEMLOG_CURRENT_ITEM] = result
 				return result
 
-		CRASH("Table shuffle system has had an invalid result: [result]")
+	CRASH("Table shuffle system has had an invalid result: [result]")
 
 
 /**
