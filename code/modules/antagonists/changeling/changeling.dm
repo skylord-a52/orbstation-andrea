@@ -510,6 +510,7 @@
 
 	new_profile.age = target.age
 	new_profile.physique = target.physique
+	new_profile.height = target.get_mob_height() //ORBSTATION EDIT
 
 	// Grab the target's quirks.
 	for(var/datum/quirk/target_quirk as anything in target.quirks)
@@ -750,6 +751,8 @@
 	user.physique = chosen_profile.physique
 	user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
 	user.grad_color = LAZYLISTDUPLICATE(chosen_profile.grad_color)
+
+	user.set_mob_height(chosen_profile.height) //ORBSTATION EDIT
 
 	chosen_dna.transfer_identity(user, TRUE)
 
