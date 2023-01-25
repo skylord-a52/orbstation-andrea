@@ -2,7 +2,7 @@
 /datum/antagonist/rift_carp
 	name = "\improper Space Carp"
 	roundend_category = "space dragons"
-	antagpanel_category = "Space Dragon"
+	antagpanel_category = ANTAG_GROUP_LEVIATHANS
 	job_rank = ROLE_SENTIENCE
 	show_name_in_check_antagonists = TRUE
 	show_in_antagpanel = FALSE
