@@ -135,6 +135,7 @@
 		span_notice("[user] successfully mends the bone in [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] successfully mends the bone in [target]'s [parse_zone(target_zone)]!"),
 	)
+	return ..()
 
 /datum/surgery_step/repair_spine/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, fail_prob = 0)
 	..()
