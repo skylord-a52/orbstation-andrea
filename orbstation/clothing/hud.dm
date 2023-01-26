@@ -4,6 +4,7 @@
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "medpatch"
+	base_icon_state = "medpatch"
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/flip)
 
@@ -62,6 +63,7 @@
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "diagpatch"
+	base_icon_state = "diagpatch"
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/flip)
 
@@ -99,6 +101,7 @@
 	icon = 'orbstation/icons/obj/clothing/glasses.dmi'
 	worn_icon = 'orbstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "scipatch"
+	base_icon_state = "scipatch"
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/flip)
 
