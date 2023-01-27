@@ -5104,6 +5104,7 @@
 #include "orbstation\clothing\misc.dm"
 #include "orbstation\clothing\vendors.dm"
 #include "orbstation\clothing\wintercoats.dm"
+#include "orbstation\datums\job_heatmap.dm"
 #include "orbstation\datums\components\sign_language.dm"
 #include "orbstation\datums\components\crafting\recipes.dm"
 #include "orbstation\datums\greyscale\config_types\greyscale_configs.dm"
