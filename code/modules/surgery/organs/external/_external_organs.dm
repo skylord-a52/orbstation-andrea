@@ -132,6 +132,42 @@
 
 	bodypart_overlay.set_appearance_from_name(feature_list[deconstruct_block(get_uni_feature_block(features, dna_block), feature_list.len)])
 
+	if(sprite_datum.hasinner)
+		var/list/inner_icon_state_builder = list()
+		inner_icon_state_builder += sprite_datum.gender_specific ? gender : "m"
+		inner_icon_state_builder += feature_key + "inner"
+		inner_icon_state_builder += sprite_datum.icon_state
+		inner_icon_state_builder += mutant_bodyparts_layertext(image_layer)
+
+		var/finished_inner_icon_state = inner_icon_state_builder.Join("_")
+
+		var/mutable_appearance/inner_appearance = mutable_appearance(sprite_datum.icon, finished_inner_icon_state, layer = -image_layer)
+
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			switch(sprite_datum.inner_color_src)
+				if(MUTCOLORS)
+					if(H.dna.species.fixed_mut_color)
+						inner_appearance.color = H.dna.species.fixed_mut_color
+					else
+						inner_appearance.color = H.dna.features["mcolor"]
+				if(HAIR)
+					if(H.dna.species.hair_color == "mutcolor")
+						inner_appearance.color = H.dna.features["mcolor"]
+					else if(H.dna.species.hair_color == "fixedmutcolor")
+						inner_appearance.color = H.dna.species.fixed_mut_color
+					else
+						inner_appearance.color = H.hair_color
+				if(FACEHAIR)
+					inner_appearance.color = H.facial_hair_color
+				if(EYECOLOR)
+					inner_appearance.color = H.eye_color_left
+
+		if(sprite_datum.center)
+			inner_appearance = center_image(inner_appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
+
+		overlay_list += inner_appearance
+
 ///If you need to change an external_organ for simple one-offs, use this. Pass the accessory type : /datum/accessory/something
 /obj/item/organ/external/proc/simple_change_sprite(accessory_type)
 	var/datum/sprite_accessory/typed_accessory = accessory_type //we only take types for maintainability
@@ -224,6 +260,8 @@
 	preference = "feature_lizard_snout"
 	external_bodytypes = BODYTYPE_SNOUTED
 
+	color_source = ORGAN_COLOR_OVERRIDE
+
 	dna_block = DNA_SNOUT_BLOCK
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
@@ -240,6 +278,13 @@
 
 /datum/bodypart_overlay/mutant/snout/get_global_feature_list()
 	return GLOB.snouts_list
+
+/obj/item/organ/external/snout/override_color(rgb_value)
+	if(sprite_datum && sprite_datum.color_src == FACEHAIR && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		return H.facial_hair_color
+
+	return rgb_value
 
 ///A moth's antennae
 /obj/item/organ/external/antennae
@@ -353,6 +398,7 @@
 	if(draw_layer != bitflag_to_layer(color_swapped_layer))
 		return ..()
 
+/obj/item/organ/external/pod_hair/override_color(draw_color)
 	var/list/rgb_list = rgb2num(draw_color)
 	overlay.color = rgb(color_inverse_base - rgb_list[1], color_inverse_base - rgb_list[2], color_inverse_base - rgb_list[3]) //inversa da color
 
