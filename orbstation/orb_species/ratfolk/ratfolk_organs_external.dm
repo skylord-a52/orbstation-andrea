@@ -16,7 +16,6 @@
 /datum/bodypart_overlay/mutant/snout_rat
 	layers = EXTERNAL_ADJACENT
 	feature_key = "rat_snout"
-	color_source = ORGAN_COLOR_OVERRIDE
 
 /datum/bodypart_overlay/mutant/snout_rat/get_global_feature_list()
 	return GLOB.rat_snouts_list
@@ -26,15 +25,8 @@
 		return TRUE
 	return FALSE
 
-/datum/bodypart_overlay/mutant/snout_rat/inherit_color(obj/item/bodypart/ownerlimb, force)
-	if(draw_color && !force)
-		return
-
-	if(!ishuman(ownerlimb.owner))
-		return ..()
-	var/mob/living/carbon/human/human_owner = ownerlimb.owner
-	draw_color = human_owner.facial_hair_color
-	return
+/datum/bodypart_overlay/mutant/snout_rat/colour_inner(mutable_appearance/appearance, obj/item/bodypart/limb)
+	appearance.color = COLOR_WHITE // Don't know why I had to do this but it works
 
 // TAIL
 

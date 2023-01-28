@@ -11,9 +11,11 @@
 
 ///Wrapper for getting the proper image, colored and everything
 /datum/bodypart_overlay/proc/get_overlay(layer, obj/item/bodypart/limb)
+	. = list()
 	layer = bitflag_to_layer(layer)
-	. = get_image(layer, limb)
-	color_image(., layer, limb)
+	var/mutable_appearance/appearance = get_image(layer, limb)
+	. += appearance
+	color_image(appearance, layer, limb)
 
 ///Generate the image. Needs to be overriden
 /datum/bodypart_overlay/proc/get_image(layer, obj/item/bodypart/limb)

@@ -5220,6 +5220,7 @@
 #include "orbstation\species\human.dm"
 #include "orbstation\species\jellypeople.dm"
 #include "orbstation\species\lizardpeople.dm"
+#include "orbstation\species\organ_inner_colours.dm"
 #include "orbstation\species\species_types.dm"
 #include "orbstation\species\ethereal\respawn_penalties.dm"
 #include "orbstation\species\podpeople\podpeople.dm"
