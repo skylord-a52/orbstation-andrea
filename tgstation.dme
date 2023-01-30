@@ -5126,6 +5126,7 @@
 #include "orbstation\datums\station_traits\ytp_announcer.dm"
 #include "orbstation\datums\status_effects\debuffs\farsighted.dm"
 #include "orbstation\events\anomalies.dm"
+#include "orbstation\events\brain_trauma.dm"
 #include "orbstation\events\indoor_weather.dm"
 #include "orbstation\events\portal_storm.dm"
 #include "orbstation\events\scrubber_clog.dm"
