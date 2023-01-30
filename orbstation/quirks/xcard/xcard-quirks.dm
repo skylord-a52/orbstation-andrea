@@ -77,11 +77,3 @@
 	description = "I just got stabbed in the face!"
 	mood_change = -4
 	timeout = 3 MINUTES
-
-//prevent paradox clone from drafting a target with the appropriate x-card
-/datum/objective/assassinate/paradox_clone/find_target(dupe_search_range, list/blacklist)
-	for(var/datum/mind/possible_target in get_crewmember_minds())
-		var/mob/living/carbon/human/target_human = possible_target.current
-		if(HAS_TRAIT(target_human, TRAIT_XCARD_PARADOX_CLONE))
-			blacklist += possible_target
-	return ..()
