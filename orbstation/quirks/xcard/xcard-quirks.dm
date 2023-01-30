@@ -42,6 +42,12 @@
 	mob_trait = TRAIT_XCARD_EYE_TRAUMA
 	//no need for examine text - if someone tries using an eyesnatch device on someone that isn't their target I don't know what to tell them
 
+/datum/quirk/xcard/paradox_clone
+	name = "X-CARD: Paradox Clone"
+	desc = "A paradox clone of your character will never appear."
+	mob_trait = TRAIT_XCARD_PARADOX_CLONE
+	//this SHOULDN'T appear on examine - other players should not know that you can't have an evil twin.
+
 /*
 /datum/quirk/xcard/uncyborgable
 	name = "Cyborg Incompatibility"
@@ -71,3 +77,11 @@
 	description = "I just got stabbed in the face!"
 	mood_change = -4
 	timeout = 3 MINUTES
+
+//prevent paradox clone from drafting a target with the appropriate x-card
+/datum/objective/assassinate/paradox_clone/find_target(dupe_search_range, list/blacklist)
+	for(var/datum/mind/possible_target in get_crewmember_minds())
+		var/mob/living/carbon/human/target_human = possible_target.current
+		if(HAS_TRAIT(target_human, TRAIT_XCARD_PARADOX_CLONE))
+			blacklist += possible_target
+	return ..()
