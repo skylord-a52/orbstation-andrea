@@ -5206,6 +5206,7 @@
 #include "orbstation\quirks\_quirk.dm"
 #include "orbstation\quirks\alien_prosthesis.dm"
 #include "orbstation\quirks\augmented.dm"
+#include "orbstation\quirks\bioscrambler_victim.dm"
 #include "orbstation\quirks\door_compulsion.dm"
 #include "orbstation\quirks\farsighted.dm"
 #include "orbstation\quirks\food_order_service.dm"
