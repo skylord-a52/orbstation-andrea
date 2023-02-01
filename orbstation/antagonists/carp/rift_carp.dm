@@ -58,7 +58,7 @@
 
 /// Decide how the fish are going to wander through the station
 /datum/team/carp_team/proc/find_migration_path(z_level)
-	if (!list(GLOB.the_station_areas))
+	if (!length(GLOB.the_station_areas))
 		return // This can run in the unit tests before the station is initialised
 
 	var/list/valid_areas = list()
