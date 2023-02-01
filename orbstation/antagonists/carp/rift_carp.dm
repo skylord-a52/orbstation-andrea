@@ -58,6 +58,9 @@
 
 /// Decide how the fish are going to wander through the station
 /datum/team/carp_team/proc/find_migration_path(z_level)
+	if (!list(GLOB.the_station_areas))
+		return // This can run in the unit tests before the station is initialised
+
 	var/list/valid_areas = list()
 	var/list/station_areas = GLOB.the_station_areas
 	for (var/area/potential_area as anything in SSmapping.areas_in_z["[z_level]"])
