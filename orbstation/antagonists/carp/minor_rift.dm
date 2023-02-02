@@ -35,6 +35,10 @@
 /obj/structure/carp_rift/minor/on_spawned(mob/living/newcarp)
 	newcarp.mind.add_antag_datum(/datum/antagonist/rift_carp, team)
 
+/obj/structure/carp_rift/minor/Destroy()
+	. = ..()
+	QDEL_NULL(migration_path)
+
 /// Creates a new fish and sets it off towards the space station
 /obj/structure/carp_rift/minor/proc/make_carp()
 	if (!length(migration_path))
