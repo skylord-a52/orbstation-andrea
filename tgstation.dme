@@ -5119,7 +5119,7 @@
 #include "orbstation\modules\vending\sandboxvendor.dm"
 #include "orbstation\objects\items\cucumbers.dm"
 #include "orbstation\objects\items\dancing_pole.dm"
-#include "orbstation\objects\items\debug_items.dm"
+#include "orbstation\objects\items\debug_rld.dm"
 #include "orbstation\objects\items\hearing_aid.dm"
 #include "orbstation\objects\items\magazines.dm"
 #include "orbstation\objects\items\orb.dm"
