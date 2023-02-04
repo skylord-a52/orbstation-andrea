@@ -8,6 +8,8 @@
 	max_integrity = 999999
 	integrity_failure = 0.01
 	tiltable = FALSE // i love you
+	use_power = NO_POWER_USE
+	idle_power_usage = 0
 	product_categories = list(
 		list(
 			"name" = "Essentials",
