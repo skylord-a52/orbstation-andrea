@@ -435,7 +435,7 @@
 		else if (sharpness & SHARP_POINTY)
 			wounding_type = WOUND_PIERCE
 
-	if (apply_qualified_wounds(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus) == WAS_DISMEMBERED)
+	if (apply_qualified_wounds(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus, attack_direction, sharpness) == WAS_DISMEMBERED)
 		return // ORB: turned this into a proc, we want to return if the wound fell off because there's no point damaging it further
 
 	for(var/datum/wound/iter_wound as anything in wounds)
@@ -467,7 +467,7 @@
 	return update_bodypart_damage_state() || .
 
 /// ORB: makes this into a proc so we can override it
-/obj/item/bodypart/proc/apply_qualified_wounds(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus, attack_direction)
+/obj/item/bodypart/proc/apply_qualified_wounds(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus, attack_direction, sharpness)
 	if(!owner)
 		return
 

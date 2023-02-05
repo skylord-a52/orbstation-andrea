@@ -1,7 +1,7 @@
 // We want jellypeople to be able to be dismembered
 #define WAS_DISMEMBERED "dismembered" // Orb code interception to allow jelly dismemberment
 
-/obj/item/bodypart/apply_qualified_wounds(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus, attack_direction)
+/obj/item/bodypart/apply_qualified_wounds(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus, attack_direction, sharpness)
 	. = ..()
 	if (!owner || . == WAS_DISMEMBERED)
 		return
