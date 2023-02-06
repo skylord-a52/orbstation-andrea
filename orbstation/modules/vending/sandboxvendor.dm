@@ -1,8 +1,9 @@
 /obj/machinery/vending/sandboxvend
 	name = "SandboxVend"
 	desc = "Free tools to help you sandbox. Use at your own discretion, and try not to ruin the station for others."
-	icon_state = "MagiVend"
-	panel_type = "panel5"
+	icon = 'orbstation/icons/obj/sbvend.dmi'
+	icon_state = "sbv"
+	panel_type = "sbvpanel"
 	product_slogans = "Video games!;Find your true love here!;Slap it up!;It's all free!;Trans your gender!;Yayayayayay!"
 	vend_reply = "Wahoo! Yay! Woohoo! Yahoo! Wow! Yippee! Yayayayayay!"
 	max_integrity = 999999
@@ -15,12 +16,12 @@
 			"name" = "Essentials",
 			"icon" = "star",
 			"products" = list(
+				/obj/item/scrying = 999,
 				/obj/item/card/id/advanced/gold/captains_spare = 999,
 				/obj/item/storage/backpack/holding = 999,
 				/obj/item/storage/box/material = 999,
 				/obj/item/storage/box/other_material = 999,
 				/obj/item/stock_parts/cell/infinite = 999,
-				/obj/item/clothing/glasses/debug = 999,
 				/obj/item/toy/balloon/corgi = 999,
 				/obj/item/storage/box/hug/plushes = 999,
 				/obj/item/choice_beacon/music = 999,
@@ -56,6 +57,7 @@
 			"name" = "Equipment",
 			"icon" = "briefcase",
 			"products" = list(
+				/obj/item/clothing/glasses/debug = 999,
 				/obj/item/clothing/gloves/chief_engineer = 999,
 				/obj/item/storage/belt/medical/ert = 999,
 				/obj/item/storage/belt/utility/full/powertools = 999,
