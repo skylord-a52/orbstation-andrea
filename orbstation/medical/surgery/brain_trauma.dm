@@ -35,10 +35,13 @@ GLOBAL_LIST_INIT(orb_mysterious_brain_traumas, list(
 /// if someone wants to juice this up more than this thats fine but just moving all around is probably decent enough
 /datum/brain_trauma/severe/split_personality/on_gain()
 	owner.AddComponent(/datum/component/deadchat_control/cardinal_movement, ANARCHY_MODE, list(
-		), 12 SECONDS)
+		"spin" = CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "spin"),
+		"flip" = CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "flip"),
+		), 7 SECONDS)
 
 /datum/brain_trauma/severe/split_personality/on_lose()
 	qdel(owner.GetComponent(/datum/component/deadchat_control/cardinal_movement))
 
+/// have to override this bc split personality has its own on this
 /datum/brain_trauma/severe/split_personality/on_life(delta_time, times_fired)
 	return
