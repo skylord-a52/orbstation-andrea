@@ -13,12 +13,11 @@
 
 /// Randomise how we look on init
 /mob/living/simple_animal/hostile/regalrat/proc/pick_random_look()
-	var/static/list/valid_starting_styles = list()
-	if (!length(valid_starting_styles))
-		for (var/datum/rat_fashion/style_path as anything in subtypesof(/datum/rat_fashion))
-			if (!initial(style_path.allow_random))
-				continue
-			valid_starting_styles += new style_path()
+	var/list/valid_starting_styles = list()
+	for (var/datum/rat_fashion/style_path as anything in subtypesof(/datum/rat_fashion))
+		if (!initial(style_path.allow_random))
+			continue
+		valid_starting_styles += new style_path()
 	if (!length(valid_starting_styles))
 		return
 	current_look = pick(valid_starting_styles)
@@ -58,15 +57,14 @@
 		qdel(src)
 		return
 
-	var/static/list/options = list()
-	var/static/list/picks_to_instances = list()
-	if (!length(options))
-		var/list/rat_styles = subtypesof(/datum/rat_fashion)
-		for (var/style_path as anything in rat_styles)
-			var/datum/rat_fashion/style = new style_path()
-			var/datum/radial_menu_choice/choice = style.get_radial_select()
-			options += list("[choice.name]" = choice)
-			picks_to_instances[choice.name] = style
+	var/list/options = list()
+	var/list/picks_to_instances = list()
+	var/list/rat_styles = subtypesof(/datum/rat_fashion)
+	for (var/style_path as anything in rat_styles)
+		var/datum/rat_fashion/style = new style_path()
+		var/datum/radial_menu_choice/choice = style.get_radial_select()
+		options += list("[choice.name]" = choice)
+		picks_to_instances[choice.name] = style
 
 	var/pick = show_radial_menu(owner, owner, options, require_near = TRUE)
 	if (!pick)
