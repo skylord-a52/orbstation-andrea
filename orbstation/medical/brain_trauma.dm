@@ -22,3 +22,25 @@ GLOBAL_LIST_INIT(orb_mysterious_brain_traumas, list(
 	..()
 	if(!phrase)
 		trigger_phrase = pick(possible_phrases)
+
+/// split personality override
+/datum/brain_trauma/severe/split_personality
+	name = "Possession"
+	desc = "Patient's head wounds have allowed the dead to heavily influence them."
+	scan_desc = "supernatural susceptibility "
+	gain_text = span_warning("You feel like your head is full of dark whispers.")
+	lose_text = span_notice("You feel quiet once more.")
+
+/// if someone wants to juice this up more than this thats fine but just moving all around is probably decent enough
+/datum/brain_trauma/severe/split_personality/on_gain()
+	owner.AddComponent(/datum/component/deadchat_control/cardinal_movement, ANARCHY_MODE, list(
+		"spin" = CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "spin"),
+		"flip" = CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "flip"),
+		), 7 SECONDS)
+
+/datum/brain_trauma/severe/split_personality/on_lose()
+	qdel(owner.GetComponent(/datum/component/deadchat_control/cardinal_movement))
+
+/// have to override this bc split personality has its own on this
+/datum/brain_trauma/severe/split_personality/on_life(delta_time, times_fired)
+	return
