@@ -29,8 +29,8 @@ GLOBAL_LIST_INIT(orb_mysterious_brain_traumas, list(
 	name = "Possession"
 	desc = "Patient's head wounds have allowed the dead to heavily influence them."
 	scan_desc = "supernatural susceptibility "
-	gain_text = "<span class='warning'>You feel like your head is full of dark whispers.</span>"
-	lose_text = "<span class='notice'>You feel quiet once more.</span>"
+	gain_text = span_warning("You feel like your head is full of dark whispers.")
+	lose_text = span_notice("You feel quiet once more.")
 
 /// if someone wants to juice this up more than this thats fine but just moving all around is probably decent enough
 /datum/brain_trauma/severe/split_personality/on_gain()
