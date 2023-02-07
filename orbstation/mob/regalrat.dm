@@ -127,13 +127,14 @@
 /// Normal
 /datum/rat_fashion/default
 	name = "regal rat"
-	icon =	'icons/mob/simple/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state_living = "regalrat"
 	icon_state_dead = "regalrat_dead"
 
 /// Old sprite
 /datum/rat_fashion/classic
 	name = "retro rat"
+	allow_random = FALSE
 	icon_state_living = "classic"
 	icon_state_dead = "classic_dead"
 
