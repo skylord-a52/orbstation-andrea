@@ -124,12 +124,20 @@
 /datum/rat_fashion/proc/on_death(mob/living/simple_animal/rat_target)
 	return
 
+/// Normal
 /datum/rat_fashion/default
 	name = "regal rat"
 	icon =	'icons/mob/simple/animal.dmi'
 	icon_state_living = "regalrat"
 	icon_state_dead = "regalrat_dead"
 
+/// Old sprite
+/datum/rat_fashion/classic
+	name = "retro rat"
+	icon_state_living = "classic"
+	icon_state_dead = "classic_dead"
+
+/// Floating rat?
 /datum/rat_fashion/supernatural
 	name = "rat king"
 	icon_state_living = "ratking"
