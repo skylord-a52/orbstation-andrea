@@ -127,7 +127,7 @@
 /// Normal
 /datum/rat_fashion/default
 	name = "regal rat"
-	icon = 'icons/mob/simple/animal.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_state_living = "regalrat"
 	icon_state_dead = "regalrat_dead"
 
