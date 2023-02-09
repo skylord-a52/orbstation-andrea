@@ -2531,7 +2531,6 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/item/gun/energy/e_gun/mini,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/cmo)
 "aIl" = (
@@ -27858,7 +27857,6 @@
 "hTb" = (
 /obj/structure/closet/secure_closet/research_director,
 /obj/effect/turf_decal/delivery,
-/obj/item/gun/energy/e_gun/mini,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/camera/directional/north{
 	c_tag = "Research Director's Office";
@@ -60120,7 +60118,6 @@
 "rja" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/effect/turf_decal/delivery,
-/obj/item/gun/energy/e_gun/mini,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/neutral{
@@ -80500,7 +80497,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/gun/energy/e_gun/mini,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/qm)
 "wNf" = (
