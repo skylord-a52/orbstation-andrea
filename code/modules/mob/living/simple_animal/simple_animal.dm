@@ -59,9 +59,9 @@
 	var/stamina_recovery = 5
 
 	///Minimal body temperature without receiving damage
-	var/minbodytemp = 250
+	var/minbodytemp = NPC_DEFAULT_MIN_TEMP
 	///Maximal body temperature without receiving damage
-	var/maxbodytemp = 350
+	var/maxbodytemp = NPC_DEFAULT_MAX_TEMP
 	///This damage is taken when the body temp is too cold.
 	var/unsuitable_cold_damage
 	///This damage is taken when the body temp is too hot.
@@ -496,7 +496,7 @@
 			return FALSE
 	return TRUE
 
-/mob/living/simple_animal/ignite_mob()
+/mob/living/simple_animal/ignite_mob(silent)
 	if(!flammable)
 		return FALSE
 	return ..()
@@ -616,7 +616,7 @@
 	else
 		mode()
 
-/mob/living/simple_animal/swap_hand(hand_index)
+/mob/living/simple_animal/perform_hand_swap(hand_index)
 	. = ..()
 	if(!.)
 		return
@@ -751,3 +751,6 @@
 		hunted = null
 		COOLDOWN_START(src, emote_cooldown, 1 MINUTES)
 		return
+
+/mob/living/simple_animal/compare_sentience_type(compare_type)
+	return sentience_type == compare_type

@@ -54,8 +54,6 @@
 	/// Martial art on this mind
 	var/datum/martial_art/martial_art
 	var/static/default_martial_art = new/datum/martial_art
-	/// Mime's vow of silence
-	var/miming = FALSE
 	/// List of antag datums on this mind
 	var/list/antag_datums
 	/// this mind's ANTAG_HUD should have this icon_state
@@ -501,6 +499,19 @@
 	. = assigned_role
 	assigned_role = new_role
 
+/// Sets us to the passed job datum, then greets them to their new job.
+/// Use this one for when you're assigning this mind to a new job for the first time,
+/// or for when someone's recieving a job they'd really want to be greeted to.
+/datum/mind/proc/set_assigned_role_with_greeting(datum/job/new_role)
+	. = set_assigned_role(new_role)
+	if(!.)
+		return
+
+	to_chat(src, span_infoplain("<b>You are the [new_role.title].</b>"))
+
+	var/related_policy = get_policy(new_role.title)
+	if(related_policy)
+		to_chat(src, related_policy)
 
 /mob/proc/sync_mind()
 	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)
